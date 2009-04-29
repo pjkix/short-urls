@@ -13,23 +13,26 @@
  */
 
 //* debug and coding pain threshold ;)
-ini_set('display_errors',true);
+ini_set('display_errors', true);
 error_reporting(E_ALL | E_STRICT);
 //*/
 
 define('MAIN_PATH', realpath('.'));  // <-- you are here :P
 
 require_once( MAIN_PATH . '/lib/shortUrl.class.php');
+// $myShortUrl = shortUrlFactory::getUrlService(shortUrlFactory::TINY_URL);
 
-// test url shorteners
-$myShortUrl = shortUrlFactory::getUrlService(shortUrlFactory::CLIGS_URL);
-// var_dump($myShortUrl);
-
-// test data ... we can get this from input as well for demo
-$test_url = 'http://example.com/';
+// some defaults
+$url = 'http://example.com/';
 $short_url = null;
+$service = shortUrlFactory::TINY_URL;
 
-$short_url = $myShortUrl->getShortUrl($test_url);
+// submitted values
+if ( isset($_GET['url']) ) $url = $_GET['url'];
+if ( isset($_GET['service']) ) $service = $_GET['service'];
+
+$myShortUrl = shortUrlFactory::getUrlService($service);
+$short_url = $myShortUrl->getShortUrl($url);
 
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
@@ -68,20 +71,21 @@ $short_url = $myShortUrl->getShortUrl($test_url);
 			<div id="content">
 				<h2>test content</h2>
 
-				<p>original url: <?php printf('<a href="%s">%1$s</a>', $test_url) ; ?></p>
+				<p>original url: <?php printf('<a href="%s">%1$s</a>', $url) ; ?></p>
 
 				<p>short url: <?php printf('<a href="%1$s">%1$s</a>', $short_url) ; ?></p>
 				
-				<form action="" method="get" accept-charset="utf-8">
+				<form action="?debug=true" method="get" accept-charset="utf-8">
 					<fieldset id="options" class="">
 						<legend>options</legend>
 						<label for="url">url</label>
-						<input type="text" name="url" value="http://example.com" id="url"/>
+						<input type="text" name="url" value="<?php echo $url ?>" id="url"/>
 						
 						<label for="service">service</label>
 						<select name="service" id="service" onchange="">
-							<option value="tinyurl">tinyurl</option>
-							<option value="bitly">bitly</option>
+							<option value="<?php echo shortUrlFactory::TINY_URL ?>" <?php if (shortUrlFactory::TINY_URL == $service) echo " selected " ?> >tinyurl</option>
+							<option value="<?php echo shortUrlFactory::CLIGS_URL ?>" <?php if (shortUrlFactory::CLIGS_URL == $service) echo " selected " ?> >cli.gs</option>
+							<option value="bitly">bit.ly</option>
 							
 						</select>
 						

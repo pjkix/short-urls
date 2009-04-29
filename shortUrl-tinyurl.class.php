@@ -1,11 +1,9 @@
 <?php
 /**
- * cli.gs wrapper class
+ * tinyUrl wrapper class
  *
- * API KEY: b3e86e7644f1c6d22ca45eef6358e409
- * @example http://cli.gs/api/v1/cligs/create?url=1&title=2&key=3&appid=4
  * @package shortUrl
- * @subpackage cli.gs
+ * @subpackage shortUrl_tinyurl
  * @author		pkhalil
  * @copyright	2009 pjk
  * @license		(cc) some rights reserved
@@ -32,7 +30,7 @@ class tinyUrl extends shortUrl
 	 *
 	 * @param string $url 
 	 * @return string $tinyurl or false on fail
-	 * @author PJ Kix
+	 * @author PJ Khalil
 	 */
 	public function getShortUrl($url) 
 	{
@@ -44,20 +42,20 @@ class tinyUrl extends shortUrl
 		}
 	}
 
-} // END tinyUrl{}
+} // END: tinyUrl{}
 
 /**
- * undocumented class
+ * exception handler for tiny url specific errors
  *
  * @package default
- * @author PJ Kix
+ * @author PJ Khalil
  */
 class tinyUrlException extends shortUrlException 
 {
 
-	// handle tiny url specific errors
+	// TODO: handle tiny url specific errors
 
-} // END tinyUrlException{}
+} // END: tinyUrlException{}
 
 ?>
 

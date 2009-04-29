@@ -19,16 +19,18 @@ error_reporting(E_ALL | E_STRICT);
 
 define('MAIN_PATH', realpath('.'));  // <-- you are here :P
 
+require_once( MAIN_PATH . '/shortUrl.class.php');
+
 // test url shorteners
-$myShortUrl = new shortUrl();
-$myTiny = new shortUrl_tinyurl();
-$myCligs = new shortUrl_cligs();
+$myShortUrl = new shortUrl(shortUrl::TINY_URL);
+// $myTiny = new shortUrl_tinyurl();
+// $myCligs = new shortUrl_cligs();
 
 // test data
 $test_url = 'http://example.com/';
 $short_url = null;
 
-$short_url = $myTiny->getTinyUrl($test_url);
+$short_url = $myShortUrl->getShortUrl($test_url);
 
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"

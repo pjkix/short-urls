@@ -1,4 +1,18 @@
 <?php
+/**
+ * Twitter Class Libs
+ * 
+ * Class for working with Twitter
+ * @package		Demo
+ * @subpackage	ShortUrl
+ * @author		pkhalil
+ * @copyright	2009 pjk
+ * @license		(cc) some rights reserved
+ * @version		$Id:$
+ * @todo clean this shit up
+ */
+
+
 if(!defined('__API_LIB_ROOT__')){
 	defined('__API_LIB_ROOT', $_SERVER['DOCUMENT_ROOT'].'/../source/Ps/');
 }

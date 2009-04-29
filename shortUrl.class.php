@@ -1,15 +1,17 @@
 <?php
 /**
- * Short Ulr Base Class
+ * Short URL Base Class
+ * @package		Utils
+ * @subpackage	ShortUrl
+ * @author		pkhalil
+ * @copyright	2009 pjk
+ * @license		(cc) some rights reserved
+ * @version		$Id:$
+ * @todo make it work, abstract,  add caching
  */
 
 /**
- * main api class
- */
-require_once( __API_LIB_ROOT__ . 'psGateway.php' );
-
-/**
- * short url interface?
+ * short url interface
  */
 interface iShortUrl {
 	public function getShortUrl($url);
@@ -19,15 +21,18 @@ interface iShortUrl {
  * Enter description here...
  *
  */
-class psShortUrl extends psGateway implements iShortUrl
+class shortUrl implements iShortUrl
 {
 
+	/**
+	 * define some constants and properties
+	 */
 	protected $type = self::TINY_URL; // default
 	const TINY_URL = 1;
 	const CLIGS_URL = 2;
 
 	/**
-	 *
+	 * set type on construct
 	 */
 	function __construct ($type = null)
 	{
@@ -39,15 +44,20 @@ class psShortUrl extends psGateway implements iShortUrl
 			}
 		}
 	}
+	
+	public function setType($type = null)
+	{
+		# code...
+	}
 
-	function getShortUrl($url) {
+	public function getShortUrl($url) {
 		// use the correct service
 
 		switch ($this->type) {
 			case self::CLIGS_URL :
 				// do cligs stuff;
-				psLoader::loadService('Cligs');
-				$cligs = new psCligs();
+				require_once('shortUrl-cligs.class.php');
+				$cligs = new shortUrl_Cligs();
 				$cligs->getShortUrl($url); // might be better to just return a new object, factory style
 			break;
 
@@ -59,13 +69,22 @@ class psShortUrl extends psGateway implements iShortUrl
 
 	}
 
-	function cacheGetUrl() {
+	protected function cacheGetUrl($url) 
+	{
 		// look up url in cache
 	}
 
 
 }
 
-class psShortUrlException extends Exception {}
+/**
+ * shortUrl Exception Handler
+ *
+ * @package default
+ * @author PJ Kix
+ */
+class shortUrlException extends Exception {
+	// try and handle errors here ... 
+}
 
 ?>

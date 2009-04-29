@@ -1,17 +1,14 @@
 <?php
-
 /**
  * Memcache Wrapper
  * 
- * @author      Kevin Ostrowski <kevin@podshow.com>
- * @author      John Nishinaga <j.nishinaga@podshow.com>
  * @author      Joseph Engo <jengo@podshow.com>
- * @version     $Id$
+ * @version     $Id:$
  * @copyright   2007 Podshow, Inc.
  *
  */
 
-class Ps_Memcache
+class cacheMemcache
 {
 	static $prefix;
 	static $memcache           = NULL;		// Memcache handle

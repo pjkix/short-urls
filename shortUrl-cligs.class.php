@@ -4,10 +4,19 @@
  *
  * API KEY: b3e86e7644f1c6d22ca45eef6358e409
  * @example http://cli.gs/api/v1/cligs/create?url=1&title=2&key=3&appid=4
+ * @package shortUrl
+ * @subpackage cli.gs
+ * @author		pkhalil
+ * @copyright	2009 pjk
+ * @license		(cc) some rights reserved
+ * @version		$Id:$
+ * @todo make it work, abstract,  add caching
  */
 
-//require_once( __API_LIB_ROOT__ . 'psGateway.php' );
-require_once (__API_LIB_ROOT__ . 'psGateway/psShortUrl.php');
+/**
+ * required base class
+ */
+require_once('shortUrl.class.php');
 
 /**
  * cli.gs url shortener

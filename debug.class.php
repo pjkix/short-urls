@@ -1,6 +1,15 @@
 <?php
 /**
  * Utilities for Debugging
+ * 
+ * Debug Utils
+ * @package		Utils
+ * @subpackage	Debug
+ * @author		pkhalil
+ * @copyright	2009 pjk
+ * @license		(cc) some rights reserved
+ * @version		$Id:$
+ * @todo 		add more features
  */
 
 //* debug and coding pain threshold ;)
@@ -116,5 +125,16 @@ class Debug
 
 } // end: debug{}
 
+/**
+* timer class
+*/
+class Timer extends Debug
+{
+	
+	function __construct()
+	{
+		# code ...
+	}
+}
 
 ?>

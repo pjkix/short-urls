@@ -1,0 +1,19 @@
+Short URL Libs
+==============
+v.0.5.1
+
+libs for creating short urls
+
+author:
+	pjk
+
+Overview
+--------
+
+base class and interface for extended modules support
+
+
+Features
+--------
+
+abstract, cacheing, easy to use

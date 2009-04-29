@@ -1,6 +1,22 @@
 <?php
-require_once 'source/Ps/psGateway/psShortUrl.php';
+/**
+ * Unit Tests for ShortUrl Class
+ *
+ * @package Tests
+ * @subpackage shortUrl
+ * @author		pkhalil
+ * @copyright	2009 pjk
+ * @license		(cc) some rights reserved
+ * @version		$Id:$
+ * @todo make it work
+ */
+
+/**
+ * required files and libs
+ */
+require_once 'shortUrl.php';
 require_once 'PHPUnit/Framework/TestCase.php';
+
 /**
  * psShortUrl test case.
  */

@@ -1,45 +1,34 @@
 <?php
 /**
- * Test page
- * @package test
- * @author pkhalil
- * @copyright
- * @license
- * @version
- * @todo test some shit
+ * Short URL Demo
+ * 
+ * Demo page for short url class libraries and functions
+ * @package		Demo
+ * @subpackage	ShortUrl
+ * @author		pkhalil
+ * @copyright	2009 pjk
+ * @license		(cc) some rights reserved
+ * @version		$Id:$
+ * @todo make it work
  */
 
 //* debug and coding pain threshold ;)
 ini_set('display_errors',true);
-error_reporting(E_ALL);
+error_reporting(E_ALL | E_STRICT);
 //*/
 
-
-define('MAIN_PATH', realpath('.'));  // you are here ;)
-require_once MAIN_PATH . '/../config/api.inc.php'; // defines
-
-// requires
-//require_once MAIN_PATH . '/../source/Ps/psGateway/psShortUrl.php'; // generic
-//require_once MAIN_PATH . '/../source/Ps/psGateway/psTinyUrl.php'; // tinyurl
-//require_once MAIN_PATH . '/../source/Ps/psGateway/psCligs.php'; // cli.gs
-
-// loader
-require_once MAIN_PATH . '/../source/Ps/psLoader.php'; // loader
-psLoader::loadService('ShortUrl');
-psLoader::loadService('TinyUrl');
-psLoader::loadService('Cligs');
-
+define('MAIN_PATH', realpath('.'));  // <-- you are here :P
 
 // test url shorteners
-$psShortUrl = new psShortUrl();
-$psTiny = new psTinyUrl();
-$psCligs = new psCligs();
+$myShortUrl = new shortUrl();
+$myTiny = new shortUrl_tinyurl();
+$myCligs = new shortUrl_cligs();
 
 // test data
-$test_url = 'http://geekbrief.mevio.com/';
+$test_url = 'http://example.com/';
 $short_url = null;
 
-$short_url = $psTiny->getTinyUrl($test_url);
+$short_url = $myTiny->getTinyUrl($test_url);
 
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
@@ -90,16 +79,17 @@ $short_url = $psTiny->getTinyUrl($test_url);
 
 		</div><!-- /#wrapper -->
 
-			<?php
-				//* TMP: for debugging
-				require_once '../debug.php';
-				$debug = new Debug();
-				$debug->check_all_mem();
-				$debug->dump_user_globals();
-				$debug->dump_includes();
-				//*/
-			?>
-
+<?php
+	//* TMP: for debugging
+	if (isset($_GET['debug'])) {
+		require_once './debug.php';
+		$debug = new Debug();
+		$debug->check_all_mem();
+		$debug->dump_user_globals();
+		$debug->dump_includes();
+	}
+	//*/
+?>
 
 	</body>
 </html>

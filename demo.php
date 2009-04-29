@@ -19,7 +19,7 @@ error_reporting(E_ALL | E_STRICT);
 
 define('MAIN_PATH', realpath('.'));  // <-- you are here :P
 
-require_once( MAIN_PATH . '/shortUrl.class.php');
+require_once( MAIN_PATH . '/lib/shortUrl.class.php');
 
 // test url shorteners
 $myShortUrl = new shortUrl(shortUrl::TINY_URL);

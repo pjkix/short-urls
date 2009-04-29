@@ -20,9 +20,9 @@ require_once('shortUrl.class.php');
  * undocumented class
  *
  * @package default
- * @author PJ Kix
+ * @author PJ Khalil
  **/
-class tinyUrl extends shortUrl 
+class shortUrl_tinyUrl extends shortUrl 
 {
 
 	/**

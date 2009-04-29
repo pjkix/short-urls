@@ -115,7 +115,7 @@ class Debug
 
 	function dump_includes(){
 		$incs = get_included_files();
-		echo count($incs);
+		echo '# of INC:' . count($incs);
 		var_dump($incs);
 	}
 

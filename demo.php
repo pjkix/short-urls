@@ -22,11 +22,10 @@ define('MAIN_PATH', realpath('.'));  // <-- you are here :P
 require_once( MAIN_PATH . '/lib/shortUrl.class.php');
 
 // test url shorteners
-$myShortUrl = new shortUrl(shortUrl::TINY_URL);
-// $myTiny = new shortUrl_tinyurl();
-// $myCligs = new shortUrl_cligs();
+$myShortUrl = shortUrlFactory::getUrlService(shortUrlFactory::CLIGS_URL);
+// var_dump($myShortUrl);
 
-// test data
+// test data ... we can get this from input as well for demo
 $test_url = 'http://example.com/';
 $short_url = null;
 
@@ -63,15 +62,33 @@ $short_url = $myShortUrl->getShortUrl($test_url);
 	<body id="test" onload="">
 		<div id="wrapper">
 			<div id="header">
-				<h1>Test page</h1>
+				<h1>Demo page</h1>
 			</div><!-- /#header -->
 
 			<div id="content">
 				<h2>test content</h2>
 
-				<p>original url: <?php echo $test_url ; ?></p>
+				<p>original url: <?php printf('<a href="%s">%1$s</a>', $test_url) ; ?></p>
 
-				<p>short url: <?php echo $short_url ; ?></p>
+				<p>short url: <?php printf('<a href="%1$s">%1$s</a>', $short_url) ; ?></p>
+				
+				<form action="" method="get" accept-charset="utf-8">
+					<fieldset id="options" class="">
+						<legend>options</legend>
+						<label for="url">url</label>
+						<input type="text" name="url" value="http://example.com" id="url"/>
+						
+						<label for="service">service</label>
+						<select name="service" id="service" onchange="">
+							<option value="tinyurl">tinyurl</option>
+							<option value="bitly">bitly</option>
+							
+						</select>
+						
+					</fieldset>
+
+					<p><input type="submit" value="Continue &rarr;"/></p>
+				</form>
 
 			</div><!-- /#content -->
 
@@ -84,7 +101,7 @@ $short_url = $myShortUrl->getShortUrl($test_url);
 <?php
 	//* TMP: for debugging
 	if (isset($_GET['debug'])) {
-		require_once './debug.php';
+		require_once './lib/debug.class.php';
 		$debug = new Debug();
 		$debug->check_all_mem();
 		$debug->dump_user_globals();

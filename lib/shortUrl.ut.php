@@ -8,7 +8,8 @@
  * @copyright	2009 pjk
  * @license		(cc) some rights reserved
  * @version		$Id:$
- * @todo make it work
+ * @todo make it work 
+ * @example tinyurl should return "http://tinyurl.com/kotu" for the url "http://example.com"
  */
 
 /**

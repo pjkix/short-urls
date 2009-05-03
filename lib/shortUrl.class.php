@@ -103,7 +103,7 @@ class shortUrl implements iShortUrl
 		require_once dirname(__FILE__) . '/memcache.class.php';
 		$cache_name = $this->class .'-'.md5($url);
 //		error_log(sprintf('ADDING: %s TO CACHE WITH KEY: %s AND EXPIRES %s', $data, $cache_name, $expiry));
-		return Memcache::set($cache_name,$data, false, $this->cache_time);
+		return cacheMemcache::set($cache_name,$data, false, $this->cache_time);
 	}
 
 	/**
@@ -115,10 +115,10 @@ class shortUrl implements iShortUrl
 	protected function cacheGetUrl($url)
 	{
 		require_once dirname(__FILE__) . '/memcache.class.php';
-		Memcache::connect( array( array('localhost' => 11211) ) ); // normally this is done in the configs
+		cacheMemcache::connect( array( array('localhost' => 11211) ) ); // normally this is done in the configs
 		$cache_name = $this->class . '-' . md5($url);
 //		error_log(sprintf('GETTING: %s FROM CACHE KEY %s', $url, $cache_name));
-		return Memcache::get($cache_name);
+		return cacheMemcache::get($cache_name);
 	}
 
 	/**

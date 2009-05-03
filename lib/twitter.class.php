@@ -28,7 +28,22 @@ interface iRESTClient {
  *
  */
 abstract class RESTClient implements iRESTClient {
-
+	public function get($url)
+	{
+		// code here ..
+	}
+	public function post($url, $data)
+	{
+		// code here
+	}
+	public function put($url, $data = null)
+	{
+		// code here ..
+	}
+	public function delete($url)
+	{
+		// code here ..
+	}
 } // END: RESTClient {}
 
 /**
@@ -37,6 +52,14 @@ abstract class RESTClient implements iRESTClient {
  */
 class Twitter extends RESTClient {
 
+	/**
+	 * Check twitter creds
+	 *
+	 * @param unknown_type $userId
+	 * @param unknown_type $tname
+	 * @param unknown_type $tpass
+	 * @return unknown
+	 */
 	public function checkTwitterCredentials($userId, $tname=null, $tpass=null){
 
 		// if twitter username and password are passed as params, these creds have not been saved in db yet
@@ -67,17 +90,20 @@ class Twitter extends RESTClient {
 
 		// check response (transparent to end user)
 		if($buffer === false || $result['http_code'] != 200){
-            return false;
-        }else{
-            return true;
-        }
+			return false;
+		}else{
+			return true;
+		}
 
 	}
 
-	/*
+	/**
+	 * accomodates post with tiny url created on confirmation page
 	 *
+	 * @param unknown_type $userId
+	 * @param unknown_type $postMessage
+	 * @return unknown
 	 */
-	// accomodates post with tiny url created on confirmation page
 	public function sendTwitterUpdate($userId, $postMessage){
 
 		// create curl request to twitter for this user
@@ -109,11 +135,11 @@ class Twitter extends RESTClient {
 					$showName = $s[0]['show_name'];
 
 					// make this tiny url
-			    	$tinyUrl = TinyUrl::getTinyUrl($mediaUrl);
+					$tinyUrl = TinyUrl::getTinyUrl($mediaUrl);
 					$userTweet = "Uploaded a new Episode for ".$showName.": ".$tinyUrl;
 				break;
 
-	   		}*/
+			}*/
 
 
 			// execute curl request
@@ -139,7 +165,12 @@ class Twitter extends RESTClient {
 		return false;
 	}
 
-
+	/**
+	 * Search Twitter
+	 *
+	 * @param unknown_type $query
+	 * @return unknown
+	 */
 	public function getTwitterSearch($query)
 	{
 		//make twitter search key
@@ -154,6 +185,13 @@ class Twitter extends RESTClient {
 		return $result;
 	}
 
+	/**
+	 * Uncached Search
+	 *
+	 * @param unknown_type $query
+	 * @return unknown
+	 * @todo consolidate
+	 */
 	public function getTwitterSearchUncached($query)
 	{
 		$queryURL = 'http://search.twitter.com/search.json?q='.urlencode($query);
@@ -164,7 +202,7 @@ class Twitter extends RESTClient {
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($ch, CURLOPT_USERAGENT, Util::getMevioUserAgent());
 		$buffer = curl_exec($ch);
-		$result = curl_getinfo($ch);
+//		$result = curl_getinfo($ch);
 		curl_close($ch);
 
 		$data = json_decode($buffer,true);
@@ -173,22 +211,33 @@ class Twitter extends RESTClient {
 		return $data;
 	}
 
+	/**
+	 * Twitter Linkify
+	 *
+	 * @param unknown_type $data
+	 */
 	public function htmlizeTwitterSearchResults(&$data)
 	{
 		for ($i=0; $i<count($data['results']); $i++) {
 			$html = $data['results'][$i]['text'];
 			$html = preg_replace('|(http://[^ ]+)|','<a target="_twitter" rel="nofollow" href="$1">$1</a>',$html);
 			$html = preg_replace('|@([a-zA-Z0-0]+)|','@<a target="_twitter" href="http://twitter.com/$1">$1</a>',$html);
+			// do hashtag here ...
 			$data['results'][$i]['html'] = $html;
 			$data['results'][$i]['source_html'] = html_entity_decode($data['results'][$i]['source'],ENT_COMPAT,'UTF-8');
 		}
 	}
 
+	/**
+	 * Relative Date Formatting
+	 *
+	 * @param unknown_type $data
+	 */
 	public function prettifyTwitterTimestamps(&$data)
 	{
 		for ($i=0; $i<count($data['results']); $i++) {
 			$t = strtotime($data['results'][$i]['created_at']);
-            $delta = time() - $t;
+			$delta = time() - $t;
 			if ($delta < 61)
 			{
 				$p = 'less than a minute ago';
@@ -217,6 +266,7 @@ class Twitter extends RESTClient {
 			$data['results'][$i]['created_at_pretty'] = $p;
 		}
 	}
+
 }
 
 /**
@@ -224,7 +274,5 @@ class Twitter extends RESTClient {
  *
  */
 class TwitterException extends Exception {}
-
-
 
 ?>

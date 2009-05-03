@@ -1,6 +1,13 @@
 CHANGELOG
 =========
 
+v.0.8.5
+	- refactor using PEAR/Zend naming conventions
+v.0.8.0
+	- merged changes from work
+	- caching
+	- refactoring
+	- etc
 v.0.7.0
 	- tinyurl and cli.gs are working now
 	- demo form is fully functional

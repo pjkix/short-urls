@@ -1,6 +1,6 @@
 Short URL Libs
 ==============
-v.0.7.0
+v.0.8.5
 
 libs for creating short urls
 
@@ -19,12 +19,21 @@ Features
 abstract, cacheing, easy to use
 
 
-??? use PEAR or Zend naming conventions ... 
 
+Conventions
+-----------
+use PEAR or Zend naming conventions ... 
+
+http://pear.php.net/manual/en/standards.php
+http://framework.zend.com/manual/en/coding-standard.html
+see also 
+http://www.horde.org/horde/docs/?f=CODING_STANDARDS.html
 
 http://phpkitchen.com/2005/03/advantages-of-using-the-pear-class-naming-convention/
-
-
 http://framework.zend.com/manual/en/coding-standard.naming-conventions.html
 
+
 don't use __ in user functions , thats reserved for magic ..
+
+use _ for private vars n functions
+

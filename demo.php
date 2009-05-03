@@ -19,16 +19,16 @@ error_reporting(E_ALL | E_STRICT);
 
 define('MAIN_PATH', realpath('.'));  // <-- you are here :P
 
-require_once('./lib/shortUrl.class.php');
+require_once('./lib/ShortUrl.php');
 // $myShortUrl = shortUrlFactory::getUrlService(shortUrlFactory::TINY_URL);
 
 // some defaults
 $url = 'http://example.com/';
 $short_url = null;
-$service = shortUrlFactory::TINY_URL;
+$service = ShortUrlFactory::TINY_URL;
 
 // debug caching
-$myTestUrl = new shortUrl();
+$myTestUrl = new ShortUrl();
 echo $myTestUrl->getShortUrl($url);
 die;
 
@@ -40,10 +40,10 @@ if ( isset($_GET['json']) ) {
 	// do json stuff here ... 
 }
 
-$myShortUrl = shortUrlFactory::getUrlService($service);
+$myShortUrl = ShortUrlFactory::getUrlService($service);
 $short_url = $myShortUrl->getShortUrl($url); // maybe ditch this and make static?
 
-$services = shortUrlFactory::getUrlServices(); // list of services
+$services = ShortUrlFactory::getUrlServices(); // list of services
 
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
@@ -96,9 +96,9 @@ $services = shortUrlFactory::getUrlServices(); // list of services
 
 						<label for="service">service</label>
 						<select name="service" id="service" onchange="">
-							<option value="<?php echo shortUrlFactory::TINY_URL ?>" <?php if (shortUrlFactory::TINY_URL == $service) echo " selected " ?> >tinyurl</option>
-							<option value="<?php echo shortUrlFactory::CLIGS_URL ?>" <?php if (shortUrlFactory::CLIGS_URL == $service) echo " selected " ?> >cli.gs</option>
-							<option value="<?php echo shortUrlFactory::BITLY_URL ?>" <?php if (shortUrlFactory::BITLY_URL == $service) echo " selected " ?> >bit.ly</option>
+							<option value="<?php echo ShortUrlFactory::TINY_URL ?>" <?php if (ShortUrlFactory::TINY_URL == $service) echo " selected " ?> >tinyurl</option>
+							<option value="<?php echo ShortUrlFactory::CLIGS_URL ?>" <?php if (ShortUrlFactory::CLIGS_URL == $service) echo " selected " ?> >cli.gs</option>
+							<option value="<?php echo ShortUrlFactory::BITLY_URL ?>" <?php if (ShortUrlFactory::BITLY_URL == $service) echo " selected " ?> >bit.ly</option>
 
 							<?php foreach ($services as $service => $name) : ?>
 							<!-- <option value="<?php echo $service?>"><?php echo $name?></option> -->

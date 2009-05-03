@@ -1,13 +1,14 @@
 <?php
 /**
  * Short URL Base Class
+ *
  * @package		Utils
  * @subpackage	ShortUrl
  * @author		pkhalil
  * @copyright	2009 pjk
  * @license		(cc) some rights reserved
  * @version		$Id:$
- * @todo make it work, abstract,  add caching
+ * @todo clean up, abstract,  add caching
  */
 
 /**
@@ -18,98 +19,161 @@ interface iShortUrl {
 }
 
 /**
- * Factory for building the different object types transparently 
+ * Factory for building the different object types transparently
  *
  * @package default
  * @author PJ Khalil
  */
-class shortUrlFactory 
-{ 
+class shortUrlFactory
+{
 	// service constants
 	const TINY_URL= 1;
 	const BITLY_URL = 2;
-	const TRIM_URL = 3;
-	const URLTEA_URL = 4;
-	const CLIGS_URL = 5;
+	const CLIGS_URL = 3;
+	const TRIM_URL = 4;
+	const ISGD_URL = 5;
 
-	// pretty basic for now, could automate this with some naming conventions	
-	public static function getUrlService($type = self::TINY_URL) 
-	{ 
-		switch ($type) { 
-			case self::TINY_URL: 
+	// pretty basic for now, could automate this with some naming conventions
+	public static function getUrlService($type = self::TINY_URL)
+	{
+		switch ($type) {
+			case self::TINY_URL:
 				require_once('shortUrl-tinyurl.class.php');
-				return new shortUrl_tinyUrl(); 
-			case self::BITLY_URL: 
-				return new shortUrl_bitly(); 
-			case self::CLIGS_URL: 
+				return new shortUrl_tinyUrl();
+			case self::BITLY_URL:
+				return new shortUrl_bitly();
+			case self::CLIGS_URL:
 				require_once('shortUrl-cligs.class.php');
-				return new shortUrl_cligs(); 
-			default: 
-				throw new shortUrlException("Unknown Service Specified."); 
-		} 
-	} 
-}
+				return new shortUrl_cligs();
+			default:
+				throw new shortUrlException("Unknown Service Specified.");
+		}
+	}
+
+	// maybe use this to build service types or for looping
+	public static function getUrlServices() {
+		return array('tinyurl', 'bitly', 'cligs', 'trim', 'isgd');
+	}
+} // END: shortUrlFactory{}
 
 /**
  * short Url base class
  *
- * @package default
- * @author PJ Kix
+ * @package shortUrl
+ * @author PJ Khalil
  */
 class shortUrl implements iShortUrl
 {
+	// API constants
 	const		API_VERSION = '1.0';
 	const		API_CLIENT = 'shortUrl/bot';
-	
-	private		$api_key = '';
+	// API vars
 	protected	$url = null;
 	protected	$short_url = null;
-		
-	// generic for basic interface restrictions
+	protected	$cache_time = 86400; // 1 day
+	protected 	$class = __CLASS__; // hack for getting subclass name back to parent class
+
+	/**
+	 * generic for basic interface restrictions
+	 *
+	 * @param unknown_type $url
+	 * @return unknown
+	 */
 	public function getShortUrl($url)
 	{
-		if ( !cacheGetUrl($url) ) {
-			// make short
-			cacheSet($url);
+		$this->url = $url;
+		if ( ! $short_url =  $this->cacheGetUrl($url) ) {
+			error_log('CACHE MISS!');
+			$short_url = $url; // no shortening in base class
+			$this->cacheSetUrl($url, $short_url);
 		}
 		return cacheGet($url);
 	}
-	
-	public function cacheSetUrl($url, $key, $expiry)
+
+	/**
+	 * set it and forget it
+	 *
+	 * @param unknown_type $url
+	 * @param unknown_type $key
+	 * @param unknown_type $expiry
+	 */
+	public function cacheSetUrl($url, $data, $expiry = null)
 	{
-		# code...
+		if (!$expiry) $expiry = $this->cache_time;
+		require_once dirname(__FILE__) . '/memcache.class.php';
+		$cache_name = $this->class .'-'.md5($url);
+//		error_log(sprintf('ADDING: %s TO CACHE WITH KEY: %s AND EXPIRES %s', $data, $cache_name, $expiry));
+		return Memcache::set($cache_name,$data, false, $this->cache_time);
 	}
-	
-	protected function cacheGetUrl($url) 
+
+	/**
+	 * grab from cache
+	 *
+	 * @param unknown_type $url
+	 * @return unknown
+	 */
+	protected function cacheGetUrl($url)
 	{
-		// look up url in cache
+		require_once dirname(__FILE__) . '/memcache.class.php';
+		Memcache::connect( array( array('localhost' => 11211) ) ); // normally this is done in the configs
+		$cache_name = $this->class . '-' . md5($url);
+//		error_log(sprintf('GETTING: %s FROM CACHE KEY %s', $url, $cache_name));
+		return Memcache::get($cache_name);
 	}
-	
+
 	/**
 	 * curl rest call
 	 *
-	 * @param string $url 
-	 * @return void
-	 * @author PJ Kix
+	 * @param string $url
+	 * @return string on success false on fail
 	 * @todo maybe make this more generic for base, can override ... detect curl? default fopen?
 	 */
-	public function restServiceCurl($url)
+	public function restServiceCurl($url, $username = null, $pass = null)
 	{
-		# code...
+		error_log('USING CURL');
+		$curl_options = array(
+			CURLOPT_RETURNTRANSFER	=> true,		// return web page
+			CURLOPT_HEADER			=> false,		// don't return headers
+			CURLOPT_FOLLOWLOCATION	=> true,		// follow redirects
+			CURLOPT_USERAGENT		=> self::API_CLIENT,	// who am i
+			CURLOPT_AUTOREFERER		=> true,		 // set referer on redirect
+			CURLOPT_CONNECTTIMEOUT	=> 30,			// timeout on connect
+			CURLOPT_TIMEOUT			=> 30,			// timeout on response
+			CURLOPT_MAXREDIRS		=> 10,			// stop after 10 redirects
+			CURLOPT_VERBOSE			=> 1			//debugging
+		);
+		if ($username && $pass) {			// authenticated
+			$curl_options[]['CURLOPT_USERPWD'] =  $username .':' . $pass;
+		}
+		$ch = curl_init($url);
+		curl_setopt_array($ch, $curl_options);
+		$this->status = curl_getinfo($ch,CURLINFO_HTTP_CODE);
+		$result = curl_exec($ch);
+		$this->err	= curl_errno($ch);
+		$this->errmsg	= curl_error($ch) ;
+		$this->header	= curl_getinfo($ch);
+		curl_close($ch);
+		return $result;
 	}
 	/**
 	 * undocumented function
 	 *
-	 * @param string $url 
-	 * @return void
-	 * @author PJ Kix
+	 * @param string $url
+	 * @return string on success false on fail
 	 */
-	public function restServiceFopen($url)
+	public function restServiceFGC($url)
 	{
-		# code...
+		error_log('USING FGC');
+		$result =  file_get_contents($url); // urlencode()?
+		if ( strlen($result) > 0 ) {
+			return $result;
+		} else {
+			return false;
 	}
 
 }
+
+} // END shortUrl{}
 
 /**
  * shortUrl Exception Handler
@@ -118,7 +182,7 @@ class shortUrl implements iShortUrl
  * @author PJ Kix
  */
 class shortUrlException extends Exception {
-	// try and handle errors here ... 
-}
+	// try and handle errors here ...
+} // END: shortUrlException{}
 
 ?>

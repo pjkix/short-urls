@@ -1,7 +1,7 @@
 <?php
 /**
  * Utilities for Debugging
- * 
+ *
  * Debug Utils
  * @package		Utils
  * @subpackage	Debug
@@ -17,8 +17,11 @@ ini_set('display_errors',true);
 error_reporting(E_ALL | E_STRICT);
 //*/
 
-// setup include path
-//ini_set('include_path',ini_get('include_path').':../includes:');
+/**
+ * setup include paths.
+ */
+//define('ABS_PATH', realpath('.') ) ; // <-- you are here
+//ini_set('include_path', ini_get('include_path').':' . ABS_PATH . '/lib');
 
 
 /**
@@ -130,7 +133,7 @@ class Debug
 */
 class Timer extends Debug
 {
-	
+
 	function __construct()
 	{
 		# code ...

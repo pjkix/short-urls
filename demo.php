@@ -27,12 +27,19 @@ $url = 'http://example.com/';
 $short_url = null;
 $service = shortUrlFactory::TINY_URL;
 
+// debug caching
+//$myTestUrl = new shortUrl();
+//echo $myTestUrl->getShortUrl($url);
+//die;
+
 // submitted values
 if ( isset($_GET['url']) ) $url = $_GET['url'];
 if ( isset($_GET['service']) ) $service = $_GET['service'];
 
 $myShortUrl = shortUrlFactory::getUrlService($service);
 $short_url = $myShortUrl->getShortUrl($url);
+
+$services = shortUrlFactory::getUrlServices();
 
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
@@ -87,6 +94,10 @@ $short_url = $myShortUrl->getShortUrl($url);
 							<option value="<?php echo shortUrlFactory::CLIGS_URL ?>" <?php if (shortUrlFactory::CLIGS_URL == $service) echo " selected " ?> >cli.gs</option>
 							<option value="bitly">bit.ly</option>
 							
+							<?php foreach ($services as $service => $name) : ?>
+							<!-- <option value="<?php echo $service?>"><?php echo $name?></option> -->
+							<?php endforeach; ?>
+
 						</select>
 						
 					</fieldset>

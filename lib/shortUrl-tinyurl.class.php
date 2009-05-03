@@ -17,13 +17,22 @@
 require_once('shortUrl.class.php');
 
 /**
- * undocumented class
+ * tiny url shortner
  *
- * @package default
+ * @package shortUrl
+ * @subpackage shortUrl_tinyurl
  * @author PJ Khalil
  **/
 class shortUrl_tinyUrl extends shortUrl 
 {
+
+	/**
+	 * init
+	 *
+	 */
+	public function __construct() {
+		$this->class = __CLASS__; // need this to pass to the parent for cache key
+	}
 
 	/**
 	 * getShortUrl for tinyurl
@@ -34,11 +43,20 @@ class shortUrl_tinyUrl extends shortUrl
 	 */
 	public function getShortUrl($url) 
 	{
-		$tiny = file_get_contents('http://tinyurl.com/api-create.php?url=' . $url);
-		if ( strlen($tiny) > 0 ) {
-			return $tiny;
+		$this->url = $url;
+		if ( ! $short_url =  $this->cacheGetUrl($url) ) {
+			$short_url = $this->getTinyUrl($url);
+			$this->cacheSetUrl($url, $short_url);
+		}
+		$this->short_url = $short_url;
+		return $short_url;
+	}
+
+	private function getTinyUrl($url) {
+		if ( function_exists('curl_init') ) {
+			return $this->restServiceCurl('http://tinyurl.com/api-create.php?url=' . $url);
 		} else {
-			return false;
+			return $this->restServiceFGC('http://tinyurl.com/api-create.php?url=' . $url);
 		}
 	}
 

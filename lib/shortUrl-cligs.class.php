@@ -8,6 +8,7 @@
  * - they make a new short url each time??? - this will screw up cacheing too
  * - they let you edit the title, url, and even short url???
  * - you can redirect people from certain countries???
+ * @see http://blog.cli.gs/api
  * @package shortUrl
  * @subpackage cli.gs
  * @author		pkhalil
@@ -30,20 +31,30 @@ class shortUrl_cligs extends shortUrl
 {
 	private $api_key = 'b3e86e7644f1c6d22ca45eef6358e409';
 	
-	public function getShortUrl($url) {
+	public function __construct() {
+		$this->class = __CLASS__; // need this to pass to the parent for cache key
+	}
+
+	public function getShortUrl($url, $title = null , $cache = false) {
+		$this->url = $url;
 		$api_key = $this->api_key;
 		$app_id = self::API_CLIENT;
 		$title = 'test-app'; // this should be the link title
 		
-		$api_string = 'http://cli.gs/api/v1/cligs/create?url=%s&title=%s&key=%s&appid=%s';
-		$api_call = sprintf($api_string, $url, $title, $api_key, $app_id);		
-		$short_url = file_get_contents($api_call); //@todo might want to use curl here
+		$api_url = 'http://cli.gs/api/v1/cligs/create?url=%s&title=%s&key=%s&appid=%s';
+		$api_call = sprintf($api_url, $url, $title, $api_key, $app_id);
 		
-		if ( strlen($short_url ) > 0) {
-			return $short_url;
+		if ($cache){
+			if ( ! $short_url =  $this->cacheGetUrl($url) ) {
+				$short_url = $this->restServiceCurl($api_call);
+				$this->cacheSetUrl($url, $short_url);
+			}
 		} else {
-			return false;
+			$short_url = $this->restServiceCurl($api_call);
 		}
+
+		$this->short_url = $short_url;
+		return $short_url;
 	}
 
 }

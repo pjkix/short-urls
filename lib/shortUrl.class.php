@@ -21,7 +21,7 @@ interface iShortUrl {
 /**
  * Factory for building the different object types transparently
  *
- * @package default
+ * @package shortUrl
  * @author PJ Khalil
  */
 class shortUrlFactory
@@ -41,6 +41,7 @@ class shortUrlFactory
 				require_once('shortUrl-tinyurl.class.php');
 				return new shortUrl_tinyUrl();
 			case self::BITLY_URL:
+				require_once('shortUrl-bitly.class.php');
 				return new shortUrl_bitly();
 			case self::CLIGS_URL:
 				require_once('shortUrl-cligs.class.php');

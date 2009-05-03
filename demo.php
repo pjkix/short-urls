@@ -1,7 +1,7 @@
 <?php
 /**
  * Short URL Demo
- * 
+ *
  * Demo page for short url class libraries and functions
  * @package		Demo
  * @subpackage	ShortUrl
@@ -19,7 +19,7 @@ error_reporting(E_ALL | E_STRICT);
 
 define('MAIN_PATH', realpath('.'));  // <-- you are here :P
 
-require_once( MAIN_PATH . '/lib/shortUrl.class.php');
+require_once('./lib/shortUrl.class.php');
 // $myShortUrl = shortUrlFactory::getUrlService(shortUrlFactory::TINY_URL);
 
 // some defaults
@@ -81,25 +81,25 @@ $services = shortUrlFactory::getUrlServices();
 				<p>original url: <?php printf('<a href="%s">%1$s</a>', $url) ; ?></p>
 
 				<p>short url: <?php printf('<a href="%1$s">%1$s</a>', $short_url) ; ?></p>
-				
+
 				<form action="?debug=true" method="get" accept-charset="utf-8">
 					<fieldset id="options" class="">
 						<legend>options</legend>
 						<label for="url">url</label>
 						<input type="text" name="url" value="<?php echo $url ?>" id="url"/>
-						
+
 						<label for="service">service</label>
 						<select name="service" id="service" onchange="">
 							<option value="<?php echo shortUrlFactory::TINY_URL ?>" <?php if (shortUrlFactory::TINY_URL == $service) echo " selected " ?> >tinyurl</option>
 							<option value="<?php echo shortUrlFactory::CLIGS_URL ?>" <?php if (shortUrlFactory::CLIGS_URL == $service) echo " selected " ?> >cli.gs</option>
-							<option value="bitly">bit.ly</option>
-							
+							<option value="<?php echo shortUrlFactory::BITLY_URL ?>" <?php if (shortUrlFactory::BITLY_URL == $service) echo " selected " ?> >bit.ly</option>
+
 							<?php foreach ($services as $service => $name) : ?>
 							<!-- <option value="<?php echo $service?>"><?php echo $name?></option> -->
 							<?php endforeach; ?>
 
 						</select>
-						
+
 					</fieldset>
 
 					<p><input type="submit" value="Continue &rarr;"/></p>

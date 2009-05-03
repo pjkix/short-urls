@@ -14,7 +14,7 @@
 /**
  * required base class
  */
-require_once('shortUrl-bitly.class.php');
+require_once('shortUrl.class.php');
 
 /**
  * undocumented class

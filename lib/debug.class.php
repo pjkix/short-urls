@@ -138,6 +138,13 @@ class Timer extends Debug
 	{
 		# code ...
 	}
+
+	function __autoload($class)
+	{
+	  $filename = str_replace('_', DIRECTORY_SEPARATOR , $class) . '.php';
+	  @require_once $filename;
+	}
+
 }
 
 ?>

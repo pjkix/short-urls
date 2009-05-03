@@ -17,3 +17,14 @@ Features
 --------
 
 abstract, cacheing, easy to use
+
+
+??? use PEAR or Zend naming conventions ... 
+
+
+http://phpkitchen.com/2005/03/advantages-of-using-the-pear-class-naming-convention/
+
+
+http://framework.zend.com/manual/en/coding-standard.naming-conventions.html
+
+don't use __ in user functions , thats reserved for magic ..

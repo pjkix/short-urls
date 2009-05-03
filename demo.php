@@ -28,18 +28,22 @@ $short_url = null;
 $service = shortUrlFactory::TINY_URL;
 
 // debug caching
-//$myTestUrl = new shortUrl();
-//echo $myTestUrl->getShortUrl($url);
-//die;
+$myTestUrl = new shortUrl();
+echo $myTestUrl->getShortUrl($url);
+die;
 
 // submitted values
 if ( isset($_GET['url']) ) $url = $_GET['url'];
 if ( isset($_GET['service']) ) $service = $_GET['service'];
 
-$myShortUrl = shortUrlFactory::getUrlService($service);
-$short_url = $myShortUrl->getShortUrl($url);
+if ( isset($_GET['json']) ) {
+	// do json stuff here ... 
+}
 
-$services = shortUrlFactory::getUrlServices();
+$myShortUrl = shortUrlFactory::getUrlService($service);
+$short_url = $myShortUrl->getShortUrl($url); // maybe ditch this and make static?
+
+$services = shortUrlFactory::getUrlServices(); // list of services
 
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
@@ -47,7 +51,7 @@ $services = shortUrlFactory::getUrlServices();
 <html>
 	<head>
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
-		<title>test</title>
+		<title>Short-URL Demo</title>
 		<meta name="description" content="test stuff">
 		<meta name="keywords" content="test">
 		<meta name="author" content="pjk">
@@ -67,20 +71,22 @@ $services = shortUrlFactory::getUrlServices();
 		</style>
 		<script type="text/javascript" charset="utf-8">
 			// do it
+			
+			// hijack form, call json request
 		</script>
 	</head>
-	<body id="test" onload="">
+	<body id="demo-page" class="demo" onload="">
 		<div id="wrapper">
 			<div id="header">
 				<h1>Demo page</h1>
 			</div><!-- /#header -->
 
 			<div id="content">
-				<h2>test content</h2>
+				<h2>Short URL Example</h2>
 
-				<p>original url: <?php printf('<a href="%s">%1$s</a>', $url) ; ?></p>
+				<p>Original URL: <?php printf('<a href="%s">%1$s</a>', $url) ; ?></p>
 
-				<p>short url: <?php printf('<a href="%1$s">%1$s</a>', $short_url) ; ?></p>
+				<p>Short URL: <?php printf('<a href="%1$s">%1$s</a>', $short_url) ; ?></p>
 
 				<form action="?debug=true" method="get" accept-charset="utf-8">
 					<fieldset id="options" class="">

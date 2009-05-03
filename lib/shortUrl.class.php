@@ -26,14 +26,21 @@ interface iShortUrl {
  */
 class shortUrlFactory
 {
-	// service constants
+	// service constants ... add new ones here
 	const TINY_URL= 1;
 	const BITLY_URL = 2;
 	const CLIGS_URL = 3;
 	const TRIM_URL = 4;
 	const ISGD_URL = 5;
 
-	// pretty basic for now, could automate this with some naming conventions
+
+
+	public function __construct()
+	{
+		$this->serives = $this->getUrlServices();
+	}
+
+	// pretty basic for now, could automate this with some naming conventions service array
 	public static function getUrlService($type = self::TINY_URL)
 	{
 		switch ($type) {

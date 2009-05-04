@@ -28,12 +28,17 @@ http://pear.php.net/manual/en/standards.php
 http://framework.zend.com/manual/en/coding-standard.html
 see also 
 http://www.horde.org/horde/docs/?f=CODING_STANDARDS.html
+http://codex.wordpress.org/WordPress_Coding_Standards
 
+examples
 http://phpkitchen.com/2005/03/advantages-of-using-the-pear-class-naming-convention/
-http://framework.zend.com/manual/en/coding-standard.naming-conventions.html
 
 
-don't use __ in user functions , thats reserved for magic ..
 
-use _ for private vars n functions
+use $_foo or _foo() for private vars n functions
+
+don't use __foo() in user functions , thats reserved for magic ..
+
+
+translate with _("hello world") using gettext and .po files
 

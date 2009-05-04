@@ -3,13 +3,18 @@
  * Short URL Demo
  *
  * Demo page for short url class libraries and functions
- * @package		Demo
- * @subpackage	ShortUrl
- * @author		pkhalil
- * @copyright	2009 pjk
- * @license		(cc) some rights reserved
+ * @category	Demo
+ * @package		ShortUrl
+ * @subpackage	ShortUrlDemo
+ * @author		pkhalil <pj@pjkix.com>
+ * @copyright	1975-2009 pjk
+ * @license		http://creativecommons.org/licenses/by-nc-nd/3.0/ (cc) some rights reserved
  * @version		$Id:$
- * @todo make it work
+ * @link		http://pjkix.com/projects/short-url
+ * @see			ShortUrl, ShortUrlFactory::getUrlService()
+ * @since		Class available since Release 1.2.0
+ * @deprecated	Class deprecated in Release 2.0.0
+ * @todo		make it work
  */
 
 //* debug and coding pain threshold ;)
@@ -37,7 +42,7 @@ if ( isset($_GET['url']) ) $url = $_GET['url'];
 if ( isset($_GET['service']) ) $service = $_GET['service'];
 
 if ( isset($_GET['json']) ) {
-	// do json stuff here ... 
+	// do json stuff here ...
 }
 
 $myShortUrl = ShortUrlFactory::getUrlService($service);
@@ -71,7 +76,7 @@ $services = ShortUrlFactory::getUrlServices(); // list of services
 		</style>
 		<script type="text/javascript" charset="utf-8">
 			// do it
-			
+
 			// hijack form, call json request
 		</script>
 	</head>
@@ -101,7 +106,7 @@ $services = ShortUrlFactory::getUrlServices(); // list of services
 							<option value="<?php echo ShortUrlFactory::BITLY_URL ?>" <?php if (ShortUrlFactory::BITLY_URL == $service) echo " selected " ?> >bit.ly</option>
 
 							<?php foreach ($services as $service => $name) : ?>
-							<!-- <option value="<?php echo $service?>"><?php echo $name?></option> -->
+							<!-- <option value="<?php echo $service?>"><?php echo _($name) ?></option> -->
 							<?php endforeach; ?>
 
 						</select>

@@ -22,6 +22,14 @@ interface iShortUrl
 /**
  * Factory for building the different object types transparently
  *
+ * Example:
+ * Here's an example of how to format examples:
+ * <code>
+ * require_once 'Lib/ShortUrl.php';
+ *
+ * $myShortUrl =  shortUrlFactory::getUrlService(shortUrlFactory::TINY_URL);
+ * echo $myShortUrl->getShortUrl($url);
+ * </code>
  * @package shortUrl
  * @author PJ Khalil
  */

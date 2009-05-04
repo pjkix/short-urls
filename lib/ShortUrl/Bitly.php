@@ -14,7 +14,7 @@
 /**
  * required base class
  */
-require_once('../ShortUrl.php');
+require_once( dirname(__FILE__) . '/../ShortUrl.php');
 
 /**
  * undocumented class
@@ -47,7 +47,7 @@ class ShortUrl_Bitly extends ShortUrl
 		$service_call = sprintf($service_string, $url, $this->user, $this->api_key);
 		$result = $this->restServiceCurl($service_call, $this->user, $this->pass);
 		$result_array = json_decode($result, true);
-		$short_url = $result_array['results'][$url]['ShortUrl'];
+		$short_url = $result_array['results'][$url]['shortUrl'];
 		return $short_url;
 	}
 

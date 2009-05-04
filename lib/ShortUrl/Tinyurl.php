@@ -11,32 +11,24 @@
  * @todo make it work, abstract,  add caching
  */
 
-/**
- * required base class
- */
-require_once('../ShortUrl.php');
+/** required base class */
+require_once( dirname(__FILE__) . '/../ShortUrl.php');
 
 /**
- * tiny url shortner
- *
- * @package shortUrl
- * @subpackage shortUrl_tinyurl
- * @author PJ Khalil
- **/
-class ShortUrl_TinyUrl extends ShortUrl
+ * tiny url service
+ */
+final class ShortUrl_TinyUrl extends ShortUrl
 {
 
-	/**
-	 * init
-	 *
-	 */
+	/** init */
 	public function __construct() {
 		$this->class = __CLASS__; // need this to pass to the parent for cache key
 	}
 
 	/**
-	 * getShortUrl for tinyurl
-	 *
+	 * getShortUrl for tinyurl 
+	 * 
+	 * ?? static? can't use this->
 	 * @param string $url
 	 * @return string $tinyurl or false on fail
 	 * @author PJ Khalil
@@ -65,8 +57,6 @@ class ShortUrl_TinyUrl extends ShortUrl
 /**
  * exception handler for tiny url specific errors
  *
- * @package default
- * @author PJ Khalil
  */
 class ShortUrl_TinyUrlException extends ShortUrlException
 {

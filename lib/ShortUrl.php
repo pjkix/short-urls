@@ -14,7 +14,7 @@
 /**
  * short url interface for completeness/strictness
  */
-interface iShortUrl 
+interface iShortUrl
 {
 	public function getShortUrl($url); // KISS - basically all you need :)
 }
@@ -23,15 +23,12 @@ interface iShortUrl
  * Factory for building the different object types transparently
  *
  * Example:
- * Here's an example of how to format examples:
  * <code>
  * require_once 'Lib/ShortUrl.php';
  *
  * $myShortUrl =  shortUrlFactory::getUrlService(shortUrlFactory::TINY_URL);
  * echo $myShortUrl->getShortUrl($url);
  * </code>
- * @package shortUrl
- * @author PJ Khalil
  */
 class ShortUrlFactory
 {
@@ -42,18 +39,17 @@ class ShortUrlFactory
 	const TRIM_URL = 4;
 	const ISGD_URL = 5;
 
-
-
-	public function __construct()
-	{
-		$this->serives = $this->getUrlServices();
-	}
-
-	public function __autoload($name){
-		// do autoloading
-	}
-
-	// pretty basic for now, could automate this with some naming conventions service array
+	/**
+	 * Url Service object builder
+	 *
+	 * pretty basic for now, could automate this with some naming conventions
+	 * service array
+	 * @param string $type
+	 * @return void
+	 * @access public
+	 * @static
+	 * @throws ShortUrlException
+	 */
 	public static function getUrlService($type = self::TINY_URL)
 	{
 		switch ($type) {
@@ -75,16 +71,26 @@ class ShortUrlFactory
 	public static function getUrlServices() {
 		return array('tinyurl', 'bitly', 'cligs', 'trim', 'isgd');
 	}
-	
+
+
+	/// build array of services and define constants??
+	public function __construct()
+	{
+		$this->serives = $this->getUrlServices();
+	}
+
+	/// do autoloading of subclasses??
+	public function __autoload($name){
+		// do autoloading
+	}
+
 } // END: shortUrlFactory{}
 
 /**
  * short Url base class
  *
- * @package shortUrl
- * @author PJ Khalil
  */
-class ShortUrl implements iShortUrl
+abstract class ShortUrl implements iShortUrl
 {
 	// API constants
 	const		API_VERSION = '1.0';
@@ -95,13 +101,16 @@ class ShortUrl implements iShortUrl
 	protected	$cache_time = 86400; // 1 day
 	protected 	$class = __CLASS__; // hack for getting subclass name back to parent class
 
+	// must be implemented in subclass
+	// abstract public function getShortUrl($url);
+
 	/**
 	 * generic for basic interface restrictions
 	 *
 	 * @param unknown_type $url
 	 * @return unknown
 	 */
-	public function getShortUrl($url)
+	public function exampleGetShortUrl($url)
 	{
 		$this->url = $url;
 		if ( ! $short_url =  $this->cacheGetUrl($url) ) {
@@ -200,13 +209,12 @@ class ShortUrl implements iShortUrl
 
 /**
  * shortUrl Exception Handler
- *
- * @package default
- * @author PJ Kix
  */
-class ShortUrlException extends Exception 
+class ShortUrlException extends Exception
 {
+	
 	// try and handle errors here ...
+	
 } // END: shortUrlException{}
 
 ?>

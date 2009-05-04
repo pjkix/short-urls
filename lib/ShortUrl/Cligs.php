@@ -21,7 +21,7 @@
 /**
  * required base class
  */
-require_once('../ShortUrl.php');
+require_once( dirname(__FILE__) . '/../ShortUrl.php');
 
 /**
  * cli.gs url shortener

@@ -33,9 +33,10 @@ $short_url = null;
 $service = ShortUrlFactory::TINY_URL;
 
 // debug caching
-$myTestUrl = new ShortUrl();
-echo $myTestUrl->getShortUrl($url);
-die;
+// $myTestUrl = new ShortUrl();
+// echo $myTestUrl->getShortUrl($url);
+// die;
+
 
 // submitted values
 if ( isset($_GET['url']) ) $url = $_GET['url'];
@@ -48,7 +49,12 @@ if ( isset($_GET['json']) ) {
 $myShortUrl = ShortUrlFactory::getUrlService($service);
 $short_url = $myShortUrl->getShortUrl($url); // maybe ditch this and make static?
 
-$services = ShortUrlFactory::getUrlServices(); // list of services
+// list of services?
+$services = ShortUrlFactory::getUrlServices();
+
+// call sub lib directly with out invoke? 
+// echo ShortUrl_TinyUrl::getShortUrl($url);
+
 
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"

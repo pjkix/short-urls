@@ -15,34 +15,34 @@
 /**
  * required files and libs
  */
-require_once 'shortUrl.php';
+require_once 'ShortUrl.php';
 require_once 'PHPUnit/Framework/TestCase.php';
 
 /**
- * psShortUrl test case.
+ * ShortUrl test case.
  */
-class psShortUrlTest extends PHPUnit_Framework_TestCase
+class ShortUrlTest extends PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var psShortUrl
+	 * @var ShortUrl
 	 */
-	private $psShortUrl;
+	private $ShortUrl;
 	/**
 	 * Prepares the environment before running a test.
 	 */
 	protected function setUp ()
 	{
 		parent::setUp();
-		// TODO Auto-generated psShortUrlTest::setUp()
-		$this->psShortUrl = new psShortUrl(/* parameters */);
+		// TODO Auto-generated ShortUrlTest::setUp()
+		$this->ShortUrl = new ShortUrl(/* parameters */);
 	}
 	/**
 	 * Cleans up the environment after running a test.
 	 */
 	protected function tearDown ()
 	{
-		// TODO Auto-generated psShortUrlTest::tearDown()
-		$this->psShortUrl = null;
+		// TODO Auto-generated ShortUrlTest::tearDown()
+		$this->ShortUrl = null;
 		parent::tearDown();
 	}
 	/**
@@ -50,15 +50,28 @@ class psShortUrlTest extends PHPUnit_Framework_TestCase
 	 */
 	public function __construct ()
 	{	// TODO Auto-generated constructor
+		
+		$this->url = 'http://example.com';
 	}
 	/**
-	 * Tests psShortUrl->__construct()
+	 * Tests ShortUrl->__construct()
 	 */
 	public function test__construct ()
 	{
-		// TODO Auto-generated psShortUrlTest->test__construct()
+		// TODO Auto-generated ShortUrlTest->test__construct()
 		$this->markTestIncomplete("__construct test not implemented");
-		$this->psShortUrl->__construct(/* parameters */);
+		$this->ShortUrl->__construct(/* parameters */);
 	}
-}
+	
+	
+	public function testGetShortUrl()
+	{
+		$short_url = $this->ShortUrl->getShortUrl($this->url);
+		$this->assertEquals($this->url, $short_url); // make sure we get something back
+		// var_dump($short_url);die;
+	}
+	
+	
+	
+} // END: ShortUrlTest{}
 

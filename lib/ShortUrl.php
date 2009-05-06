@@ -90,7 +90,7 @@ class ShortUrlFactory
  * short Url base class
  *
  */
-abstract class ShortUrl implements iShortUrl
+class ShortUrl implements iShortUrl
 {
 	// API constants
 	const		API_VERSION = '1.0';
@@ -102,7 +102,7 @@ abstract class ShortUrl implements iShortUrl
 	protected 	$class = __CLASS__; // hack for getting subclass name back to parent class
 
 	// must be implemented in subclass
-	// abstract public function getShortUrl($url);
+	// abstract private function _getShortUrl($url);
 
 	/**
 	 * generic for basic interface restrictions
@@ -110,7 +110,7 @@ abstract class ShortUrl implements iShortUrl
 	 * @param unknown_type $url
 	 * @return unknown
 	 */
-	public function exampleGetShortUrl($url)
+	public function getShortUrl($url)
 	{
 		$this->url = $url;
 		if ( ! $short_url =  $this->cacheGetUrl($url) ) {

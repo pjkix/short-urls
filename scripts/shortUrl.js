@@ -56,16 +56,26 @@ var PK_ShortUrl = {
 	{
 		// extract href ... decode url ... replace link if not already short
 		console.log(a.href);
-		var string, url;
+		var string, url, rxp;
 		// string = unescape(a.href);
 		string = decodeURIComponent(a.href);
 		console.log(string);
 		// url = string.replace(/\+(http:\/\/.*[^ ])/g, this.getShortUrl("$1") );
-		matches = string.match( /\+(http:\/\/.*[^\+])/ );
-		console.log(matches);
+		// var str = 'http://twitter.com/home/?status=fooo+http://tinyurl.com/cy473x+(via+@tweetmeme)'; str.replace(/\+http:\/\/[a-z1-9./]+[^+]/i,'+http://bit.ly/MOFO!');
+		rxp =  /\+(http:\/\/[a-z1-9.\/]+[^\+])/;
+		// string = string.replace( rxp, "do it to this $1 mofo!" );
+		string = string.replace( rxp, this.replacer);
+		// matches = string.match( /\+http:\/\/[a-z1-9.\/]+[^+]/i );
+		console.log(string, encodeURIComponent(string) );
 		
-		// var str = 'http://twitter.com/home/?status=fooo+http://tinyurl.com/cy473x+(via+@tweetmeme)'; str.replace(/\+http:\/\/*[^\+]/,'http://bit.ly/MOFO!');
 	},
+	
+	replacer : function ( str, p1, p2, offset, s )
+	{
+		console.log('REPLACER!!', str);
+	  return '+SHORTED!'; // .this don't work
+	},
+	
 	
 	checkLink : function (url)
 	{	console.log(url);

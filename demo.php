@@ -83,13 +83,31 @@ $services = ShortUrlFactory::getUrlServices();
 
 		</style>
 		<script src="scripts/shortUrl.js" type="text/javascript" charset="utf-8">/*JS Lib*/</script>
+		<script type="text/javascript" charset="utf-8" src="http://bit.ly/javascript-api.js?version=latest&amp;login=bitlyapidemo&amp;apiKey=R_0da49e0a9118ff35f52f629d2d71bf07"></script>
 		<script type="text/javascript" charset="utf-8">
 			// do it
 
 			// hijack form, call json request
+
+			// bit.ly client api
+			// @see http://code.google.com/p/bitly-api/wiki/JavascriptClientApiDocumentation
+			BitlyCB.alertResponse = function(data) {
+					var s = '';
+					var first_result;
+					// Results are keyed by longUrl, so we need to grab the first one.
+					for		(var r in data.results) {
+							first_result = data.results[r]; break;
+					}
+					for (var key in first_result) {
+							s += key + ":" + first_result[key].toString() + "\n";
+					}
+					alert(s);
+			}
+
 		</script>
 	</head>
 	<body id="demo-page" class="demo" onload="">
+		<noscript><p class="notice">this site works better with js</p></noscript>
 		<div id="wrapper">
 			<div id="header">
 				<h1>Demo page</h1>
@@ -108,7 +126,10 @@ $services = ShortUrlFactory::getUrlServices();
 				<p>Twitter Example:
 					<a href="http://twitter.com/home/?status=RT+%40%40pjkix+PJ+Kix+%3E+Hi-tek+%2F+Lo-life+%C2%BB+installing+drizzle+db+on+os+x+http%3A%2F%2Ftinyurl.com%2Fcy473x+%28via+%40tweetmeme%29" class="twitter">twitter</a></p>
 
-
+					<script type="text/javascript" charset="utf-8">
+					// bitly api client
+						// BitlyClient.call('shorten', {'longUrl': 'http://example.com'}, 'BitlyCB.alertResponse');
+					</script>
 
 				<form action="?debug=true" method="get" accept-charset="utf-8">
 					<fieldset id="options" class="">

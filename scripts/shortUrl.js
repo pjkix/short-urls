@@ -27,10 +27,11 @@ var PK_ShortUrl = {
 	{
 		var links = [], i = 0;
 		console.log('ShortUrl script enabled!');
-		links = PK_ShortUrl.findTweetLinks();
+		links = this.findTweetLinks();
 		// loop over links and twitify the suburl then replace them
 		for (i = 0; i < links.length; i = i + 1) {
 			console.log(links[i]);
+			this.parseLink(links[i]);
 		}
 
 	},
@@ -54,17 +55,33 @@ var PK_ShortUrl = {
 	parseLink : function (a)
 	{
 		// extract href ... decode url ... replace link if not already short
+		console.log(a.href);
+		var string, url;
+		// string = unescape(a.href);
+		string = decodeURIComponent(a.href);
+		console.log(string);
+		// url = string.replace(/\+(http:\/\/.*[^ ])/g, this.getShortUrl("$1") );
+		matches = string.match( /\+(http:\/\/.*[^\+])/ );
+		console.log(matches);
+		
+		// var str = 'http://twitter.com/home/?status=fooo+http://tinyurl.com/cy473x+(via+@tweetmeme)'; str.replace(/\+http:\/\/*[^\+]/,'http://bit.ly/MOFO!');
 	},
 	
 	checkLink : function (url)
-	{
-		// make sure link is not already too short
+	{	console.log(url);
+		// make sure link is not already short
+		return url.match(/http:\/\/bit.ly\/.*/i);
 	},
 
 	// shorten links
 	getShortUrl : function (url)
 	{
-		// get the short version of the url
+		// check link then get short
+		if (this.checkLink(url) ) {
+			// get the short version of the url
+			return this.getRequest('http://bit.ly/shorten?url=' + url);
+		}
+		
 	},
 
 	// ajax
@@ -78,13 +95,31 @@ var PK_ShortUrl = {
 				cb(xhr.responseText); 
 			}
 		});
+	},
+	
+	callback : function (resp) 
+	{
+		// 
+	}, 
+	
+	// workaround IE
+	addEvent : function (el, ev, fn)
+	{
+		if (el.addEventListener) {
+		  el.addEventListener(ev, fn, false); 
+		} else if ( el.attachEvent ) {
+		  el.attachEvent('on' + ev, fn);
+		}
+		
 	}
 
 };
 
 // run
 // PK_ShortUrl.init(); // <-- works with this.foo
-window.addEventListener("load", PK_ShortUrl.init, false); // <-- this.foo is undefined 
+// window.addEventListener("load", PK_ShortUrl.init, false); // <-- this.foo is undefined 
+// window.addEventListener("load", function(e) { PK_ShortUrl.init(e); }, false); // <-- this.foo works
+PK_ShortUrl.addEvent(window, "load", function(e) { PK_ShortUrl.init(e); }); // <-- this.foo works
 
 
 // function doLoad(){

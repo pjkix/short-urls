@@ -111,7 +111,7 @@ class Debug
 		$user_globs = $this->get_user_globals();
 		echo 'USER GLOBALS: ' . count($user_globs);
 		foreach ($user_globs as $glob => $val) {
-			echo ' , ' . $glob .'=>'. $val ;
+			echo ' , ' . $glob .'=>'. gettype($val) ;
 		}
 		var_dump( $user_globs );
 	}

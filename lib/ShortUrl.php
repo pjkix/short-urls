@@ -132,6 +132,7 @@ class ShortUrl implements iShortUrl
 	 */
 	public function cacheSetUrl($url, $data, $expiry = null)
 	{
+		if (!class_exists('Memcache')) return false;
 		if (!$expiry) $expiry = $this->cache_time;
 		require_once dirname(__FILE__) . '/memcache.class.php';
 		$cache_name = $this->class .'-'.md5($url);
@@ -147,6 +148,7 @@ class ShortUrl implements iShortUrl
 	 */
 	protected function cacheGetUrl($url)
 	{
+		if (!class_exists('Memcache')) return false;
 		require_once dirname(__FILE__) . '/memcache.class.php';
 		cacheMemcache::connect( array( array('localhost' => 11211) ) ); // normally this is done in the configs
 		$cache_name = $this->class . '-' . md5($url);

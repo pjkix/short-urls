@@ -111,7 +111,7 @@ class Debug
 		$user_globs = $this->get_user_globals();
 		echo 'USER GLOBALS: ' . count($user_globs);
 		foreach ($user_globs as $glob => $val) {
-			echo ' , ' . $glob ;
+			echo ' , ' . $glob .'=>'. $val ;
 		}
 		var_dump( $user_globs );
 	}
@@ -141,8 +141,8 @@ class Timer extends Debug
 
 	function __autoload($class)
 	{
-	  $filename = str_replace('_', DIRECTORY_SEPARATOR , $class) . '.php';
-	  @require_once $filename;
+		$filename = str_replace('_', DIRECTORY_SEPARATOR , $class) . '.php';
+		@require_once $filename;
 	}
 
 }

@@ -69,11 +69,11 @@ class cacheMemcache
 	 */
 	static function connect( $user_pool = false, $user_prefix = false )
 	{
-		self::$memcache = new Memcache; // PHP Standard Lib
+		self::$memcache = new Memcache; // PHP Extension Lib
 
 		// The Config class not existing should throw fatal for us making the coder go to this line.
 		// Coder, if you are reading this, pass your array of memcache servers when using cacheMemcache::connect() :)
-		$servers = is_array($user_pool) ? $user_pool : Config::get('memcache_servers');
+		$servers = is_array($user_pool) ? $user_pool : null; // removing config refs
 
 		foreach ((array)$servers as $memcache_server)
 		{
@@ -89,10 +89,7 @@ class cacheMemcache
 		{
 			self::$prefix =	$user_prefix;
 		}
-		else if (class_exists('Config') && (Config::get('memcache_use_prefix', false)))
-		{
-			self::$prefix = Pdn_Url::productToDomain('us') . '_';
-		}
+
 	}
 
 	// Not really needed
@@ -138,7 +135,7 @@ class cacheMemcache
 	 * jobs that instantiate many objects and would otherwise max out memory.
 	 */
 	public static function setThinMode($mode=true) {
-		self::$thin_mode = ($mode === true || $mode === false) ? $mode : false;
+		self::$thin_mode = ($mode === true || $mode === false) ? $mode : false; // uhhh ... is_bool()?
 	}
 
 	/**
@@ -370,13 +367,10 @@ class cacheMemcache
 	 */
 	static function append($key,$value)
 	{
-		return false; // TMP: for now
-		/*
 		$key = self::$prefix . $key;
 		self::$debug_counters['append']++;
 		//self::$cached[$key] .= $value;
 		return self::$memcache->append($key,$value);
-		*/
 	}
 
 	/**

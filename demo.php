@@ -45,6 +45,7 @@ if ( isset($_GET['service']) ) $service = $_GET['service'];
 
 if ( isset($_GET['json']) ) {
 	// do json stuff here ...
+	return json_encode(array('woot'=>'json!'));
 }
 
 $myShortUrl = ShortUrlFactory::getUrlService($service);
@@ -166,6 +167,12 @@ $services = ShortUrlFactory::getUrlServices();
 		$debug->check_all_mem();
 		$debug->dump_user_globals();
 		$debug->dump_includes();
+
+		// FIRE PHP for FIREBUG
+//		FB::log('Log message');
+//		FB::info('Info message');
+//		FB::warn('Warn message');
+//		FB::error('Error message');
 	}
 	//*/
 ?>

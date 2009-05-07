@@ -82,6 +82,7 @@ class ShortUrlFactory
 	/// do autoloading of subclasses??
 	public function __autoload($name){
 		// do autoloading
+		error_log('CLASS NOT FOUND: ' . $name);
 	}
 
 } // END: shortUrlFactory{}
@@ -212,9 +213,9 @@ class ShortUrl implements iShortUrl
  */
 class ShortUrlException extends Exception
 {
-	
+
 	// try and handle errors here ...
-	
+
 } // END: shortUrlException{}
 
 ?>

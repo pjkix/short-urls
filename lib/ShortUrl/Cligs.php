@@ -39,7 +39,7 @@ class ShortUrl_Cligs extends ShortUrl
 		$this->url = $url;
 		$api_key = $this->api_key;
 		$app_id = self::API_CLIENT;
-		$title = 'test-app'; // this should be the link title
+		$this->title = $title; // this should be the link title
 
 		$api_url = 'http://cli.gs/api/v1/cligs/create?url=%s&title=%s&key=%s&appid=%s';
 		$api_call = sprintf($api_url, $url, $title, $api_key, $app_id);

@@ -7,23 +7,29 @@
  * @version $Id:$
  */
 
-// js lint (recommended)
-/*jslint eqeqeq: true, immed: true, newcap: true, nomen: true, undef: true, white: true, indent: 4*/
+/*jslint
+	bitwise: true, browser: true, eqeqeq: true, immed: true, newcap: true, nomen: true, onevar: true, plusplus: true, regexp: true, undef: true, white: true, indent: 4
+*/
 
-// js lint (good parts)
-/*jslint bitwise: true, eqeqeq: true, immed: true, newcap: true, nomen: true, onevar: true, plusplus: true, regexp: true, undef: true, white: true, indent: 4*/
+/*extern jQuery */
+/*global PK_ShortUrl, console, window, xmlhttpRequest*/
+/*members addEventListener, checkLink, findTweetLinks, 
+    getElementsByTagName, getRequest, getShortUrl, href, init, length, 
+    links, log, match, method, onload, parseLink, push, responseText, url
+*/
 
 // object wrapper
 var PK_ShortUrl = {
 	links : '',
 
-	// that should do it ...
+	// set it off
 	init : function ()
 	{
+		var links = [], i = 0;
 		console.log('ShortUrl script enabled!');
-		var links = PK_ShortUrl.findTweetLinks();
+		links = PK_ShortUrl.findTweetLinks();
 		// loop over links and twitify the suburl then replace them
-		for (var i = 0; i < links.length; i++) {
+		for (i = 0; i < links.length; i = i + 1) {
 			console.log(links[i]);
 		}
 
@@ -36,7 +42,7 @@ var PK_ShortUrl = {
 		var twitLinks = [], links = null, i = 0;
 		if (document.getElementsByTagName) { // can we execute
 			links = document.getElementsByTagName("A"); // get all links
-			for (i = 0; i < links.length; i++) { // loop
+			for (i = 0; i < links.length; i = i + 1) { // loop
 				if (links[i].href.match("http://twitter.com/*")) { // only links we want
 					twitLinks.push(links[i]); // save to list
 				}
@@ -62,19 +68,23 @@ var PK_ShortUrl = {
 	},
 
 	// ajax
-	getRequest : function (url, cb) {
-	  xmlhttpRequest({
-	    method: "GET",
-	     url: url,
-	     onload: function(xhr) { cb(xhr.responseText); }
-	  });
+	getRequest : function (url, cb) 
+	{
+		xmlhttpRequest({
+			method: "GET",
+			url: url,
+			onload: function (xhr) 
+			{ 
+				cb(xhr.responseText); 
+			}
+		});
 	}
 
 };
 
 // run
 // PK_ShortUrl.init(); // <-- works with this.foo
-window.addEventListener ("load", PK_ShortUrl.init, false); // <-- this.foo is undefined 
+window.addEventListener("load", PK_ShortUrl.init, false); // <-- this.foo is undefined 
 
 
 // function doLoad(){
@@ -92,17 +102,4 @@ window.addEventListener ("load", PK_ShortUrl.init, false); // <-- this.foo is un
 // {
 //  console.log('ANON!');
 // })();
-
-// debug script from firebug ... 
-// function a() {return a.caller.toString().replace(/([\s\S]*?return;){2}([\s\S]*)}/,'$2');}
-// document.body.appendChild(document.createElement('script')).innerHTML=a();
-// return;
-
-
-// menu
-// makeMenuToggle("linkify_emails", true, "Include e-mail addresses", "Exclude e-mail addresses", "Linkify");
-// 
-// if (linkify_emails)
-//   process_emails_too();
-
 

@@ -62,7 +62,7 @@ class ShortUrl_Bitly extends ShortUrl
 		$short_url = $result_array['results'][$url]['shortUrl'];
 		return $short_url;
 		} else {
-			return false;
+//			return false;
 			throw new ShortUrl_BitlyException("ERROR BAD RESPONSE FROM BIT.LY");
 		}
 	}

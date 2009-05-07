@@ -1,6 +1,10 @@
 CHANGELOG
 =========
 
+v.0.9.0
+	- adding changes from work
+	- adding js support
+	- testing twitter support
 v.0.8.5
 	- re-factor using PEAR/Zend naming conventions
 v.0.8.0
@@ -15,3 +19,4 @@ v.0.5.0
 	- got some libs together , doing some cleanup and re-factoring
 v.0.0.1
 	- getting started on new short url libs
+

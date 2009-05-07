@@ -31,6 +31,7 @@ require_once('./lib/ShortUrl.php');
 $url = 'http://example.com/';
 $short_url = null;
 $service = ShortUrlFactory::TINY_URL;
+$msg = 'Check out this really cool link ';
 
 // debug caching
 // $myTestUrl = new ShortUrl();
@@ -52,7 +53,7 @@ $short_url = $myShortUrl->getShortUrl($url); // maybe ditch this and make static
 // list of services?
 $services = ShortUrlFactory::getUrlServices();
 
-// call sub lib directly with out invoke? 
+// call sub lib directly with out invoke?
 // echo ShortUrl_TinyUrl::getShortUrl($url);
 
 
@@ -80,6 +81,7 @@ $services = ShortUrlFactory::getUrlServices();
 			a img {border:none;}
 
 		</style>
+		<script src="scripts/shortUrl.js" type="text/javascript" charset="utf-8">/*JS Lib*/</script>
 		<script type="text/javascript" charset="utf-8">
 			// do it
 
@@ -99,6 +101,14 @@ $services = ShortUrlFactory::getUrlServices();
 
 				<p>Short URL: <?php printf('<a href="%1$s">%1$s</a>', $short_url) ; ?></p>
 
+				<p>Twitter Link:
+					<?php printf('<a href="http://twitter.com/home/?status=%s" class="twitter">twitter</a>', urlencode($msg . $url) ) ; ?></p>
+
+				<p>Twitter Example:
+					<a href="http://twitter.com/home/?status=RT+%40%40pjkix+PJ+Kix+%3E+Hi-tek+%2F+Lo-life+%C2%BB+installing+drizzle+db+on+os+x+http%3A%2F%2Ftinyurl.com%2Fcy473x+%28via+%40tweetmeme%29" class="twitter">twitter</a></p>
+
+
+
 				<form action="?debug=true" method="get" accept-charset="utf-8">
 					<fieldset id="options" class="">
 						<legend>options</legend>
@@ -110,17 +120,35 @@ $services = ShortUrlFactory::getUrlServices();
 							<option value="<?php echo ShortUrlFactory::TINY_URL ?>" <?php if (ShortUrlFactory::TINY_URL == $service) echo " selected " ?> >tinyurl</option>
 							<option value="<?php echo ShortUrlFactory::CLIGS_URL ?>" <?php if (ShortUrlFactory::CLIGS_URL == $service) echo " selected " ?> >cli.gs</option>
 							<option value="<?php echo ShortUrlFactory::BITLY_URL ?>" <?php if (ShortUrlFactory::BITLY_URL == $service) echo " selected " ?> >bit.ly</option>
+							<option value="<?php echo ShortUrlFactory::TRIM_URL ?>" <?php if (ShortUrlFactory::TRIM_URL == $service) echo " selected " ?> >tr.im</option>
+							<option value="<?php echo ShortUrlFactory::ISGD_URL ?>" <?php if (ShortUrlFactory::ISGD_URL == $service) echo " selected " ?> >is.gd</option>
 
 							<?php foreach ($services as $service => $name) : ?>
 							<!-- <option value="<?php echo $service?>"><?php echo _($name) ?></option> -->
 							<?php endforeach; ?>
 
 						</select>
-
 					</fieldset>
 
 					<p><input type="submit" value="Continue &rarr;"/></p>
 				</form>
+
+				<h2>Twitter Client</h2>
+				<form action="?debug=true" method="post" accept-charset="utf-8">
+					<fieldset id="login" class="">
+						<legend>login</legend>
+						<label for="user">user</label><input type="text" name="user" value="username" id="user"/>
+						<label for="pass"></label><input type="password" name="pass" value="pass" id="pass"/>
+					</fieldset>
+
+					<fieldset id="message" class="">
+						<legend>message</legend>
+						<textarea name="tweet" rows="8" cols="40">tweet this!</textarea>
+					</fieldset>
+
+					<p><input type="submit" value="Continue &rarr;"/></p>
+				</form>
+
 
 			</div><!-- /#content -->
 

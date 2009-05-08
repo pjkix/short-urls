@@ -102,7 +102,7 @@ $services = ShortUrlFactory::getUrlServices();
 							s += key + ":" + first_result[key].toString() + "\n";
 					}
 					alert(s);
-			}
+			};
 
 		</script>
 	</head>
@@ -134,7 +134,7 @@ $services = ShortUrlFactory::getUrlServices();
 
 					<script type="text/javascript" charset="utf-8">
 					// bitly api client
-						// BitlyClient.call('shorten', {'longUrl': 'http://example.com'}, 'BitlyCB.alertResponse');
+						 BitlyClient.call('shorten', {'longUrl': 'http://example.com', 'longUrl' : 'http://localhost'}, 'BitlyCB.alertResponse');
 					</script>
 
 				<form action="?debug=true" method="get" accept-charset="utf-8">

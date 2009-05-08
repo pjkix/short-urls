@@ -21,6 +21,7 @@
 // object wrapper
 var PK_ShortUrl = {
 	links : [], // saved list of links
+	short_url : '',
 
 	// set it off
 	init : function ()
@@ -33,7 +34,8 @@ var PK_ShortUrl = {
 			console.log(links[i]);
 			this.parseLink(links[i]);
 		}
-
+		// load bitly stats
+		BitlyClient.loadModules(['stats'], 'PK_ShortUrl.statscallback');
 	},
 	
 	// get a list of links
@@ -108,24 +110,47 @@ var PK_ShortUrl = {
 	// shorten links
 	getShortUrl : function (url)
 	{
+		if (!BitlyClient) return url; // we need the client to work
 		// check link then get short
 		if (this.checkLink(url)) {
 			// get the short version of the url
 			// load up bitly client, shorten
 			// Login: pjkix API Key: R_b2eb72dfa186b64f23dbef1fa32f7f61 
 			console.log('ABOUT TO SHORTEN: ', url)
-//			BitlyClient.call('shorten', {'longUrl': url}, 'BitlyCB.alertResponse');
-			
-			return 'BITLY!'; 
+			var short_url = BitlyClient.call('shorten', {'longUrl': url}, 'PK_ShortUrl.callback');
+//			var short_url = 'BITLY!!!';
+			console.log('GOT SHORT URL', short_url);
+			return short_url; 
+		} else {
+			return url;
 		}
 		
 	},
 	
 	// handle bitly response
-	callback : function (response) {
-		
+	callback : function (data) {
+		// @see http://code.google.com/p/bitly-api/wiki/JavascriptClientApiDocumentation
+		var s = '';
+		var first_result;
+		// Results are keyed by longUrl, so we need to grab the first one.
+		for		(var r in data.results) {
+				first_result = data.results[r]; break;
+		}
+		for (var key in first_result) {
+				s += key + ":" + first_result[key].toString() + "\n";
+				
+		}
+		console.log(s);
+		console.log(first_result.shortUrl.toString());
+//		return first_result.shortUrl.toString(); // this gets returned as undefined?? waiting for response
+		this.short_url = first_result.shortUrl.toString();
+		return;
 	}, 
-
+	
+	statscallback : function () {
+		BitlyClient.addStatsToBitlyLinks(); // method defined in BitlyClient stats module
+	},
+	
 	// cross browser event
 	addEvent : function (el, ev, fn)
 	{
@@ -137,7 +162,12 @@ var PK_ShortUrl = {
 		
 	}
 
-};
+}; // END: PK_ShortUrl{}
+
+// generic closure maker
+function bind(toObject, methodName){
+    return function(){toObject[methodName]()}
+}
 
 // run
 PK_ShortUrl.addEvent(window, "load", function (e) { 

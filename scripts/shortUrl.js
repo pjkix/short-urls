@@ -13,14 +13,14 @@
 
 /*extern jQuery */
 /*global PK_ShortUrl, console, window, xmlhttpRequest*/
-/*members addEventListener, checkLink, findTweetLinks, 
-    getElementsByTagName, getRequest, getShortUrl, href, init, length, 
-    links, log, match, method, onload, parseLink, push, responseText, url
+/*members addEvent, addEventListener, attachEvent, checkLink, 
+    findTweetLinks, getElementsByTagName, getShortUrl, href, init, join, 
+    length, links, log, match, parseLink, push, replace, replacer, split
 */
 
 // object wrapper
 var PK_ShortUrl = {
-	links : '',
+	links : [], // saved list of links
 
 	// set it off
 	init : function ()
@@ -52,73 +52,87 @@ var PK_ShortUrl = {
 		return twitLinks;
 	},
 	
+	// extract href ... decode url ... replace link if not already short
 	parseLink : function (a)
 	{
-		// extract href ... decode url ... replace link if not already short
-		console.log(a.href);
-		var string, url, rxp;
-		// string = unescape(a.href);
-		string = decodeURIComponent(a.href);
-		console.log(string);
-		// url = string.replace(/\+(http:\/\/.*[^ ])/g, this.getShortUrl("$1") );
-		// var str = 'http://twitter.com/home/?status=fooo+http://tinyurl.com/cy473x+(via+@tweetmeme)'; str.replace(/\+http:\/\/[a-z1-9./]+[^+]/i,'+http://bit.ly/MOFO!');
-		rxp =  /\+(http:\/\/[a-z1-9.\/]+[^\+])/;
-		// string = string.replace( rxp, "do it to this $1 mofo!" );
-		string = string.replace( rxp, this.replacer);
-		// matches = string.match( /\+http:\/\/[a-z1-9.\/]+[^+]/i );
-		console.log(string, encodeURIComponent(string) );
-		
+		var new_string, status, rx, pieces;
+		// split the string to base and status ... then only parse the status for links
+		pieces = a.href.split('='); // only want 2 pieces?
+		// do we really need to shorten?
+		if (pieces[1].length < 140) {
+			console.log('string should be ok for twitter');
+		}
+		// work on just the status part
+		status = decodeURIComponent(pieces[1]);
+		rx =  /\+(http:\/\/[^\+]+)/;
+		status = status.replace(rx, this.replacer);
+		console.log('NEW STATUS', status);
+		pieces[1] = encodeURIComponent(status);
+		// put the pieces back together .. 
+		new_string = pieces.join('=');
+		// put it back in the link
+		a.href = new_string;
+		a.className += ' shorted '; // just testing
+		a.style.color = '#F00';
+		a.style.backgroundColor = '#FF0';
 	},
 	
-	replacer : function ( str, p1, p2, offset, s )
+	// replace long url for short one
+	replacer : function (str, p1, p2, offset, s)
 	{
-		console.log('REPLACER!!', str);
-	  return '+SHORTED!'; // .this don't work
+		console.log('REPLACER!!');
+		console.log(str, p1, p2, offset, s);
+//		return this.getShortUrl(str);// .this don't work
+		return '+' + PK_ShortUrl.getShortUrl(p1);
+//		return '+SHORTED!'; 
 	},
 	
 	
+	// make sure link is not already short
 	checkLink : function (url)
-	{	console.log(url);
-		// make sure link is not already short
-		return url.match(/http:\/\/bit.ly\/.*/i);
+	{
+		console.log(url);
+		var shorteners = ['tinyurl.com', 'bit.ly', 'cli.gs', 'tr.im', 'is.gd']; // add more shortners here
+		
+		for (var i = 0; i < shorteners.length; i++) { // loop check shortners
+			if (url.match(shorteners[i])) {
+				console.log('ALREADY SHORT!');
+				return false;
+			} else {
+				return true;
+			}
+		}
+
 	},
 
 	// shorten links
 	getShortUrl : function (url)
 	{
 		// check link then get short
-		if (this.checkLink(url) ) {
+		if (this.checkLink(url)) {
 			// get the short version of the url
-			return this.getRequest('http://bit.ly/shorten?url=' + url);
+			// load up bitly client, shorten
+			// Login: pjkix API Key: R_b2eb72dfa186b64f23dbef1fa32f7f61 
+			console.log('ABOUT TO SHORTEN: ', url)
+//			BitlyClient.call('shorten', {'longUrl': url}, 'BitlyCB.alertResponse');
+			
+			return 'BITLY!'; 
 		}
 		
 	},
-
-	// ajax
-	getRequest : function (url, cb) 
-	{
-		xmlhttpRequest({
-			method: "GET",
-			url: url,
-			onload: function (xhr) 
-			{ 
-				cb(xhr.responseText); 
-			}
-		});
-	},
 	
-	callback : function (resp) 
-	{
-		// 
+	// handle bitly response
+	callback : function (response) {
+		
 	}, 
-	
-	// workaround IE
+
+	// cross browser event
 	addEvent : function (el, ev, fn)
 	{
 		if (el.addEventListener) {
-		  el.addEventListener(ev, fn, false); 
-		} else if ( el.attachEvent ) {
-		  el.attachEvent('on' + ev, fn);
+			el.addEventListener(ev, fn, false); 
+		} else if (el.attachEvent) {
+			el.attachEvent('on' + ev, fn);
 		}
 		
 	}
@@ -126,25 +140,7 @@ var PK_ShortUrl = {
 };
 
 // run
-// PK_ShortUrl.init(); // <-- works with this.foo
-// window.addEventListener("load", PK_ShortUrl.init, false); // <-- this.foo is undefined 
-// window.addEventListener("load", function(e) { PK_ShortUrl.init(e); }, false); // <-- this.foo works
-PK_ShortUrl.addEvent(window, "load", function(e) { PK_ShortUrl.init(e); }); // <-- this.foo works
-
-
-// function doLoad(){
-// 	console.log('PAGE LOADED!');
-// }
-// function doDOM(){
-// 	console.log('DOM LOADED!');
-// }
-// window.addEventListener ("load", doLoad, false);
-// window.addEventListener ("DOMContentLoaded", doDOM, false);
-
-
-// anon func ... 
-// (function()
-// {
-//  console.log('ANON!');
-// })();
+PK_ShortUrl.addEvent(window, "load", function (e) { 
+	PK_ShortUrl.init(e); 
+});
 

@@ -83,7 +83,7 @@ $services = ShortUrlFactory::getUrlServices();
 
 		</style>
 		<script src="scripts/shortUrl.js" type="text/javascript" charset="utf-8">/*JS Lib*/</script>
-		<script type="text/javascript" charset="utf-8" src="http://bit.ly/javascript-api.js?version=latest&amp;login=bitlyapidemo&amp;apiKey=R_0da49e0a9118ff35f52f629d2d71bf07"></script>
+		<script type="text/javascript" charset="utf-8" src="http://bit.ly/javascript-api.js?version=latest&amp;login=pjkix&amp;apiKey=R_b2eb72dfa186b64f23dbef1fa32f7f61"></script>
 		<script type="text/javascript" charset="utf-8">
 			// do it
 
@@ -123,7 +123,13 @@ $services = ShortUrlFactory::getUrlServices();
 				<p>Twitter Link:
 					<?php printf('<a href="http://twitter.com/home/?status=%s" class="twitter">twitter</a>', urlencode($msg . $url) ) ; ?></p>
 
-				<p>Twitter Example:
+				<p>Twitter Link with params:
+					<?php printf('<a href="http://twitter.com/home/?status=%s" class="twitter">twitter</a>', urlencode($msg . $url . '?foo=bar&baz=blah') ) ; ?></p>
+
+				<p>Twitter Link preshortened:
+					<?php printf('<a href="http://twitter.com/home/?status=%s" class="twitter">twitter</a>', urlencode($msg . $short_url) ) ; ?></p>
+
+				<p>Twitter Example: (preshortend with link in middle)
 					<a href="http://twitter.com/home/?status=RT+%40%40pjkix+PJ+Kix+%3E+Hi-tek+%2F+Lo-life+%C2%BB+installing+drizzle+db+on+os+x+http%3A%2F%2Ftinyurl.com%2Fcy473x+%28via+%40tweetmeme%29" class="twitter">twitter</a></p>
 
 					<script type="text/javascript" charset="utf-8">

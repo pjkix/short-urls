@@ -8,7 +8,7 @@
  * @copyright	2009 pjk
  * @license		(cc) some rights reserved
  * @version		$Id:$
- * @todo clean up, abstract,  add caching
+ * @todo simplify / streamline
  */
 
 /**
@@ -92,6 +92,13 @@ class ShortUrlFactory
 	public function __construct()
 	{
 		$this->serives = $this->getUrlServices();
+	}
+
+	// might not be a good idea?
+	function __autoload($class)
+	{
+		$filename = str_replace('_', DIRECTORY_SEPARATOR , $class) . '.php';
+		@require_once $filename;
 	}
 
 

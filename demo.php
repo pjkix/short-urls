@@ -14,7 +14,7 @@
  * @see			ShortUrl, ShortUrlFactory::getUrlService()
  * @since		Class available since Release 1.2.0
  * @deprecated	Class deprecated in Release 2.0.0
- * @todo		make it work
+ * @todo		make the service looping and js work
  */
 
 //* debug and coding pain threshold ;)
@@ -115,6 +115,7 @@ ob_start();// for firephp
 		<div id="wrapper">
 			<div id="header">
 				<h1>Demo page</h1>
+				<p><a href="?debug">reset debug</a></p>
 			</div><!-- /#header -->
 
 			<div id="content">

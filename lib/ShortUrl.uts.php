@@ -8,8 +8,7 @@
  * @copyright	2009 pjk
  * @license		(cc) some rights reserved
  * @version		$Id:$
- * @todo make it work
- * @example tinyurl should return "http://tinyurl.com/kotu" for the url "http://example.com/"
+ * @todo make it work with all subclasses
  */
 
 /**
@@ -30,6 +29,7 @@ class ShortUrlSuite extends PHPUnit_Framework_TestSuite
 	{
 		$this->setName('ShortUrlSuite');
 		$this->addTestSuite('ShortUrlTest');
+		$this->addTestSuite('ShortUrlFactoryTest');
 	}
 	/**
 	 * Creates the suite.

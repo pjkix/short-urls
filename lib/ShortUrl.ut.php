@@ -67,3 +67,67 @@ class ShortUrlTest extends PHPUnit_Framework_TestCase
 
 } // END: ShortUrlTest{}
 
+
+/**
+ * ShortUrlFactory test case.
+ */
+class ShortUrlFactoryTest extends PHPUnit_Framework_TestCase
+{
+	/**
+	 * @var ShortUrlFactory
+	 */
+	private $ShortUrlFactory;
+	/**
+	 * Prepares the environment before running a test.
+	 */
+	protected function setUp ()
+	{
+		parent::setUp();
+		// TODO Auto-generated ShortUrlFactoryTest::setUp()
+		$this->ShortUrlFactory = new ShortUrlFactory(/* parameters */);
+	}
+	/**
+	 * Cleans up the environment after running a test.
+	 */
+	protected function tearDown ()
+	{
+		// TODO Auto-generated ShortUrlFactoryTest::tearDown()
+		$this->ShortUrlFactory = null;
+		parent::tearDown();
+	}
+	/**
+	 * Constructs the test case.
+	 */
+	public function __construct ()
+	{	// TODO Auto-generated constructor
+	}
+	/**
+	 * Tests ShortUrlFactory->__construct()
+	 */
+	public function test__construct ()
+	{
+		// TODO Auto-generated ShortUrlFactoryTest->test__construct()
+		$this->markTestIncomplete("__construct test not implemented");
+		$this->ShortUrlFactory->__construct(/* parameters */);
+	}
+	/**
+	 * Tests ShortUrlFactory::getUrlService()
+	 */
+	public function testGetUrlService ()
+	{
+		// TODO Auto-generated ShortUrlFactoryTest::testGetUrlService()
+		$this->markTestIncomplete("getUrlService test not implemented");
+		ShortUrlFactory::getUrlService(/* parameters */);
+	}
+	/**
+	 * Tests ShortUrlFactory::getUrlServices()
+	 */
+	public function testGetUrlServices ()
+	{
+		// TODO Auto-generated ShortUrlFactoryTest::testGetUrlServices()
+		$this->markTestIncomplete("getUrlServices test not implemented");
+		ShortUrlFactory::getUrlServices(/* parameters */);
+	}
+}
+
+

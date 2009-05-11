@@ -15,7 +15,7 @@
  * required files and libs
  */
 require_once 'PHPUnit/Framework/TestSuite.php';
-require_once 'ShortUrlTest.php';
+require_once dirname(__FILE__) .'/../lib/ShortUrlTest.php';
 
 /**
  * Static test suite.

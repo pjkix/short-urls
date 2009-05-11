@@ -61,7 +61,7 @@ class ShortUrlTest extends PHPUnit_Framework_TestCase
 	/**
 	 * tests the main function
 	 *
-	 * @dataProvider provider
+	 * @dataProvider urlProvider
 	 */
 	public function testGetShortUrl ()
 	{
@@ -75,7 +75,7 @@ class ShortUrlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return array	url test data
 	 */
-	public function provider () {
+	public function urlProvider () {
 		return array(
 			array('http://example.com/', 'http://tinyurl.com/kotu'),
 			array('bogus-string', false),

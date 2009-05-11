@@ -1,0 +1,23 @@
+<phpunit bootstrap="./phpunit-bootstrap.php">
+	<testsuite name="ShortUrl Test Suite">
+		<directory>./</directory>
+	</testsuite>
+
+	<filter>
+		<whitelist>
+			<directory suffix=".php">../lib/</directory>
+			<directory suffix=".php">../scripts/</directory>
+			<exclude>
+				<directory suffix=".phtml">./</directory>
+			</exclude>
+		</whitelist>
+	</filter>
+
+
+	<logging>
+		<log type="coverage-html" target="./report" charset="UTF-8"
+			yui="true" highlight="true"
+			lowUpperBound="50" highLowerBound="80"/>
+		<log type="testdox-html" target="./testdox.html" />
+	</logging>
+</phpunit>

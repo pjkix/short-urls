@@ -28,14 +28,14 @@ var PK_ShortUrl = {
 	{
 		var links = [], i = 0;
 		console.log('ShortUrl script enabled!');
-		links = this.findTweetLinks();
+		this.links = this.findTweetLinks();
 		// loop over links and twitify the suburl then replace them
-		for (i = 0; i < links.length; i = i + 1) {
-			console.log(links[i]);
-			this.parseLink(links[i]);
+		for (i = 0; i < this.links.length; i = i + 1) {
+			console.log(this.links[i]);
+			this.parseLink(this.links[i]);
 		}
 		// load bitly stats
-		BitlyClient.loadModules(['stats'], 'PK_ShortUrl.statscallback');
+		// BitlyClient.loadModules(['stats'], 'PK_ShortUrl.statscallback');
 	},
 	
 	// get a list of links
@@ -144,6 +144,7 @@ var PK_ShortUrl = {
 		console.log(first_result.shortUrl.toString());
 //		return first_result.shortUrl.toString(); // this gets returned as undefined?? waiting for response
 		this.short_url = first_result.shortUrl.toString();
+		// maybe do the replacing here instead ... 
 		return;
 	}, 
 	

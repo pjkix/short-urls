@@ -24,8 +24,11 @@ error_reporting(E_ALL | E_STRICT);
 
 define('MAIN_PATH', realpath('.'));  // <-- you are here :P
 
-require_once('./lib/ShortUrl.php');
-// $myShortUrl = shortUrlFactory::getUrlService(shortUrlFactory::TINY_URL);
+// setup inc path
+ini_set('include_path', ini_get('include_path') . PATH_SEPARATOR . 'lib');
+
+// main lib
+require_once('ShortUrl.php');
 
 // some defaults
 $url = 'http://example.com/';
@@ -48,6 +51,7 @@ if ( isset($_GET['json']) ) {
 	return json_encode(array('woot'=>'json!'));
 }
 
+// $myShortUrl = shortUrlFactory::getUrlService(shortUrlFactory::TINY_URL);
 $myShortUrl = ShortUrlFactory::getUrlService($service);
 $short_url = $myShortUrl->getShortUrl($url); // maybe ditch this and make static?
 
@@ -57,7 +61,7 @@ $services = ShortUrlFactory::getUrlServices();
 // call sub lib directly with out invoke?
 // echo ShortUrl_TinyUrl::getShortUrl($url);
 
-
+ob_start();// for firephp
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
 	"http://www.w3.org/TR/html4/strict.dtd">
@@ -134,7 +138,7 @@ $services = ShortUrlFactory::getUrlServices();
 
 					<script type="text/javascript" charset="utf-8">
 					// bitly api client
-						 BitlyClient.call('shorten', {'longUrl': 'http://example.com', 'longUrl' : 'http://localhost'}, 'BitlyCB.alertResponse');
+						 // BitlyClient.call('shorten', {'longUrl': 'http://example.com', 'longUrl' : 'http://localhost'}, 'BitlyCB.alertResponse');
 					</script>
 
 				<form action="?debug=true" method="get" accept-charset="utf-8">
@@ -189,17 +193,18 @@ $services = ShortUrlFactory::getUrlServices();
 <?php
 	//* TMP: for debugging
 	if (isset($_GET['debug'])) {
-		require_once './lib/debug.class.php';
+		require_once 'debug.class.php';
 		$debug = new Debug();
 		$debug->check_all_mem();
 		$debug->dump_user_globals();
 		$debug->dump_includes();
 
 		// FIRE PHP for FIREBUG
-//		FB::log('Log message');
-//		FB::info('Info message');
-//		FB::warn('Warn message');
-//		FB::error('Error message');
+		require_once('FirePHPCore/fb.php');
+		FB::log('Log message');
+		FB::info('Info message');
+		FB::warn('Warn message');
+		FB::error('Error message');
 	}
 	//*/
 ?>

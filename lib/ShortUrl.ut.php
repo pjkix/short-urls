@@ -27,13 +27,13 @@ class ShortUrlTest extends PHPUnit_Framework_TestCase
 	 * @var ShortUrl
 	 */
 	private $ShortUrl;
+	private $url;
 	/**
 	 * Prepares the environment before running a test.
 	 */
 	protected function setUp ()
 	{
 		parent::setUp();
-		// TODO Auto-generated ShortUrlTest::setUp()
 		$this->ShortUrl = new ShortUrl(/* parameters */);
 	}
 	/**
@@ -41,7 +41,6 @@ class ShortUrlTest extends PHPUnit_Framework_TestCase
 	 */
 	protected function tearDown ()
 	{
-		// TODO Auto-generated ShortUrlTest::tearDown()
 		$this->ShortUrl = null;
 		parent::tearDown();
 	}
@@ -49,7 +48,7 @@ class ShortUrlTest extends PHPUnit_Framework_TestCase
 	 * Constructs the test case.
 	 */
 	public function __construct ()
-	{	// TODO Auto-generated constructor
+	{
 		
 		$this->url = 'http://example.com';
 	}
@@ -58,9 +57,8 @@ class ShortUrlTest extends PHPUnit_Framework_TestCase
 	 */
 	public function test__construct ()
 	{
-		// TODO Auto-generated ShortUrlTest->test__construct()
-		$this->markTestIncomplete("__construct test not implemented");
 		$this->ShortUrl->__construct(/* parameters */);
+		$this->assertIsNull($this->ShortUrl->short_url);
 	}
 	
 	

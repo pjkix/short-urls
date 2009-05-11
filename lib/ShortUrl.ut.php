@@ -34,7 +34,7 @@ class ShortUrlTest extends PHPUnit_Framework_TestCase
 	protected function setUp ()
 	{
 		parent::setUp();
-		$this->ShortUrl = new ShortUrl(/* parameters */);
+		$this->ShortUrl = ShortUrlFactory::getUrlService(); // test all the types?
 	}
 	/**
 	 * Cleans up the environment after running a test.
@@ -49,26 +49,20 @@ class ShortUrlTest extends PHPUnit_Framework_TestCase
 	 */
 	public function __construct ()
 	{
-
-		$this->url = 'http://example.com';
+		$this->url = 'http://example.com/';
 	}
-	/**
-	 * Tests ShortUrl->__construct()
-	 */
-	public function test__construct ()
-	{
-		$this->ShortUrl->__construct(/* parameters */);
-		$this->assertNull($this->ShortUrl->short_url);
-	}
-
 
 	public function testGetShortUrl()
 	{
 		$short_url = $this->ShortUrl->getShortUrl($this->url);
-		$this->assertEquals($this->url, $short_url); // make sure we get something back
-		// var_dump($short_url);die;
+		$this->assertEquals('http://tinyurl.com/kotu', $short_url); // this should work for tinyurl.com
 	}
 
+	public function testCache() {
+		$this->markTestIncomplete('no cache testing yet ... ');
+	}
+
+	// add more tests here ...
 
 
 } // END: ShortUrlTest{}

@@ -73,8 +73,30 @@ class ShortUrlTest extends PHPUnit_Framework_TestCase
 	 * test caching functions
 	 *
 	 */
-	public function testCache() {
+	public function testCacheSetUrl() {
 		$this->markTestIncomplete('no cache testing yet ... ');
+	}
+	
+	/**
+	 * test caching functions
+	 *
+	 */
+	public function testCacheGetUrl() {
+		$this->markTestIncomplete('no cache testing yet ... ');
+	}
+	
+	/**
+	 * test curl
+	 *
+	 */
+	public function testRestServiceCurl()
+	{
+		$this->markTestIncomplete('no curl testing yet ... ');
+	}
+	
+	public function testrestServiceFGC()
+	{
+		$this->markTestIncomplete('no fgc testing yet ...');
 	}
 
 	// add more tests here ...

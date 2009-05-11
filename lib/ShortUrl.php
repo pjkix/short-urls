@@ -2,7 +2,7 @@
 /**
  * Short URL Base Class
  *
- * @package		Utils
+ * @package		WebServices
  * @subpackage	ShortUrl
  * @author		pkhalil
  * @copyright	2009 pjk
@@ -16,6 +16,12 @@
  */
 interface iShortUrl
 {
+	/**
+	 * basic public interface
+	 *
+	 * @param string $url long url
+	 * @return string $short_url short url
+	 */
 	public function getShortUrl($url); // KISS - basically all you need :)
 //	private function _getShortUrl($url); // the real magic
 }
@@ -27,7 +33,7 @@ interface iShortUrl
  * <code>
  * require_once 'Lib/ShortUrl.php';
  *
- * $myShortUrl =  shortUrlFactory::getUrlService(shortUrlFactory::TINY_URL);
+ * $myShortUrl =  ShortUrlFactory::getUrlService(ShortUrlFactory::TINY_URL);
  * echo $myShortUrl->getShortUrl($url);
  * </code>
  */
@@ -76,9 +82,11 @@ class ShortUrlFactory
 
 	// maybe use this to build service types or for looping
 	public static function getUrlServices() {
-		return array('tinyurl', 'bitly', 'cligs', 'trim', 'isgd');
-	}
+		$services = array();
+		$services[]['tinyurl'] = array('name'=>'Tinyurl', 'site'=>'tinyrurl.com');
 
+		return array('tinyurl'=> self::TINY_URL, 'bitly', 'cligs', 'trim', 'isgd');
+	}
 
 	/// build array of services and define constants??
 	public function __construct()
@@ -87,7 +95,7 @@ class ShortUrlFactory
 	}
 
 
-} // END: shortUrlFactory{}
+} // END: ShortUrlFactory{}
 
 /**
  * short Url base class
@@ -104,35 +112,41 @@ abstract class ShortUrl implements iShortUrl
 	protected	$cache_time = 86400; // 1 day
 	protected 	$class = __CLASS__; // hack for getting subclass name back to parent class
 
-	// must be implemented in subclass
-	 abstract function _getShortUrl($url);
-
 	/**
-	 * generic for basic interface restrictions
+	 * basic interface provides caching for private _getShortUrl method
 	 *
-	 * @param unknown_type $url
-	 * @return unknown
+	 * @param string $url the url to be shortened
+	 * @return string $short_url the short version of the url
 	 */
 	public function getShortUrl($url)
 	{
 		$this->url = $url;
 		if ( ! $short_url =  $this->cacheGetUrl($url) ) {
-			error_log('CACHE MISS!');
+//			error_log('CACHE MISS!');
 			$short_url = $this->_getShortUrl($url);
 			$this->cacheSetUrl($url, $short_url);
 		}
-		error_log('CACHE HIT!');
+//		error_log('CACHE HIT!');
 		return $this->cacheGetUrl($url);
 	}
 
 	/**
+	 * private method must be implemented in subclass
+	 *
+	 * @param string $url the long url
+	 * @return string $short_url	the short url
+	 */
+	abstract function _getShortUrl($url);
+
+	/**
 	 * set it and forget it
 	 *
-	 * @param unknown_type $url
-	 * @param unknown_type $key
-	 * @param unknown_type $expiry
+	 * @param	string	$url		the url we use for the key
+	 * @param	string	$data		the short url to store
+	 * @param	int		$expiry		time in seconds to cache the entry
+	 * @return	boolean			true on success false on fail
 	 */
-	public function cacheSetUrl($url, $data, $expiry = null)
+	protected function cacheSetUrl($url, $data, $expiry = null)
 	{
 		if (!class_exists('Memcache')) return false;
 		if (!$expiry) $expiry = $this->cache_time;
@@ -145,8 +159,8 @@ abstract class ShortUrl implements iShortUrl
 	/**
 	 * grab from cache
 	 *
-	 * @param unknown_type $url
-	 * @return unknown
+	 * @param string	$url	key for our cache
+	 * @return string	$short_url	data from cache
 	 */
 	protected function cacheGetUrl($url)
 	{
@@ -159,13 +173,13 @@ abstract class ShortUrl implements iShortUrl
 	}
 
 	/**
-	 * curl rest call
+	 * make a remote request using curl
 	 *
 	 * @param string $url
-	 * @return string on success false on fail
+	 * @return mixed $result on success false on fail
 	 * @todo maybe make this more generic for base, can override ... detect curl? default fopen?
 	 */
-	public function restServiceCurl($url, $username = null, $pass = null)
+	protected function restServiceCurl($url, $username = null, $pass = null)
 	{
 //		error_log('USING CURL');
 		$curl_options = array(
@@ -192,13 +206,14 @@ abstract class ShortUrl implements iShortUrl
 		curl_close($ch);
 		return $result;
 	}
+
 	/**
-	 * undocumented function
+	 * make a remote request using file_get_contents()
 	 *
 	 * @param string $url
 	 * @return string on success false on fail
 	 */
-	public function restServiceFGC($url)
+	protected function restServiceFGC($url)
 	{
 //		error_log('USING FGC');
 		$result =  file_get_contents($url); // urlencode()?
@@ -210,16 +225,16 @@ abstract class ShortUrl implements iShortUrl
 
 }
 
-} // END shortUrl{}
+} // END ShortUrl{}
 
 /**
- * shortUrl Exception Handler
+ * ShortUrl Exception Handler
  */
 class ShortUrlException extends Exception
 {
 
 	// try and handle errors here ...
 
-} // END: shortUrlException{}
+} // END: ShortUrlException{}
 
 ?>

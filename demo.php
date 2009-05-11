@@ -51,7 +51,7 @@ if ( isset($_GET['json']) ) {
 	return json_encode(array('woot'=>'json!'));
 }
 
-// $myShortUrl = shortUrlFactory::getUrlService(shortUrlFactory::TINY_URL);
+// $myShortUrl = ShortUrlFactory::getUrlService(ShortUrlFactory::TINY_URL);
 $myShortUrl = ShortUrlFactory::getUrlService($service);
 $short_url = $myShortUrl->getShortUrl($url); // maybe ditch this and make static?
 

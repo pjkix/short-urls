@@ -3,7 +3,7 @@
  * Unit Tests for ShortUrl Class
  *
  * @package Tests
- * @subpackage shortUrl
+ * @subpackage ShortUrl
  * @author		pkhalil
  * @copyright	2009 pjk
  * @license		(cc) some rights reserved

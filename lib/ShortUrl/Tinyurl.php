@@ -2,13 +2,12 @@
 /**
  * tinyUrl wrapper class
  *
- * @package shortUrl
- * @subpackage shortUrl_tinyurl
+ * @package ShortUrl
+ * @subpackage ShortUrl_Tinyurl
  * @author		pkhalil
  * @copyright	2009 pjk
  * @license		(cc) some rights reserved
  * @version		$Id:$
- * @todo make it work, abstract,  add caching
  */
 
 /** required base class */

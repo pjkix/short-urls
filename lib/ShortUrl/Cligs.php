@@ -9,13 +9,12 @@
  * - they let you edit the title, url, and even short url???
  * - you can redirect people from certain countries???
  * @see http://blog.cli.gs/api
- * @package shortUrl
- * @subpackage cli.gs
+ * @package		ShortUrl
+ * @subpackage	ShortUrl_Cligs
  * @author		pkhalil
  * @copyright	2009 pjk
  * @license		(cc) some rights reserved
  * @version		$Id:$
- * @todo make it work, abstract,  add caching
  */
 
 /**

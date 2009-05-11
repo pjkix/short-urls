@@ -1,26 +1,22 @@
 <?php
 /**
- * tr.im wrapper class
+ * tr.im wrapper class for ShortUrl
  *
  * @see http://tr.im/website/api
- * @package shortUrl
- * @subpackage shortUrl_trim
+ * @package		ShortUrl
+ * @subpackage	ShortUrl_Trim
  * @author		pkhalil
  * @copyright	2009 pjk
  * @license		(cc) some rights reserved
- * @version		$Id: Trim.php 31599 2009-05-04 23:53:32Z pkhalil $
+ * @version		$Id:$
  */
 
-/**
- * required base class
- */
+/** required base class */
 require_once dirname(__FILE__) . '/../ShortUrl.php';
 
 /**
- * undocumented class
+ * subclass for tr.im url shortener
  *
- * @package default
- * @author PJ Khalil
  **/
 class ShortUrl_Trim extends ShortUrl
 {

@@ -4,17 +4,15 @@
  *
  * NOTE: bit.ly currently limits API users to no more than five concurrent connections from a single IP address
  * @see  http://code.google.com/p/bitly-api/wiki/ApiDocumentation
- * @package shortUrl
- * @subpackage shortUrl_bitly
+ * @package ShortUrl
+ * @subpackage ShortUrl_Bitly
  * @author		pkhalil
  * @copyright	2009 pjk
  * @license		(cc) some rights reserved
  * @version		$Id:$
  */
 
-/**
- * required base class
- */
+/** required base class */
 require_once( dirname(__FILE__) . '/../ShortUrl.php');
 
 /**

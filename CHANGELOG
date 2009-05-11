@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+v.0.9.5
+	- updated and simplified subclasses
+	- tried using abstract / private methods
+	- cleaned up phpdoc tags
+	- js support mostly working just need to fix callbacks
 v.0.9.0
 	- adding changes from work
 	- adding js support

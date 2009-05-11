@@ -3,24 +3,20 @@
  * is.gd wrapper class
  *
  * @see http://is.gd/api_info.php
- * @package shortUrl
- * @subpackage shortUrl_trim
+ * @package ShortUrl
+ * @subpackage ShortUrl_isgd
  * @author		pkhalil
  * @copyright	2009 pjk
  * @license		(cc) some rights reserved
  * @version		$Id: Isgd.php 31599 2009-05-04 23:53:32Z pkhalil $
  */
 
-/**
- * required base class
- */
+/** required base class */
 require_once dirname(__FILE__) . '/../ShortUrl.php';
 
 /**
- * undocumented class
+ * subclass for is.gd url shortener
  *
- * @package default
- * @author PJ Khalil
  **/
 class ShortUrl_isgd extends ShortUrl
 {
@@ -35,7 +31,6 @@ class ShortUrl_isgd extends ShortUrl
 	 *
 	 * @param string $url
 	 * @return string $short_url or false on fail
-	 * @author PJ Khalil
 	 */
 	public function _getShortUrl($url)
 	{

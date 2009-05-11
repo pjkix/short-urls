@@ -3,8 +3,8 @@
  * Twitter Class Libs
  *
  * Class for working with Twitter
- * @package		Demo
- * @subpackage	ShortUrl
+ * @package		WebServices
+ * @subpackage	Twitter
  * @author		pkhalil
  * @copyright	2009 pjk
  * @license		(cc) some rights reserved

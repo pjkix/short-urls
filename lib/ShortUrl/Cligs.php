@@ -29,13 +29,30 @@ require_once( dirname(__FILE__) . '/../ShortUrl.php');
  */
 class ShortUrl_Cligs extends ShortUrl
 {
+	// api key
 	private $api_key = 'b3e86e7644f1c6d22ca45eef6358e409';
 
+	/** init */
 	public function __construct() {
 		$this->class = __CLASS__; // need this to pass to the parent for cache key
 	}
 
-	public function getShortUrl($url, $title = null , $cache = false) {
+	// overide to avoid cache
+	public function getShortUrl($url) {
+		return $this->_getShortUrl($url);
+	}
+
+
+	/**
+	 * Cligs private method for shortening urls
+	 *
+	 * actually ... might want to override main pub method to avoid caching
+	 * @param unknown_type $url
+	 * @param unknown_type $title
+	 * @param unknown_type $cache
+	 * @return unknown
+	 */
+	public function _getShortUrl($url, $title = null , $cache = false) {
 		$this->url = $url;
 		$api_key = $this->api_key;
 		$app_id = self::API_CLIENT;
@@ -57,15 +74,6 @@ class ShortUrl_Cligs extends ShortUrl
 		return $short_url;
 	}
 
-}
-
-/**
- * cli.gs Exception Handler
- *
- */
-class ShortUrl_CligsException extends ShortUrlException
-{
-	// TODO - Insert your code here
 }
 
 

@@ -17,7 +17,7 @@ require_once( dirname(__FILE__) . '/../ShortUrl.php');
 /**
  * tiny url service
  */
-final class ShortUrl_TinyUrl extends ShortUrl
+final class ShortUrl_Tinyurl extends ShortUrl
 {
 
 	/** init */
@@ -26,25 +26,14 @@ final class ShortUrl_TinyUrl extends ShortUrl
 	}
 
 	/**
-	 * getShortUrl for tinyurl 
-	 * 
+	 * private getShortUrl for tinyurl
+	 *
 	 * ?? static? can't use this->
 	 * @param string $url
 	 * @return string $tinyurl or false on fail
 	 * @author PJ Khalil
 	 */
-	public function getShortUrl($url)
-	{
-		$this->url = $url;
-		if ( ! $short_url =  $this->cacheGetUrl($url) ) {
-			$short_url = $this->getTinyUrl($url);
-			$this->cacheSetUrl($url, $short_url);
-		}
-		$this->short_url = $short_url;
-		return $short_url;
-	}
-
-	private function getTinyUrl($url) {
+	public function _getShortUrl($url) {
 		if ( function_exists('curl_init') ) {
 			return $this->restServiceCurl('http://tinyurl.com/api-create.php?url=' . $url);
 		} else {
@@ -54,16 +43,6 @@ final class ShortUrl_TinyUrl extends ShortUrl
 
 } // END: tinyUrl{}
 
-/**
- * exception handler for tiny url specific errors
- *
- */
-class ShortUrl_TinyUrlException extends ShortUrlException
-{
-
-	// TODO: handle tiny url specific errors
-
-} // END: tinyUrlException{}
 
 ?>
 

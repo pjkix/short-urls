@@ -8,7 +8,7 @@
  * @copyright	2009 pjk
  * @license		(cc) some rights reserved
  * @version		$Id:$
- * @todo make it work 
+ * @todo make it work
  * @example tinyurl should return "http://tinyurl.com/kotu" for the url "http://example.com/"
  */
 
@@ -49,7 +49,7 @@ class ShortUrlTest extends PHPUnit_Framework_TestCase
 	 */
 	public function __construct ()
 	{
-		
+
 		$this->url = 'http://example.com';
 	}
 	/**
@@ -58,18 +58,18 @@ class ShortUrlTest extends PHPUnit_Framework_TestCase
 	public function test__construct ()
 	{
 		$this->ShortUrl->__construct(/* parameters */);
-		$this->assertIsNull($this->ShortUrl->short_url);
+		$this->assertNull($this->ShortUrl->short_url);
 	}
-	
-	
+
+
 	public function testGetShortUrl()
 	{
 		$short_url = $this->ShortUrl->getShortUrl($this->url);
 		$this->assertEquals($this->url, $short_url); // make sure we get something back
 		// var_dump($short_url);die;
 	}
-	
-	
-	
+
+
+
 } // END: ShortUrlTest{}
 

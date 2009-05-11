@@ -18,16 +18,17 @@
 require_once( dirname(__FILE__) . '/../ShortUrl.php');
 
 /**
- * undocumented class
+ * Short Url Bitly Wrapper
  */
 class ShortUrl_Bitly extends ShortUrl
 {
+	private $api_key = 'R_b2eb72dfa186b64f23dbef1fa32f7f61';
+	private $user = 'pjkix';
+	private $pass = '';
 
+	/** init */
 	public function __construct() {
 		$this->class = __CLASS__; // need this to pass to the parent for cache key
-		$this->api_key = 'R_b2eb72dfa186b64f23dbef1fa32f7f61';
-		$this->user = 'pjkix';
-		$this->pass = '';
 	}
 
 	/**
@@ -38,21 +39,7 @@ class ShortUrl_Bitly extends ShortUrl
 	 * @author PJ Khalil
 	 * @todo add cacheing
 	 */
-	public function getShortUrl($url)
-	{
-		$this->url = $url;
-		if ( ! $short_url =  $this->cacheGetUrl($url) ) {
-//			error_log('CACHE MISS!');
-			$short_url = $this->_getShortUrl($url);
-			$this->cacheSetUrl($url, $short_url);
-		}
-//		error_log('CACHE HIT!');
-		$this->short_url = $short_url;
-		return $this->cacheGetUrl($url);
-	}
-
-	// do the real shortening
-	private function _getShortUrl($url){
+	public function _getShortUrl($url){
 		// http://api.bit.ly/shorten?version=2.0.1&longUrl=http://cnn.com&login=bitlyapidemo&apiKey=R_0da49e0a9118ff35f52f629d2d71bf07
 		$service_string = 'http://api.bit.ly/shorten?version=2.0.1&longUrl=%s&login=%s&apiKey=%s';
 		$service_call = sprintf($service_string, $url, $this->user, $this->api_key);
@@ -68,15 +55,5 @@ class ShortUrl_Bitly extends ShortUrl
 	}
 
 } // END: psShortUrl_trim{}
-
-/**
- * exception handler for bit.ly url specific errors
- */
-class ShortUrl_BitlyException extends ShortUrlException
-{
-
-	// TODO: handle bit.ly url specific errors
-
-} // END: psShortUrl_trimException{}
 
 ?>

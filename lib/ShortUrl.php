@@ -17,6 +17,7 @@
 interface iShortUrl
 {
 	public function getShortUrl($url); // KISS - basically all you need :)
+//	private function _getShortUrl($url); // the real magic
 }
 
 /**
@@ -55,13 +56,19 @@ class ShortUrlFactory
 		switch ($type) {
 			case self::TINY_URL:
 				require_once('ShortUrl/Tinyurl.php');
-				return new ShortUrl_TinyUrl();
+				return new ShortUrl_Tinyurl();
 			case self::BITLY_URL:
 				require_once('ShortUrl/Bitly.php');
 				return new ShortUrl_Bitly();
 			case self::CLIGS_URL:
 				require_once('ShortUrl/Cligs.php');
 				return new ShortUrl_Cligs();
+			case self::TRIM_URL:
+				require_once('ShortUrl/Trim.php');
+				return new ShortUrl_Trim();
+			case self::ISGD_URL:
+				require_once('ShortUrl/Isgd.php');
+				return new ShortUrl_Isgd();
 			default:
 				throw new ShortUrlException("Unknown Service Specified.");
 		}
@@ -79,11 +86,6 @@ class ShortUrlFactory
 		$this->serives = $this->getUrlServices();
 	}
 
-	/// do autoloading of subclasses??
-	public function __autoload($name){
-		// do autoloading
-		error_log('CLASS NOT FOUND: ' . $name);
-	}
 
 } // END: shortUrlFactory{}
 
@@ -91,7 +93,7 @@ class ShortUrlFactory
  * short Url base class
  *
  */
-class ShortUrl implements iShortUrl
+abstract class ShortUrl implements iShortUrl
 {
 	// API constants
 	const		API_VERSION = '1.0';
@@ -103,7 +105,7 @@ class ShortUrl implements iShortUrl
 	protected 	$class = __CLASS__; // hack for getting subclass name back to parent class
 
 	// must be implemented in subclass
-	// abstract private function _getShortUrl($url);
+	 abstract function _getShortUrl($url);
 
 	/**
 	 * generic for basic interface restrictions
@@ -116,7 +118,7 @@ class ShortUrl implements iShortUrl
 		$this->url = $url;
 		if ( ! $short_url =  $this->cacheGetUrl($url) ) {
 			error_log('CACHE MISS!');
-			$short_url = $url; // no shortening in base class
+			$short_url = $this->_getShortUrl($url);
 			$this->cacheSetUrl($url, $short_url);
 		}
 		error_log('CACHE HIT!');
@@ -165,7 +167,7 @@ class ShortUrl implements iShortUrl
 	 */
 	public function restServiceCurl($url, $username = null, $pass = null)
 	{
-		error_log('USING CURL');
+//		error_log('USING CURL');
 		$curl_options = array(
 			CURLOPT_RETURNTRANSFER	=> true,		// return web page
 			CURLOPT_HEADER			=> false,		// don't return headers
@@ -198,7 +200,7 @@ class ShortUrl implements iShortUrl
 	 */
 	public function restServiceFGC($url)
 	{
-		error_log('USING FGC');
+//		error_log('USING FGC');
 		$result =  file_get_contents($url); // urlencode()?
 		if ( strlen($result) > 0 ) {
 			return $result;

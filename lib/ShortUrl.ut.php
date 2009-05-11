@@ -60,14 +60,24 @@ class ShortUrlTest extends PHPUnit_Framework_TestCase
 
 	/**
 	 * tests the main function
-	 *
+	 * @dataProvider urlProvider
 	 */
-	public function testGetShortUrl()
+	public function testGetShortUrl($url)
 	{
-		$short_url = $this->ShortUrl->getShortUrl($this->url);
+		$short_url = $this->ShortUrl->getShortUrl($url);
 		$this->assertEquals('http://tinyurl.com/kotu', $short_url); // this should work for tinyurl.com
 		// make sure bad url fails
+		$this->assertNotEquals($this->url, $short_url);
+		$this->assertFalse($this->ShortUrl->getShortUrl('bogus-string'));
 	}
+
+	public function urlProvider() {
+		return array(
+			array('http://example.com/'),
+			array('bogus-string'),
+		);
+	}
+
 
 	/**
 	 * test caching functions
@@ -76,7 +86,7 @@ class ShortUrlTest extends PHPUnit_Framework_TestCase
 	public function testCacheSetUrl() {
 		$this->markTestIncomplete('no cache testing yet ... ');
 	}
-	
+
 	/**
 	 * test caching functions
 	 *
@@ -84,7 +94,7 @@ class ShortUrlTest extends PHPUnit_Framework_TestCase
 	public function testCacheGetUrl() {
 		$this->markTestIncomplete('no cache testing yet ... ');
 	}
-	
+
 	/**
 	 * test curl
 	 *
@@ -93,7 +103,7 @@ class ShortUrlTest extends PHPUnit_Framework_TestCase
 	{
 		$this->markTestIncomplete('no curl testing yet ... ');
 	}
-	
+
 	public function testrestServiceFGC()
 	{
 		$this->markTestIncomplete('no fgc testing yet ...');

@@ -127,6 +127,9 @@ abstract class ShortUrl implements iShortUrl
 	 */
 	public function getShortUrl($url)
 	{
+		// check we have valid url
+		$url_a = parse_url($url);
+		if ( empty($url_a['host']) ) throw new ShortUrlException('Not a valid URL');
 		$this->url = $url;
 		if ( ! $short_url =  $this->cacheGetUrl($url) ) {
 //			error_log('CACHE MISS!');

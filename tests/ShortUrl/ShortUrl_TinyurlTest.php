@@ -1,5 +1,5 @@
 <?php
-require_once 'lib/ShortUrl/Tinyurl.php';
+require_once 'ShortUrl/Tinyurl.php';
 require_once 'PHPUnit/Framework/TestCase.php';
 /**
  * ShortUrl_Tinyurl test case.

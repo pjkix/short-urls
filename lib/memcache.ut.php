@@ -7,6 +7,7 @@
 ini_set('display_errors', true);
 
 require_once 'memcache.class.php';
+cacheMemcache::connect( array( array('localhost' => 11211) ) ); // normally this is done in the configs
 
 print "Starting test!\n";
 

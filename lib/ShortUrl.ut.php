@@ -60,24 +60,51 @@ class ShortUrlTest extends PHPUnit_Framework_TestCase
 
 	/**
 	 * tests the main function
-	 * @dataProvider urlProvider
+	 *
+	 * @dataProvider provider
 	 */
-	public function testGetShortUrl($url)
+	public function testGetShortUrl ()
 	{
-		$short_url = $this->ShortUrl->getShortUrl($url);
+		$short_url = $this->ShortUrl->getShortUrl($this->url);
 		$this->assertEquals('http://tinyurl.com/kotu', $short_url); // this should work for tinyurl.com
-		// make sure bad url fails
-		$this->assertNotEquals($this->url, $short_url);
-		$this->assertFalse($this->ShortUrl->getShortUrl('bogus-string'));
+		$this->assertNotEquals($this->url, $short_url); // make sure we get back different url
 	}
 
-	public function urlProvider() {
+	/**
+	 * data provider for url tests
+	 *
+	 * @return array	url test data
+	 */
+	public function provider () {
 		return array(
-			array('http://example.com/'),
-			array('bogus-string'),
+			array('http://example.com/', 'http://tinyurl.com/kotu'),
+			array('bogus-string', false),
 		);
 	}
 
+	/**
+	 * test bad url throw exception
+	 *
+	 * @expectedException ShortUrlException
+	 */
+	public function testNotAValidUrl ()
+	{
+		$this->setExpectedException('ShortUrlException');
+		$this->assertFalse($this->ShortUrl->getShortUrl('bogus-string')); // make sure bad url fails
+	}
+
+	/* testing for exceptions ...
+    public function testException() {
+        try {
+            // ... Code that is expected to raise an exception ...
+        }
+
+        catch (ShortUrlException $expected) {
+            return;
+        }
+
+        $this->fail('An expected exception has not been raised.');
+    } //*/
 
 	/**
 	 * test caching functions

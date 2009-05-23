@@ -148,6 +148,41 @@ abstract class ShortUrl implements iShortUrl
 	 */
 	abstract function _getShortUrl($url);
 
+
+	/**
+	 * save short url to db
+	 *
+	 * @param unknown_type $url
+	 * @param unknown_type $short_url
+	 */
+	public function dbSetUrl($url, $short_url) {
+//		error_log(sprintf('ADDING LONG_URL: %s AND SHORT_URL: %s TO DB', $url, $short_url) );
+		$sql = "INSERT INTO `podshow`.`shorten_url` (`url_id`, `target_url`, `short_url`, `date_created`)
+			VALUES (NULL, '%s', '%s', NOW());"; // 2009-05-22 11:54:41
+		$insert_sql = sprintf($sql,$url, $short_url);
+		require_once dirname(__FILE__) . '/../../htdocs/lib/sql_functions.php';
+		$dbh = pdn_db();
+		$result = mysql_query($insert_sql, $dbh);
+		return $result;
+	}
+
+	/**
+	 * get short url from db
+	 *
+	 * @param unknown_type $url
+	 * @return unknown
+	 */
+	public function dbGetUrl($url) {
+//		error_log(sprintf('GETTING: %s FROM DB', $url) );
+		$sql = "SELECT `short_url` FROM `shorten_url` WHERE `target_url` = '%s' LIMIT 1 ";
+		$select_sql = sprintf($sql,$url);
+		require_once dirname(__FILE__) . '/../../htdocs/lib/sql_functions.php';
+		$dbh = pdn_db();
+		$result = mysql_query($select_sql, $dbh);
+		$data = mysql_fetch_assoc($result);
+		return $data['short_url'];
+	}
+
 	/**
 	 * set it and forget it
 	 *

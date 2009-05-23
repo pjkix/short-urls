@@ -34,8 +34,6 @@ class ShortUrl_Bitly extends ShortUrl
 	 *
 	 * @param string $url
 	 * @return string $short_url or false on fail
-	 * @author PJ Khalil
-	 * @todo add cacheing
 	 */
 	public function _getShortUrl($url){
 		// http://api.bit.ly/shorten?version=2.0.1&longUrl=http://cnn.com&login=bitlyapidemo&apiKey=R_0da49e0a9118ff35f52f629d2d71bf07
@@ -48,10 +46,10 @@ class ShortUrl_Bitly extends ShortUrl
 		return $short_url;
 		} else {
 //			return false;
-			throw new ShortUrl_BitlyException("ERROR BAD RESPONSE FROM BIT.LY");
+			throw new ShortUrlException("ERROR BAD RESPONSE FROM BIT.LY");
 		}
 	}
 
-} // END: psShortUrl_trim{}
+} // END: ShortUrl_Bitly{}
 
 ?>

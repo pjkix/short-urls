@@ -190,7 +190,7 @@ abstract class ShortUrl implements iShortUrl
 	 * @param unknown_type $short_url
 	 */
 	public function dbSetUrl($url, $short_url) {
-		return false;
+		// return false;
 		$this->debug(sprintf('ADDING LONG_URL: %s AND SHORT_URL: %s TO DB', $url, $short_url) );
 		$sql = "INSERT INTO `short_urls` (`url_id`, `target_url`, `short_url`, `date_created`)
 			VALUES (NULL, '%s', '%s', %s );"; // 2009-05-22 11:54:41
@@ -208,14 +208,14 @@ abstract class ShortUrl implements iShortUrl
 	 * @return unknown
 	 */
 	public function dbGetUrl($url) {
-		return false;
+		// return false;
 		$this->debug(sprintf('GETTING: %s FROM DB', $url) );
 		$sql = "SELECT `short_url` FROM `short_urls` WHERE `long_url` = '%s' LIMIT 1 ";
 		$select_sql = sprintf($sql,$url);
 		require_once dirname(__FILE__) . '/MyDb.php';
 		$dbh = new MyDB;
-		$result = mysql_query($select_sql, $dbh);
-		$data = mysql_fetch_assoc($result);
+		$result = $dbh->query($select_sql);
+		$data = $result->fetch($result);
 		return $data['short_url'];
 	}
 
@@ -331,7 +331,7 @@ class ShortUrlUtil
 		
 		// create table foo and insert sample data
 		$db->query("BEGIN;
-				CREATE TABLE short_urls(id INTEGER PRIMARY KEY, long_url CHAR(255), short_url CHAR(100), date_created DATETIME);
+				CREATE TABLE IF NOT EXISTS short_urls(id INTEGER PRIMARY KEY AUTOINCRIMENT, long_url CHAR(255), short_url CHAR(100), date_created DATETIME);
 				INSERT INTO short_urls (long_url, short_url, date_created) VALUES('http://example.com/long','http://example.com/short', '2009-10-20 00:00:00');
 				COMMIT;");
 
@@ -349,6 +349,28 @@ class ShortUrlUtil
 		// not generally needed as PHP will destroy the connection
 		unset($db);
 	}
+	
+	
+	public static function setupDbPdoSqlite()
+	{
+		require_once 'MyDb.php';
+		$dbh = new MyDb;
+		$dsn = 'sqlite:'.realpath(dirname(__FILE__).'/../data/db.sqlite');
+		// var_dump($dsn);die;
+		try {
+		    $dbh = new PDO($dsn);
+		} catch (PDOException $e) {
+		    echo 'Connection failed: ' . $e->getMessage();
+		}
+		$sql = "BEGIN;
+				CREATE TABLE IF NOT EXISTS short_urls(id INTEGER PRIMARY KEY AUTOINCRIMENT, long_url CHAR(255), short_url CHAR(100), date_created DATETIME);
+				INSERT INTO short_urls (long_url, short_url, date_created) VALUES('http://example.com/long','http://example.com/short', '2009-10-20 00:00:00');
+				COMMIT;";
+		$dbh->query($sql);
+		var_dump($dbh);die;
+		$dbh = null;
+	}
+	
 	
 	public function insertData()
 	{

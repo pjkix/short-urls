@@ -29,6 +29,7 @@ ini_set('include_path', ini_get('include_path') . PATH_SEPARATOR . 'lib');
 
 // main lib
 require_once('ShortUrl.php');
+ShortUrlUtil::setupDbPdoSqlite();
 
 // some defaults
 $url = 'http://example.com/';
@@ -58,7 +59,6 @@ $services = ShortUrlFactory::getUrlServices();
 // echo ShortUrl_TinyUrl::getShortUrl($url);
 
 
-// ShortUrlUtil::setupDbSqlLite();
 
 
 // ob_start();// for firephp

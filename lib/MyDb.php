@@ -12,18 +12,22 @@ class MyDb extends PDO
 	{
 		if (!$settings = parse_ini_file($file, TRUE)) throw new exception('Unable to open ' . $file . '.');
 
-		$dns = $settings['database']['driver'] .
-		':host=' . $settings['database']['host'] .
-		((!empty($settings['database']['port'])) ? (';port=' . $settings['database']['port']) : '') .
-		';dbname=' . $settings['database']['schema'];
+		if ( !empty($settings['database']['dsn']) ) {
+			$dsn = $settings['database']['dsn'];
+		} else {
+			$dsn = $settings['database']['driver'] .
+			':host=' . $settings['database']['host'] .
+			((!empty($settings['database']['port'])) ? (';port=' . $settings['database']['port']) : '') .
+			';dbname=' . $settings['database']['schema'];
+		}
+		// var_dump($dsn);die;
+		parent::__construct($dsn, $settings['database']['username'], $settings['database']['password']);
 
-		parent::__construct($dns, $settings['database']['username'], $settings['database']['password']);
-		
 		if ($settings['database']['debug'])
 			self::setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION ); // debug silent/warning/exception
 	}
 
-	// make this singleton and shit 
+	// make this singleton and shit
 
 } // END: MyDb{}
 
@@ -31,7 +35,7 @@ class MyDb extends PDO
 
 
 /**
- * undocumented 
+ * undocumented
  *
  */
 function mysql_insert_array ($my_table, $my_array) {

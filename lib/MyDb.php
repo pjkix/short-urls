@@ -8,7 +8,7 @@
  */
 class MyDb extends PDO
 {
-	public function __construct($file = 'Db.ini')
+	public function __construct($file = 'MyDb.ini')
 	{
 		if (!$settings = parse_ini_file($file, TRUE)) throw new exception('Unable to open ' . $file . '.');
 

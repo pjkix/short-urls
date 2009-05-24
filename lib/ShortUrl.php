@@ -8,7 +8,7 @@
  * @copyright	2009 pjk
  * @license		(cc) some rights reserved
  * @version		$Id:$
- * @todo simplify / streamline
+ * @todo 		simplify / streamline
  */
 
 /**
@@ -131,6 +131,7 @@ abstract class ShortUrl implements iShortUrl
 		$url_a = parse_url($url);
 		if ( empty($url_a['host']) ) throw new ShortUrlException('Not a valid URL');
 		$this->url = $url;
+		if ($this->short_url) return $this->short_url;
 		if ( ! $short_url =  $this->cacheGetUrl($url) ) {
 			$this->debug('CACHE MISS!');
 			if ( ! $short_url = $this->dbGetUrl($url) ) {
@@ -139,8 +140,17 @@ abstract class ShortUrl implements iShortUrl
 			}
 			$this->cacheSetUrl($url, $short_url);
 		}
+		$this->short_url = $short_url;
 		return $short_url;
 	}
+
+	/**
+	 * private method must be implemented in subclass
+	 *
+	 * @param string $url the long url
+	 * @return string $short_url	the short url
+	 */
+	abstract function _getShortUrl($url);
 
 	/**
 	 * debug function
@@ -157,15 +167,8 @@ abstract class ShortUrl implements iShortUrl
 				var_dump($obj);
 			}
 		}
+		// trigger_error('cacheMemcache::set() attempted with no connection present',E_USER_ERROR);
 	}
-
-	/**
-	 * private method must be implemented in subclass
-	 *
-	 * @param string $url the long url
-	 * @return string $short_url	the short url
-	 */
-	abstract function _getShortUrl($url);
 
 	/**
 	 * public setter for url
@@ -187,12 +190,13 @@ abstract class ShortUrl implements iShortUrl
 	 * @param unknown_type $short_url
 	 */
 	public function dbSetUrl($url, $short_url) {
+		return false;
 		$this->debug(sprintf('ADDING LONG_URL: %s AND SHORT_URL: %s TO DB', $url, $short_url) );
 		$sql = "INSERT INTO `short_urls` (`url_id`, `target_url`, `short_url`, `date_created`)
-			VALUES (NULL, '%s', '%s', NOW());"; // 2009-05-22 11:54:41
-		$insert_sql = sprintf($sql,$url, $short_url);
-		require_once dirname(__FILE__) . '/../../htdocs/lib/sql_functions.php';
-		$dbh = pdn_db();
+			VALUES (NULL, '%s', '%s', %s );"; // 2009-05-22 11:54:41
+		$insert_sql = sprintf($sql,$url, $short_url, date('r') );
+		require_once dirname(__FILE__) . '/MyDb.php';
+		$dbh = new MyDb;
 		$result = mysql_query($insert_sql, $dbh);
 		return $result;
 	}
@@ -204,11 +208,12 @@ abstract class ShortUrl implements iShortUrl
 	 * @return unknown
 	 */
 	public function dbGetUrl($url) {
+		return false;
 		$this->debug(sprintf('GETTING: %s FROM DB', $url) );
 		$sql = "SELECT `short_url` FROM `short_urls` WHERE `long_url` = '%s' LIMIT 1 ";
 		$select_sql = sprintf($sql,$url);
-		require_once dirname(__FILE__) . '/../../htdocs/lib/sql_functions.php';
-		$dbh = pdn_db();
+		require_once dirname(__FILE__) . '/MyDb.php';
+		$dbh = new MyDB;
 		$result = mysql_query($select_sql, $dbh);
 		$data = mysql_fetch_assoc($result);
 		return $data['short_url'];
@@ -229,22 +234,22 @@ abstract class ShortUrl implements iShortUrl
 		require_once dirname(__FILE__) . '/memcache.class.php';
 		$cache_name = $this->class .'-'.md5($url);
 		$this->debug(sprintf('ADDING: %s TO CACHE WITH KEY: %s AND EXPIRES %s', $data, $cache_name, $expiry));
-		return cacheMemcache::set($cache_name,$data, false, $this->cache_time);
+		return cacheMemcache::set($cache_name,$data, false, $expiry);
 	}
 
 	/**
 	 * grab from cache
 	 *
-	 * @param string	$url	key for our cache
-	 * @return string	$short_url	data from cache
+	 * @param 	string	$url		key for our cache
+	 * @return 	string	$short_url	data from cache
 	 */
 	protected function cacheGetUrl($url)
 	{
 		if (!class_exists('Memcache')) return false;
 		require_once dirname(__FILE__) . '/memcache.class.php';
-		cacheMemcache::connect( array( array('localhost' => 11211) ) ); // normally this is done in the configs
+		if (! cacheMemcache::connect( array( array('localhost' => 11211) ) ) ) return false; // normally this is done in the configs
 		$cache_name = $this->class . '-' . md5($url);
-		$this->debug(sprintf('GETTING: %s FROM CACHE KEY %s', $url, $cache_name));
+		$this->debug(sprintf('GETTING: %s WITH CACHE KEY: %s', $url, $cache_name));
 		return cacheMemcache::get($cache_name);
 	}
 
@@ -297,9 +302,8 @@ abstract class ShortUrl implements iShortUrl
 			return $result;
 		} else {
 			return false;
+		}
 	}
-
-}
 
 } // END ShortUrl{}
 
@@ -312,5 +316,45 @@ class ShortUrlException extends Exception
 	// try and handle errors here ...
 
 } // END: ShortUrlException{}
+
+
+/**
+* ShortUrlUtils for setting up, upgrading, etc
+*/
+class ShortUrlUtil
+{
+	
+	public static function setUpDbSqlLite()
+	{
+		// create new database (OO interface)
+		$db = new SQLiteDatabase("data/db.sqlite");
+		
+		// create table foo and insert sample data
+		$db->query("BEGIN;
+				CREATE TABLE short_urls(id INTEGER PRIMARY KEY, long_url CHAR(255), short_url CHAR(100), date_created DATETIME);
+				INSERT INTO short_urls (long_url, short_url, date_created) VALUES('http://example.com/long','http://example.com/short', '2009-10-20 00:00:00');
+				COMMIT;");
+
+		// execute a query	  
+		$result = $db->query("SELECT * FROM short_urls");
+		// iterate through the retrieved rows
+		while ($result->valid()) {
+			// fetch current row
+			$row = $result->current();	   
+			print_r($row);
+		// proceed to next row
+			$result->next();
+		}
+
+		// not generally needed as PHP will destroy the connection
+		unset($db);
+	}
+	
+	public function insertData()
+	{
+		# code...
+	}
+	
+} // END: ShortUrlUtils{}
 
 ?>

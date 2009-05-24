@@ -48,7 +48,7 @@ if ( isset($_GET['json']) ) {
 
 // $myShortUrl = ShortUrlFactory::getUrlService(ShortUrlFactory::TINY_URL);
 $myShortUrl = ShortUrlFactory::getUrlService($service);
-$myShortUrl->debug = true; // for debugging
+$myShortUrl->debug = isset($_GET['debug']); // for debugging
 $short_url = $myShortUrl->getShortUrl($url); // maybe ditch this and make static?
 
 // list of services?
@@ -56,6 +56,10 @@ $services = ShortUrlFactory::getUrlServices();
 
 // call sub lib directly with out invoke?
 // echo ShortUrl_TinyUrl::getShortUrl($url);
+
+
+// ShortUrlUtil::setupDbSqlLite();
+
 
 // ob_start();// for firephp
 ?>

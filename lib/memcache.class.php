@@ -66,6 +66,7 @@ class cacheMemcache
 	 * @param array $user_pool Associated array of memcache addresses to port numbers
 	 * @param string $user_prefix Prefix to prepend to all memcache key names utilized by this instance of Memcache
 	 * @return null.
+	 * @since v1.1 CHANGED: return values to false/mixed
 	 */
 	static function connect( $user_pool = false, $user_prefix = false )
 	{
@@ -82,6 +83,7 @@ class cacheMemcache
 			if (! $connect_result)
 			{
 				trigger_error(sprintf('memcache::addserver() failed (%s:%s)',key($memcache_server),$memcache_server[key($memcache_server)]),E_USER_ERROR);
+				return false;
 			}
 		}
 
@@ -89,7 +91,8 @@ class cacheMemcache
 		{
 			self::$prefix =	$user_prefix;
 		}
-
+		
+		return $connect_result;
 	}
 
 	// Not really needed

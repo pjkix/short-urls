@@ -118,7 +118,7 @@ abstract class ShortUrl implements iShortUrl
 	protected	$cache_time = 	86400; // 1 day
 	protected 	$class = 		__CLASS__; // hack for getting subclass name back to parent class
 	public		$debug = 		false;
-	
+
 	/**
 	 * basic interface provides caching for private _getShortUrl method
 	 *
@@ -137,6 +137,7 @@ abstract class ShortUrl implements iShortUrl
 			if ( ! $short_url = $this->dbGetUrl($url) ) {
 				$this->debug('DB MISS!');
 				$short_url = $this->_getShortUrl($url);
+				$this->dbSetUrl($url, $short_url);
 			}
 			$this->cacheSetUrl($url, $short_url);
 		}
@@ -155,7 +156,7 @@ abstract class ShortUrl implements iShortUrl
 	/**
 	 * debug function
 	 *
-	 * @param string $msg 
+	 * @param string $msg
 	 * @return void
 	 */
 	public function debug($msg = null, $obj = null,  $print = false)
@@ -173,7 +174,7 @@ abstract class ShortUrl implements iShortUrl
 	/**
 	 * public setter for url
 	 *
-	 * @param string $url 
+	 * @param string $url
 	 * @return void
 	 */
 	public function setUrl($url)
@@ -190,14 +191,13 @@ abstract class ShortUrl implements iShortUrl
 	 * @param unknown_type $short_url
 	 */
 	public function dbSetUrl($url, $short_url) {
-		// return false;
 		$this->debug(sprintf('ADDING LONG_URL: %s AND SHORT_URL: %s TO DB', $url, $short_url) );
-		$sql = "INSERT INTO `short_urls` (`url_id`, `target_url`, `short_url`, `date_created`)
-			VALUES (NULL, '%s', '%s', %s );"; // 2009-05-22 11:54:41
-		$insert_sql = sprintf($sql,$url, $short_url, date('r') );
 		require_once dirname(__FILE__) . '/MyDb.php';
 		$dbh = new MyDb;
-		$result = mysql_query($insert_sql, $dbh);
+		$sql = "INSERT INTO `short_urls` (`id`, `long_url`, `short_url`, `date_created`)
+			VALUES (NULL, '%s', '%s', %s );"; // 2009-05-22 11:54:41
+		$insert_sql = sprintf($sql,$url, $short_url, $dbh->quote( date('r') ) );
+		$result = $dbh->query($insert_sql);
 		return $result;
 	}
 
@@ -208,14 +208,13 @@ abstract class ShortUrl implements iShortUrl
 	 * @return unknown
 	 */
 	public function dbGetUrl($url) {
-		// return false;
 		$this->debug(sprintf('GETTING: %s FROM DB', $url) );
-		$sql = "SELECT `short_url` FROM `short_urls` WHERE `long_url` = '%s' LIMIT 1 ";
-		$select_sql = sprintf($sql,$url);
 		require_once dirname(__FILE__) . '/MyDb.php';
 		$dbh = new MyDB;
+		$sql = "SELECT `short_url` FROM `short_urls` WHERE `long_url` = '%s' LIMIT 1 ";
+		$select_sql = sprintf($sql,$url);
 		$result = $dbh->query($select_sql);
-		$data = $result->fetch($result);
+		$data = $result->fetch();
 		return $data['short_url'];
 	}
 
@@ -250,7 +249,7 @@ abstract class ShortUrl implements iShortUrl
 		if (! cacheMemcache::connect( array( array('localhost' => 11211) ) ) ) return false; // normally this is done in the configs
 		$cache_name = $this->class . '-' . md5($url);
 		$this->debug(sprintf('GETTING: %s WITH CACHE KEY: %s', $url, $cache_name));
-		return cacheMemcache::get($cache_name);
+		return @cacheMemcache::get($cache_name);
 	}
 
 	/**
@@ -293,6 +292,7 @@ abstract class ShortUrl implements iShortUrl
 	 *
 	 * @param string $url
 	 * @return string on success false on fail
+	 * @depricated use curl instead
 	 */
 	protected function restServiceFGC($url)
 	{
@@ -323,24 +323,24 @@ class ShortUrlException extends Exception
 */
 class ShortUrlUtil
 {
-	
+
 	public static function setUpDbSqlLite()
 	{
 		// create new database (OO interface)
 		$db = new SQLiteDatabase("data/db.sqlite");
-		
+
 		// create table foo and insert sample data
 		$db->query("BEGIN;
 				CREATE TABLE IF NOT EXISTS short_urls(id INTEGER PRIMARY KEY AUTOINCRIMENT, long_url CHAR(255), short_url CHAR(100), date_created DATETIME);
 				INSERT INTO short_urls (long_url, short_url, date_created) VALUES('http://example.com/long','http://example.com/short', '2009-10-20 00:00:00');
 				COMMIT;");
 
-		// execute a query	  
+		// execute a query
 		$result = $db->query("SELECT * FROM short_urls");
 		// iterate through the retrieved rows
 		while ($result->valid()) {
 			// fetch current row
-			$row = $result->current();	   
+			$row = $result->current();
 			print_r($row);
 		// proceed to next row
 			$result->next();
@@ -349,35 +349,51 @@ class ShortUrlUtil
 		// not generally needed as PHP will destroy the connection
 		unset($db);
 	}
-	
-	
+
+
 	public static function setupDbPdoSqlite()
 	{
 		require_once 'MyDb.php';
 		$dbh = new MyDb;
-		$dsn = 'sqlite:'.realpath(dirname(__FILE__).'/../data/db.sqlite');
-		// var_dump($dsn);die;
-		try {
-		    $dbh = new PDO($dsn);
-		} catch (PDOException $e) {
-		    echo 'Connection failed: ' . $e->getMessage();
-		}
-		
-		$sql = "BEGIN;
-				CREATE TABLE IF NOT EXISTS short_urls(id INTEGER PRIMARY KEY AUTOINCRIMENT, long_url CHAR(255), short_url CHAR(100), date_created DATETIME);
-				INSERT INTO short_urls (long_url, short_url, date_created) VALUES('http://example.com/long','http://example.com/short', '2009-10-20 00:00:00');
-				COMMIT;";
-		$dbh->query($sql);
-		var_dump($dbh);die;
+
+		// create
+		$create_sql = 'CREATE TABLE IF NOT EXISTS short_urls (
+			id INTEGER PRIMARY KEY AUTOINCREMENT,
+			long_url CHAR(255),
+			short_url CHAR(100),
+			date_created DATETIME
+		);';
+		$dbh->query($create_sql);
+
+		// populate
+		// var_dump(date('Y-m-d H:i:s'));die;
+		$insert_sql = sprintf("INSERT INTO short_urls (long_url, short_url, date_created) 
+			VALUES('http://example.com/long','http://example.com/short', %s); ", $dbh->quote(date('Y-m-d H:i:s')) );
+		$dbh->query($insert_sql);
+
+		// test
+		$select_sql = 'SELECT * FROM short_urls';
+		$result = $dbh->query($select_sql);
+		var_dump($result->fetchAll());
+
 		$dbh = null;
 	}
-	
-	
+
+
 	public function insertData()
 	{
 		# code...
 	}
 	
+	public static function dumpData()
+	{
+		require_once 'MyDb.php';
+		$dbh = new MyDb;
+		$sql = 'SELECT * FROM short_urls;' ;
+		$result = $dbh->query($sql);
+		var_dump($result->fetchAll());
+	}
+
 } // END: ShortUrlUtils{}
 
 ?>

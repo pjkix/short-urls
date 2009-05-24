@@ -29,7 +29,7 @@ ini_set('include_path', ini_get('include_path') . PATH_SEPARATOR . 'lib');
 
 // main lib
 require_once('ShortUrl.php');
-ShortUrlUtil::setupDbPdoSqlite();
+// ShortUrlUtil::setupDbPdoSqlite();
 
 // some defaults
 $url = 'http://example.com/';
@@ -57,9 +57,6 @@ $services = ShortUrlFactory::getUrlServices();
 
 // call sub lib directly with out invoke?
 // echo ShortUrl_TinyUrl::getShortUrl($url);
-
-
-
 
 // ob_start();// for firephp
 ?>
@@ -199,6 +196,8 @@ $services = ShortUrlFactory::getUrlServices();
 		$debug->check_all_mem();
 		$debug->dump_user_globals();
 		$debug->dump_includes();
+
+		ShortUrlUtil::dumpData();
 
 		// FIRE PHP for FIREBUG
 		// require_once('FirePHPCore/fb.php');

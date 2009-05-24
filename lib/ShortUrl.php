@@ -31,7 +31,7 @@ interface iShortUrl
  *
  * Example:
  * <code>
- * require_once 'Lib/ShortUrl.php';
+ * require_once 'ShortUrl.php';
  *
  * $myShortUrl =  ShortUrlFactory::getUrlService(ShortUrlFactory::TINY_URL);
  * echo $myShortUrl->getShortUrl($url);
@@ -106,7 +106,6 @@ class ShortUrlFactory
 
 /**
  * short Url base class
- *
  */
 abstract class ShortUrl implements iShortUrl
 {
@@ -114,11 +113,12 @@ abstract class ShortUrl implements iShortUrl
 	const		API_VERSION = '1.0';
 	const		API_CLIENT = 'ShortUrl/bot';
 	// API vars
-	protected	$url = null;
-	protected	$short_url = null;
-	protected	$cache_time = 86400; // 1 day
-	protected 	$class = __CLASS__; // hack for getting subclass name back to parent class
-
+	protected	$url = 			null;
+	protected	$short_url = 	null;
+	protected	$cache_time = 	86400; // 1 day
+	protected 	$class = 		__CLASS__; // hack for getting subclass name back to parent class
+	public		$debug = 		false;
+	
 	/**
 	 * basic interface provides caching for private _getShortUrl method
 	 *
@@ -132,12 +132,31 @@ abstract class ShortUrl implements iShortUrl
 		if ( empty($url_a['host']) ) throw new ShortUrlException('Not a valid URL');
 		$this->url = $url;
 		if ( ! $short_url =  $this->cacheGetUrl($url) ) {
-//			error_log('CACHE MISS!');
-			$short_url = $this->_getShortUrl($url);
+			$this->debug('CACHE MISS!');
+			if ( ! $short_url = $this->dbGetUrl($url) ) {
+				$this->debug('DB MISS!');
+				$short_url = $this->_getShortUrl($url);
+			}
 			$this->cacheSetUrl($url, $short_url);
 		}
-//		error_log('CACHE HIT!');
-		return $this->cacheGetUrl($url);
+		return $short_url;
+	}
+
+	/**
+	 * debug function
+	 *
+	 * @param string $msg 
+	 * @return void
+	 */
+	public function debug($msg = null, $obj = null,  $print = false)
+	{
+		if ($this->debug) {
+			error_log($msg);
+			if ($obj && $print) {
+				echo $msg . PHP_EOL;
+				var_dump($obj);
+			}
+		}
 	}
 
 	/**
@@ -148,6 +167,18 @@ abstract class ShortUrl implements iShortUrl
 	 */
 	abstract function _getShortUrl($url);
 
+	/**
+	 * public setter for url
+	 *
+	 * @param string $url 
+	 * @return void
+	 */
+	public function setUrl($url)
+	{
+		$url_a = parse_url($url);
+		if ( empty($url_a['host']) ) throw new ShortUrlException('Not a valid URL');
+		$this->url = $url;
+	}
 
 	/**
 	 * save short url to db
@@ -156,7 +187,7 @@ abstract class ShortUrl implements iShortUrl
 	 * @param unknown_type $short_url
 	 */
 	public function dbSetUrl($url, $short_url) {
-//		error_log(sprintf('ADDING LONG_URL: %s AND SHORT_URL: %s TO DB', $url, $short_url) );
+		$this->debug(sprintf('ADDING LONG_URL: %s AND SHORT_URL: %s TO DB', $url, $short_url) );
 		$sql = "INSERT INTO `short_urls` (`url_id`, `target_url`, `short_url`, `date_created`)
 			VALUES (NULL, '%s', '%s', NOW());"; // 2009-05-22 11:54:41
 		$insert_sql = sprintf($sql,$url, $short_url);
@@ -173,7 +204,7 @@ abstract class ShortUrl implements iShortUrl
 	 * @return unknown
 	 */
 	public function dbGetUrl($url) {
-//		error_log(sprintf('GETTING: %s FROM DB', $url) );
+		$this->debug(sprintf('GETTING: %s FROM DB', $url) );
 		$sql = "SELECT `short_url` FROM `short_urls` WHERE `long_url` = '%s' LIMIT 1 ";
 		$select_sql = sprintf($sql,$url);
 		require_once dirname(__FILE__) . '/../../htdocs/lib/sql_functions.php';
@@ -197,7 +228,7 @@ abstract class ShortUrl implements iShortUrl
 		if (!$expiry) $expiry = $this->cache_time;
 		require_once dirname(__FILE__) . '/memcache.class.php';
 		$cache_name = $this->class .'-'.md5($url);
-//		error_log(sprintf('ADDING: %s TO CACHE WITH KEY: %s AND EXPIRES %s', $data, $cache_name, $expiry));
+		$this->debug(sprintf('ADDING: %s TO CACHE WITH KEY: %s AND EXPIRES %s', $data, $cache_name, $expiry));
 		return cacheMemcache::set($cache_name,$data, false, $this->cache_time);
 	}
 
@@ -213,7 +244,7 @@ abstract class ShortUrl implements iShortUrl
 		require_once dirname(__FILE__) . '/memcache.class.php';
 		cacheMemcache::connect( array( array('localhost' => 11211) ) ); // normally this is done in the configs
 		$cache_name = $this->class . '-' . md5($url);
-//		error_log(sprintf('GETTING: %s FROM CACHE KEY %s', $url, $cache_name));
+		$this->debug(sprintf('GETTING: %s FROM CACHE KEY %s', $url, $cache_name));
 		return cacheMemcache::get($cache_name);
 	}
 
@@ -226,7 +257,7 @@ abstract class ShortUrl implements iShortUrl
 	 */
 	protected function restServiceCurl($url, $username = null, $pass = null)
 	{
-//		error_log('USING CURL');
+		$this->debug('USING CURL');
 		$curl_options = array(
 			CURLOPT_RETURNTRANSFER	=> true,		// return web page
 			CURLOPT_HEADER			=> false,		// don't return headers
@@ -260,7 +291,7 @@ abstract class ShortUrl implements iShortUrl
 	 */
 	protected function restServiceFGC($url)
 	{
-//		error_log('USING FGC');
+		$this->debug('USING FGC');
 		$result =  file_get_contents($url); // urlencode()?
 		if ( strlen($result) > 0 ) {
 			return $result;

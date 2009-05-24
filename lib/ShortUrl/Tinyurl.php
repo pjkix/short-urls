@@ -30,7 +30,6 @@ final class ShortUrl_Tinyurl extends ShortUrl
 	 * ?? static? can't use this->
 	 * @param string $url
 	 * @return string $tinyurl or false on fail
-	 * @author PJ Khalil
 	 */
 	public function _getShortUrl($url) {
 		if ( function_exists('curl_init') ) {

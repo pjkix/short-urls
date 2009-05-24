@@ -157,7 +157,7 @@ abstract class ShortUrl implements iShortUrl
 	 */
 	public function dbSetUrl($url, $short_url) {
 //		error_log(sprintf('ADDING LONG_URL: %s AND SHORT_URL: %s TO DB', $url, $short_url) );
-		$sql = "INSERT INTO `podshow`.`shorten_url` (`url_id`, `target_url`, `short_url`, `date_created`)
+		$sql = "INSERT INTO `short_urls` (`url_id`, `target_url`, `short_url`, `date_created`)
 			VALUES (NULL, '%s', '%s', NOW());"; // 2009-05-22 11:54:41
 		$insert_sql = sprintf($sql,$url, $short_url);
 		require_once dirname(__FILE__) . '/../../htdocs/lib/sql_functions.php';
@@ -174,7 +174,7 @@ abstract class ShortUrl implements iShortUrl
 	 */
 	public function dbGetUrl($url) {
 //		error_log(sprintf('GETTING: %s FROM DB', $url) );
-		$sql = "SELECT `short_url` FROM `shorten_url` WHERE `target_url` = '%s' LIMIT 1 ";
+		$sql = "SELECT `short_url` FROM `short_urls` WHERE `long_url` = '%s' LIMIT 1 ";
 		$select_sql = sprintf($sql,$url);
 		require_once dirname(__FILE__) . '/../../htdocs/lib/sql_functions.php';
 		$dbh = pdn_db();

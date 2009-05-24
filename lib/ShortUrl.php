@@ -362,6 +362,7 @@ class ShortUrlUtil
 		} catch (PDOException $e) {
 		    echo 'Connection failed: ' . $e->getMessage();
 		}
+		
 		$sql = "BEGIN;
 				CREATE TABLE IF NOT EXISTS short_urls(id INTEGER PRIMARY KEY AUTOINCRIMENT, long_url CHAR(255), short_url CHAR(100), date_created DATETIME);
 				INSERT INTO short_urls (long_url, short_url, date_created) VALUES('http://example.com/long','http://example.com/short', '2009-10-20 00:00:00');

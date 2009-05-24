@@ -1,5 +1,7 @@
 <?php
 
+// mysqli vs pdo?
+
 /**
  * PDO Wrapper
  *
@@ -23,37 +25,43 @@ class MyDb extends PDO
 
 	// make this singleton and shit 
 
+} // END: MyDb{}
 
-	function mysql_insert_array ($my_table, $my_array) {
-	    $keys = array_keys($my_array);
-	    $values = array_values($my_array);
-	    $sql = 'INSERT INTO ' . $my_table . '(' . implode(',', $keys) . ') VALUES ("' . implode('","', $values) . '")';
-	    return(mysql_query($sql));
-	}
+
+
+
+/**
+ * undocumented 
+ *
+ */
+function mysql_insert_array ($my_table, $my_array) {
+    $keys = array_keys($my_array);
+    $values = array_values($my_array);
+    $sql = 'INSERT INTO ' . $my_table . '(' . implode(',', $keys) . ') VALUES ("' . implode('","', $values) . '")';
+    return(mysql_query($sql));
 }
 
 
-class PDOConfig extends PDO {
-   
-    private $engine;
-    private $host;
-    private $database;
-    private $user;
-    private $pass;
-   
-    public function __construct(){
-        $this->engine = 'mysql';
-        $this->host = 'localhost';
-        $this->database = '';
-        $this->user = 'root';
-        $this->pass = '';
-        $dns = $this->engine.':dbname='.$this->database.";host=".$this->host;
-        parent::__construct( $dns, $this->user, $this->pass );
-    }
+
+/**
+ * Quote variable to make safe
+ *
+ * best practice query from http://us2.php.net/manual/en/function.mysql-real-escape-string.php
+ *
+ * @param unknown_type $value
+ * @return unknown
+ */
+function PK_quote_smart($value)
+{
+   // Stripslashes
+   if (get_magic_quotes_gpc()) {
+       $value = stripslashes($value);
+   }
+   // Quote if not integer
+   if (!is_numeric($value)) {
+       $value = "'" . mysql_real_escape_string($value) . "'";
+   }
+   return $value;
 }
-
-
-// mysqli vs pdo?
-
 
 ?>

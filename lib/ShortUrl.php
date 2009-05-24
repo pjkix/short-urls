@@ -196,7 +196,7 @@ abstract class ShortUrl implements iShortUrl
 		$dbh = new MyDb;
 		$sql = "INSERT INTO `short_urls` (`id`, `long_url`, `short_url`, `date_created`)
 			VALUES (NULL, '%s', '%s', %s );"; // 2009-05-22 11:54:41
-		$insert_sql = sprintf($sql,$url, $short_url, $dbh->quote( date('r') ) );
+		$insert_sql = sprintf($sql, $url, $short_url, $dbh->quote( date('r') ) );
 		$result = $dbh->query($insert_sql);
 		return $result;
 	}
@@ -361,7 +361,7 @@ class ShortUrlUtil
 			id INTEGER PRIMARY KEY AUTOINCREMENT,
 			long_url CHAR(255),
 			short_url CHAR(100),
-			date_created DATETIME
+			date_created DATETIME CURRENT_TIMESTAMP
 		);';
 		$dbh->query($create_sql);
 

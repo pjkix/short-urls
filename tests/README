@@ -1,0 +1,20 @@
+Tests
+=====
+
+
+All tests should run all unit tests and functional tests
+
+Acceptance Tests (functional tests)
+-----------------------------------
+
+you can run individual test suites or selenium test suites
+
+Unit Tests (code tests)
+----------
+
+* ShortUrlTestSuite - tests code 
+
+user stories
+------------
+
+* get a short url from a long one

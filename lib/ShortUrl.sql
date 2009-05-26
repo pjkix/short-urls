@@ -1,20 +1,24 @@
+-- 
+-- Short Url DB Setup
+-- 
+
 -- schema
-CREATE TABLE shorten_url
+CREATE TABLE IF NOT EXISTS short_urls
 (
 url_id mediumint NOT NULL auto_increment,
-target_url varchar(255) NOT NULL,
+long_url varchar(255) NOT NULL,
 short_url varchar(100) NOT NULL,
 date_created datetime NOT NULL,
 
 PRIMARY KEY(url_id),
-UNIQUE KEY (target_url)
+UNIQUE KEY (long_url)
 ); 
 
 
 -- insert data
-INSERT INTO `podshow`.`shorten_url` (
+INSERT INTO `short_urls` (
 `url_id` ,
-`target_url` ,
+`long_url` ,
 `short_url` ,
 `date_created`
 )
@@ -25,7 +29,7 @@ NULL , 'http://example.com/', 'http://tinyurl.com/kotu', NOW( )
 
 -- get data
 SELECT `short_url`
-FROM `shorten_url`
-WHERE `target_url` = 'http://example.com/'
+FROM `short_urls`
+WHERE `long_url` = 'http://example.com/'
 LIMIT 1
 

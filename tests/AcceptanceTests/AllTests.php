@@ -10,12 +10,12 @@ require_once 'PHPUnit/TextUI/TestRunner.php';
 /**
  * Require setup Helper tasks
  */
-require_once 'TestHelper.php';
+require_once 'phpunit-bootstrap.php';
  
 /**
  * Include test files
  */
-require_once 'demo.ft.php';
+require_once 'DemoTest.ft.php';
  
 class AcceptanceTests_AllTests
 {
@@ -28,7 +28,7 @@ class AcceptanceTests_AllTests
     {
         $suite = new PHPUnit_Framework_TestSuite('Short Url Demo :: Acceptance Tests');
  
-        $suite->addTestSuite('UserLoginTest');
+        $suite->addTestSuite('DemoTest');
  
         return $suite;
     }

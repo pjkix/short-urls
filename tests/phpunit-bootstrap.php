@@ -31,7 +31,7 @@ define('TESTS_DB_PASSWORD', '');
 /**
  * Selenium Settings for Acceptance Testing
  */
-define('TESTS_SELENIUM_BASEURL', 'http://localhost/projects/devzone/trunk/www');
+define('TESTS_SELENIUM_BASEURL', 'http://localhost/~pjkix/projects/short-urls/');
 define('TESTS_SELENIUM_BROWSER', '*firefox');
 define('TESTS_SELENIUM_DEFAULT_TIMEOUT', 30000); // in milliseconds!
 	

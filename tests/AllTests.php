@@ -13,7 +13,10 @@ require_once 'PHPUnit/TextUI/TestRunner.php';
  */
 require_once 'phpunit-bootstrap.php';
  
+// test suites
 require_once 'AcceptanceTests/AllTests.php';
+
+require_once 'ShortUrlTestSuite.php';
  
 class AllTests
 {

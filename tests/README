@@ -18,3 +18,51 @@ user stories
 ------------
 
 * get a short url from a long one
+
+
+Notes
+-----
+unit tests ... acceptance tests ... all tests
+
+### run tests from cmd line
+
+run tests from test dir for autoloading of phpunit.xml and tests as such
+
+	$ phpunit --verbose
+
+run individual test cases or suites from cmd line ... or zend ide 
+
+	$ phpunit tests/ShortUrlTestSuite
+
+or 
+	$ phpunit tests/ShotrUrl
+
+### run tests from browser ... 
+
+either using selenium core or rc
+
+#### using selenium core ... 
+
+basically fire up browser go to selenium core and enter /short-urls/tests/AcceptanceTestSuite.html
+
+http://localhost/~pjkix/selenium-core/core/TestRunner.html?test=%2F~pjkix%2Fprojects%2Fshort-urls%2Ftests%2FAcceptanceTestSuite.html&resultsUrl=..%2FpostResults
+
+#### using selenium rc
+
+fire up selenium server using ... 
+
+	java -jar selenium-server.jar
+
+better yet make an alias 
+
+	alias selenium_rc='java -jar /Users/pjkix/Sites/lib/selenium-remote-control-1.0-beta-2/selenium-server-1.0-beta-2/selenium-server.jar'
+
+once selenium server is running you can then kick off acceptance tests from the command line or from the browser suite
+
+	http://localhost/~pjkix/projects/short-urls/tests/AllTests.php
+
+### run tests from zend studio
+
+right click > run as phpunit test
+
+

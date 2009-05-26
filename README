@@ -34,6 +34,7 @@ examples
 http://phpkitchen.com/2005/03/advantages-of-using-the-pear-class-naming-convention/
 
 
+### notes 
 
 use $_foo or _foo() for private vars n functions
 
@@ -41,4 +42,63 @@ don't use __foo() in user functions , thats reserved for magic ..
 
 
 translate with _("hello world") using gettext and .po files
+
+
+
+Structure
+---------
+
+short-urls
+
+	.
+	|-- CHANGELOG
+	|-- README
+	|-- config.yaml
+	|-- data
+	|   `-- db.sqlite
+	|-- demo.phtml
+	|-- doc
+	|   |-- PHPDocConfig.ini
+	|   `-- <GENERATED CONTENT>
+	|-- lib
+	|   |-- MyDb.ini
+	|   |-- MyDb.php
+	|   |-- ShortUrl
+	|   |   |-- Bitly.php
+	|   |   |-- Cligs.php
+	|   |   |-- Isgd.php
+	|   |   |-- Tinyurl.php
+	|   |   `-- Trim.php
+	|   |-- ShortUrl.php
+	|   |-- ShortUrl.sql
+	|   |-- ShortUrlTest.php
+	|   |-- debug.class.php
+	|   |-- memcache.class.php
+	|   |-- memcache.ut.php
+	|   `-- twitter.class.php
+	|-- scripts
+	|   |-- bitlyAPI.js
+	|   `-- shortUrl.js
+	|-- styles
+	|   `-- default
+	|       `-- main.css
+	`-- tests
+	    |-- AcceptanceTestSuite.html
+	    |-- AcceptanceTestSuite.php
+	    |-- AcceptanceTests
+	    |   |-- AllTests.php
+	    |   |-- DemoTest.ft.php
+	    |   |-- demo.ft.html
+	    |   `-- testGoogle.php
+	    |-- AllTests.php
+	    |-- README
+	    |-- ShortUrl
+	    |   `-- ShortUrl_TinyurlTest.php
+	    |-- ShortUrlTestSuite.php
+	    |-- phpunit-bootstrap.php
+	    |-- phpunit.xml
+	    |-- report
+	    |   `-- <GENERATED CONTENT>
+	    `-- testdox.html
+
 

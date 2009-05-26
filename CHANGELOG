@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+v.0.9.6
+-------
+* added db support from work
+* adding phpunit + selenium (acceptance tests / unit tests)
+
 v.0.9.5
 -------
 * updated and simplified subclasses

@@ -13,30 +13,30 @@ class DemoTest extends PHPUnit_Extensions_SeleniumTestCase
 	
 	public static $browsers = array(
 	  array(
-		'name'	  => 'Firefox on Linux',
+		'name'	  => 'Firefox on mac',
 		'browser' => '*firefox',
-		'host'	  => 'my.linux.box',
+		'host'	  => 'localhost',
 		'port'	  => 4444,
 		'timeout' => 30000,
 	  ),
 	  array(
 		'name'	  => 'Safari on MacOS X',
 		'browser' => '*safari',
-		'host'	  => 'my.macosx.box',
+		'host'	  => 'localhost',
 		'port'	  => 4444,
 		'timeout' => 30000,
 	  ),
 	  array(
-		'name'	  => 'Safari on Windows XP',
+		'name'	  => 'Safari on Windows Vista',
 		'browser' => '*custom C:\Program Files\Safari\Safari.exe -url',
-		'host'	  => 'my.windowsxp.box',
+		'host'	  => '192.168.1.140',
 		'port'	  => 4444,
 		'timeout' => 30000,
 	  ),
 	  array(
-		'name'	  => 'Internet Explorer on Windows XP',
+		'name'	  => 'Internet Explorer on Windows Vista',
 		'browser' => '*iexplore',
-		'host'	  => 'my.windowsxp.box',
+		'host'	  => '192.168.1.140',
 		'port'	  => 4444,
 		'timeout' => 30000,
 	  )
@@ -45,7 +45,6 @@ class DemoTest extends PHPUnit_Extensions_SeleniumTestCase
 	function setUp()
 	{
 		// $this->setBrowser("*firefox");
-		// $this->setBrowser("*safari"); // gets stuck ... maybe safari4?
 		$this->setBrowserUrl("http://localhost/");
 	}
 

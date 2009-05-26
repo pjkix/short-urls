@@ -1,5 +1,5 @@
 <?php
-// this should run all unit and acceptance tests
+// this should run all unit and acceptance tests in a browser 
 
 if (!defined('PHPUnit_MAIN_METHOD')) {
     define('PHPUnit_MAIN_METHOD', 'AllTests::main');

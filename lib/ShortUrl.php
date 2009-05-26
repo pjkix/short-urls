@@ -124,6 +124,7 @@ abstract class ShortUrl implements iShortUrl
 	 *
 	 * @param string $url the url to be shortened
 	 * @return string $short_url the short version of the url
+	 * @assert ('http://example.com/') != 'http://example.com/'
 	 */
 	public function getShortUrl($url)
 	{

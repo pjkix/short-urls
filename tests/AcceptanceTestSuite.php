@@ -15,7 +15,7 @@ require_once 'phpunit-bootstrap.php';
 /**
  * Include test files
  */
-require_once 'DemoTest.ft.php';
+require_once 'AcceptanceTests/DemoTest.ft.php';
  
 class AcceptanceTests_AllTests
 {

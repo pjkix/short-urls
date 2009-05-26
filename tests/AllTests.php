@@ -1,16 +1,37 @@
 <?php
+// this should run all unit and acceptance tests
 
-
-// Set error reporting to highest level
-error_reporting( E_ALL | E_STRICT );
-
-// Allow time for the tests to run. I've scheduled a maximum of 3 minutes here.
-set_time_limit(180);
-
-
+if (!defined('PHPUnit_MAIN_METHOD')) {
+    define('PHPUnit_MAIN_METHOD', 'AllTests::main');
+}
+ 
 require_once 'PHPUnit/Framework.php';
 require_once 'PHPUnit/TextUI/TestRunner.php';
 
-
-
-?>
+/**
+ * Require setup Helper tasks
+ */
+require_once 'phpunit-bootstrap.php';
+ 
+require_once 'AcceptanceTests/AllTests.php';
+ 
+class AllTests
+{
+    public static function main()
+    {
+        PHPUnit_TextUI_TestRunner::run(self::suite());
+    }
+ 
+    public static function suite()
+    {
+        $suite = new PHPUnit_Framework_TestSuite('Short Url Demo');
+ 
+        $suite->addTest(AcceptanceTests_AllTests::suite());
+ 
+        return $suite;
+    }
+}
+ 
+if (PHPUnit_MAIN_METHOD == 'AllTests::main') {
+    AllTests::main();
+}

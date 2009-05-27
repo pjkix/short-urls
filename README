@@ -108,11 +108,155 @@ Todo:
 -----
 export git -> svn 
 
-automate build / testing / end to end / continuous integration
+automate build / testing / end to end / continuous integration / automated deploys
 ant + phpunit + selenium (rc) + cruisecontrol + phpundercontrol + capistrano = :)
 
 document using uml / phpdoc / markdown
 
 config using yaml
+
+
+
+
+---
+
+
+
+URL Shorteners
+==============
+
+* tinyurl.com -  the baseline standard
+* bit.ly - http://bit.ly/apidocs - stats n tracking
+* is.gd - 
+* tr.im - 
+* cli.gs - http://blog.cli.gs/api
+* tweetburner - 
+* many more ... 
+
+interersting articles
+---------------------
+
+* http://dooleyonline.typepad.com/dooley_post/2009/02/comparison-of-url-shorteners.html
+* http://www.toprankblog.com/2009/01/11-best-url-shortening-services-vote-your-favorite/
+* http://searchengineland.com/analysis-which-url-shortening-service-should-you-use-17204
+
+Issues
+------
+* short + friendly
+* stats
+* api
+* seo - 301 no framing
+
+
+Recommendations
+---------------
+personally i would recommend bit.ly but apparently we are going with cli.gs for now ... 
+
+
+Notes
+-----
+
+Andrew Grumet: 
+so, quick summary
+ 
+1. whenever we offer the user to tweet, we send a cli.gs link so we can get analytics on inbound traffic
+2. we currently do this in three places
+a. media-extras
+b. show page sidebar (tweet this show)
+c. after the producer uploads an episode
+ 
+in the last case we are already creating a tinyurl
+ 
+so we swap that out for a cli.gis
+ 
+implementation notes
+ 
+why cli.gs?  it's what the marketing guys asked for.  if there's a vastly superior service, we can come back and recommend that.  but we shouldn't lose time on it, get an answer quick and run.
+ 
+create a gateway similar to psTinyUrl to wrap the API calls
+ 
+might be best to create a generic psUrlShortener to abstract it from the code
+
+so our frontend is unaware of what service we happen to be using
+
+please do that
+
+also, need to be sure we make as few calls out to the remote service as possible, i.e. limit the server-to-server communication
+
+use memcache as necessary etc
+
+
+
+Documentation
+-------------
+see inline or generated phpdocs for more detail.
+
+url shortening services have been updated. it should now be easy to use a
+variety of url shorteners from a single backend library as well as a front end
+solution. currently the backend library defaults to using bit.ly. the library
+also has built in cacheing using memcache and mysql db. this new code is also
+backed up by a unit test suite for the entire library.
+
+currently this has been plugged into the show page already and is up on dev. i'm
+currently working with joe and will to get this plugged into the flash player.
+unfortunetly this requires some work from will to get it properly engineered and
+intergrated since the player was building up its own message and urls.
+
+there are a few issues with bit.ly themselves, for isntance i don't see anyway
+in their interface to track urls that are shortened with their api service and
+not the web interface. some of these do show up however in a recently clicked
+list. if we do need to have aggregate stats for these it should be possible to
+build up an admin dashboard using the short urls stored in the database.
+
+### usage
+
+<code>
+	require_once 'ShortUrl.php';
+	$myShortUrl =  ShortUrlFactory::getUrlService(); // use default service
+	$myShortUrl =  ShortUrlFactory::getUrlService(ShortUrlFactory::TINY_URL); // or a specific one
+	echo $myShortUrl->getShortUrl($url);
+</code>
+
+### Implementation
+
+we're currently going with bit.ly as our default url shortener.
+
+using the following credentials which are located in the bit.ly class itself.
+(this could be made a config var later but the configs are already a mess of
+used and unused vars)
+
+	private $api_key = 'R_054a700b5a590543120a6b49a01ae8ea';
+	private $user = 'mevio';
+	
+note: see joe for login/pass credentials
+
+the urls are not pre-generated and need to be made upon request. 
+this will require a link to a redirect which checks a token and handles the shortening
+
+the player also needs to make a call the the backend to request a message and a shortened url
+
+### Structure Overview
+
+	source/Ps/
+		|-- psShortUrl.php 		(base lib and factory method)
+		|-- psShortUrl.ut.php 	(phpunit tests)
+		|-- psShortUrl.sql 		(db schema setup)
+		|-- psShortUrl/ 		(extensions for specific shortening services)
+			|-- Bitly.php
+			|-- Cligs.php
+			|-- Isgd.php
+			|-- Tinyurl.php
+			`-- Trim.php
+
+
+
+
+
+
+
+
+
+
+
 
 

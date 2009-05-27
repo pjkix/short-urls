@@ -1,17 +1,80 @@
 <project name="short-urls" default="build">
+	
 	<target name="clean">
-	 <delete dir="${basedir}/build"/>
+		<delete dir="${basedir}/build"/>
+		<delete dir="${basedir}/tests/report"/>
 	</target>
 
 	<target name="prepare">
-	 <mkdir dir="${basedir}/build/logs"/>
+		<mkdir dir="${basedir}/build/logs"/>
+		<mkdir dir="${basedir}/tests/report"/>
 	</target>
 
 	<target name="phpunit">
-	 <exec dir="${basedir}/tests" executable="phpunit" failonerror="true">
-	  <arg line="--log-xml ${basedir}/build/logs/phpunit.xml AllTests" />
-	 </exec>
+		<exec dir="${basedir}/tests" executable="phpunit" failonerror="true">
+			<arg line="--log-xml ${basedir}/build/logs/phpunit.xml AllTests" />
+		</exec>
 	</target>
 
 	<target name="build" depends="clean,prepare,phpunit"/>
+	
+	<target name="reset" depends="clean,prepare"/>
+	
+	<!-- some examples from ... http://www.julienlecomte.net/blog/2007/09/16/ -->
+	<target name="js.concatenate">
+		<concat destfile="${build.dir}/concatenated/foo.js">
+			<filelist dir="${src.dir}/js"
+				files="a.js, b.js"/>
+			<fileset dir="${src.dir}/js"
+				includes="*.js"
+				excludes="a.js, b.js"/>
+		</concat>
+	</target>
+	
+	<target name="js.minify" depends="js.preprocess">
+		<java jar="yuicompressor.jar" fork="true">
+			<arg value="foo.js"/>
+		</java>
+	</target>
+	
+	<target name="js.minify.glob" depends="js.preprocess">
+		<apply executable="java" parallel="false">
+			<fileset dir="." includes="foo.js, bar.js"/>
+			<arg line="-jar"/>
+			<arg path="yuicompressor.jar"/>
+			<srcfile/>
+			<arg line="-o"/>
+			<mapper type="glob" from="*.js" to="*-min.js"/>
+			<targetfile/>
+		</apply>
+	</target>
+	
+	
+	<target name="css.minify" depends="js.preprocess">
+		<apply executable="java" parallel="false">
+			<fileset dir="." includes="*.css"/>
+			<arg line="-jar"/>
+			<arg path="yuicompressor.jar"/>
+			<arg line="--line-break 0"/>
+			<srcfile/>
+			<arg line="-o"/>
+			<mapper type="glob" from="*.css" to="*-min.css"/>
+			<targetfile/>
+		</apply>
+	</target>
+	
+	
+	<apply executable="scp" failonerror="true" parallel="true">
+		<fileset dir="${build.dir}" includes="**/*"/>
+		<srcfile/>
+		<arg line="${live.server}:/var/www/html/"/>
+	</apply>
+	
+	
+	<exec executable="ssh" failonerror="true">
+		<arg line="${live.server}"/>
+		<arg line="sudo webctl restart"/>
+	</exec>
+	
+	
 </project>

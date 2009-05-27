@@ -47,6 +47,18 @@ translate with _("hello world") using gettext and .po files
 html5 naming conventions class="header", "section", "article", "aside" etc.
 
 
+Build
+-----
+just run ant in base folder with build.xml
+
+for a list of options check out
+
+	ant -p 
+
+enjoy :)
+
+
+
 Structure
 ---------
 

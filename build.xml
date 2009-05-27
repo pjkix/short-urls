@@ -31,6 +31,17 @@
 		</concat>
 	</target>
 	
+	<target name="js.preprocess" depends="js.concatenate">
+		<apply executable="cpp" dest="${build.dir}/preprocessed">
+			<fileset dir="${build.dir}/concatenated"
+				includes="foo.js"/>
+			<arg line="${js.preprocess.switches}"/>
+			<srcfile/>
+			<targetfile/>
+			<mapper type="identity"/>
+		</apply>
+	</target>
+	
 	<target name="js.minify" depends="js.preprocess">
 		<java jar="yuicompressor.jar" fork="true">
 			<arg value="foo.js"/>
@@ -64,6 +75,8 @@
 	</target>
 	
 	
+<!--
+
 	<apply executable="scp" failonerror="true" parallel="true">
 		<fileset dir="${build.dir}" includes="**/*"/>
 		<srcfile/>
@@ -75,6 +88,7 @@
 		<arg line="${live.server}"/>
 		<arg line="sudo webctl restart"/>
 	</exec>
-	
+	 
+-->
 	
 </project>

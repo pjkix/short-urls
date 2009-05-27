@@ -66,3 +66,32 @@ once selenium server is running you can then kick off acceptance tests from the 
 right click > run as phpunit test
 
 
+
+Continuous Integration
+----------------------
+
+
+phpunit + selenium + ant + cruisecontrol + phpundercontrol = code bliss :)
+
+
+### cruisecontrol
+
+
+setup  project in cruisecontorl
+
+	phpuc project --version-control svn \
+	--version-control-url http://svn.dev.pjkix.com/short-urls \
+	--test-case ShortUrlTest \
+	--test-file ShortUrlTest.php \
+	--test-dir . \
+	--project-name ShortUrl \
+	/opt/local/cruisecontrol
+
+start cruise control
+
+cd /opt/cruisecontrol
+./cruisecontrol.sh
+
+
+
+"dang internet, they dont care whos life they ruin" -koth

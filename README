@@ -44,6 +44,8 @@ don't use __foo() in user functions , thats reserved for magic ..
 translate with _("hello world") using gettext and .po files
 
 
+html5 naming conventions class="header", "section", "article", "aside" etc.
+
 
 Structure
 ---------
@@ -100,5 +102,17 @@ short-urls
 	    |-- report
 	    |   `-- <GENERATED CONTENT>
 	    `-- testdox.html
+
+
+Todo:
+-----
+export git -> svn 
+
+automate build / testing / end to end / continuous integration
+ant + phpunit + selenium (rc) + cruisecontrol + phpundercontrol + capistrano = :)
+
+document using uml / phpdoc / markdown
+
+config using yaml
 
 

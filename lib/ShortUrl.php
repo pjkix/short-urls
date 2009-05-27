@@ -2,8 +2,8 @@
 /**
  * Short URL Base Class
  *
- * @package		WebServices
- * @subpackage	ShortUrl
+ * @category	WebServices
+ * @package		ShortUrl
  * @author		pkhalil
  * @copyright	2009 pjk
  * @license		(cc) some rights reserved

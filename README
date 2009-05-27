@@ -106,14 +106,14 @@ short-urls
 
 Todo:
 -----
-export git -> svn 
+* export git -> svn 
 
-automate build / testing / end to end / continuous integration / automated deploys
+* automate build / testing / end to end / continuous integration / automated deploys
 ant + phpunit + selenium (rc) + cruisecontrol + phpundercontrol + capistrano = :)
 
-document using uml / phpdoc / markdown
+* document using uml / phpdoc / markdown
 
-config using yaml
+* config using yaml
 
 
 
@@ -122,8 +122,8 @@ config using yaml
 
 
 
-URL Shorteners
-==============
+URL Shorteners Background
+=========================
 
 * tinyurl.com -  the baseline standard
 * bit.ly - http://bit.ly/apidocs - stats n tracking
@@ -150,42 +150,13 @@ Issues
 
 Recommendations
 ---------------
-personally i would recommend bit.ly but apparently we are going with cli.gs for now ... 
+personally i would recommend bit.ly or tinyurl.com as these are the most widely used services.
 
 
 Notes
 -----
 
-Andrew Grumet: 
-so, quick summary
- 
-1. whenever we offer the user to tweet, we send a cli.gs link so we can get analytics on inbound traffic
-2. we currently do this in three places
-a. media-extras
-b. show page sidebar (tweet this show)
-c. after the producer uploads an episode
- 
-in the last case we are already creating a tinyurl
- 
-so we swap that out for a cli.gis
- 
-implementation notes
- 
-why cli.gs?  it's what the marketing guys asked for.  if there's a vastly superior service, we can come back and recommend that.  but we shouldn't lose time on it, get an answer quick and run.
- 
-create a gateway similar to psTinyUrl to wrap the API calls
- 
-might be best to create a generic psUrlShortener to abstract it from the code
-
-so our frontend is unaware of what service we happen to be using
-
-please do that
-
-also, need to be sure we make as few calls out to the remote service as possible, i.e. limit the server-to-server communication
-
-use memcache as necessary etc
-
-
+these are notes about the short-url module itself, there are a few supporting files as well.
 
 Documentation
 -------------
@@ -225,38 +196,27 @@ using the following credentials which are located in the bit.ly class itself.
 (this could be made a config var later but the configs are already a mess of
 used and unused vars)
 
-	private $api_key = 'R_054a700b5a590543120a6b49a01ae8ea';
-	private $user = 'mevio';
+	private $api_key = '<API_KEY>';
+	private $user = '<USER>';
 	
-note: see joe for login/pass credentials
 
 the urls are not pre-generated and need to be made upon request. 
 this will require a link to a redirect which checks a token and handles the shortening
 
 the player also needs to make a call the the backend to request a message and a shortened url
 
-### Structure Overview
+### Module Overview
 
-	source/Ps/
-		|-- psShortUrl.php 		(base lib and factory method)
-		|-- psShortUrl.ut.php 	(phpunit tests)
-		|-- psShortUrl.sql 		(db schema setup)
-		|-- psShortUrl/ 		(extensions for specific shortening services)
+	lib/
+		|-- ShortUrl.php 		(base lib and factory method)
+		|-- ShortUrl.ut.php 	(phpunit tests)
+		|-- ShortUrl.sql 		(db schema setup)
+		|-- ShortUrl/ 		(extensions for specific shortening services)
 			|-- Bitly.php
 			|-- Cligs.php
 			|-- Isgd.php
 			|-- Tinyurl.php
 			`-- Trim.php
-
-
-
-
-
-
-
-
-
-
 
 
 

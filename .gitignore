@@ -8,3 +8,6 @@ tests/testdox.html
 # generated phpdoc files except config
 doc/*
 !doc/PHPDocConfig.ini
+#build files
+build/
+build.number

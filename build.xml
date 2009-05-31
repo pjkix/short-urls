@@ -142,4 +142,22 @@
 
 -->
 
+<!-- <propertyfile comment="Build Information"
+              file="${build.dir}/web/classes/build.properties">
+    <entry key="build.date"
+           type="date"
+           pattern="EEEE MMM dd, yyyy"
+           value="now"/>
+    <entry key="build.time"
+           type="date"
+           pattern="kk:mm:ss"
+           value="now"/>
+    <entry key="build.timestamp"
+           type="date"
+           pattern="yyyy-MM-dd'T'HH:mm:ss"
+           value="now"/>
+    <entry key="build.user.name" value="${user.name}"/>
+    <entry key="build.computer" value="${env.COMPUTERNAME}"/>
+</propertyfile> -->
+
 </project>

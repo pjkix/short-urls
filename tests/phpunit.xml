@@ -10,6 +10,7 @@
 			<directory suffix=".php">../scripts/</directory>
 			<exclude>
 				<directory suffix=".phtml">./</directory>
+				<directory suffix="*Test.php">./</directory>
 			</exclude>
 		</whitelist>
 	</filter>

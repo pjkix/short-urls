@@ -32,6 +32,9 @@ class AllTests
 		$suite->addTest(AcceptanceTests_AllTests::suite());
 
 		// $suite->addTest('ShortUrlTestSuite');
+		// $suite->addTestSuite('ShortUrlTest');
+		$suite->addTestSuite('ShortUrlSuite');
+		
 
 		return $suite;
 	}

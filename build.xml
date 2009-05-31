@@ -1,3 +1,4 @@
+<!-- ant build settings -->
 <project name="short-urls" default="build" basedir=".">
 	<description>
 		Short Url Build File for continuous integration and end to end testing :)

@@ -14,7 +14,7 @@ require_once 'PHPUnit/TextUI/TestRunner.php';
 require_once 'phpunit-bootstrap.php';
  
 // test suites
-require_once 'AcceptanceTestSuite.php';
+require_once 'AcceptanceTests/AllTests.php';
 
 require_once 'ShortUrlTestSuite.php';
  
@@ -28,13 +28,12 @@ class AllTests
 	public static function suite()
 	{
 		$suite = new PHPUnit_Framework_TestSuite('Short Url Demo');
- 
-		$suite->addTest(AcceptanceTests_AllTests::suite());
 
-		// $suite->addTest('ShortUrlTestSuite');
-		// $suite->addTestSuite('ShortUrlTest');
+		// unit test suite
 		$suite->addTestSuite('ShortUrlSuite');
 		
+		// acceptance tests
+		$suite->addTest(AcceptanceTests_AllTests::suite());
 
 		return $suite;
 	}
@@ -43,3 +42,5 @@ class AllTests
 if (PHPUnit_MAIN_METHOD == 'AllTests::main') {
 	AllTests::main();
 }
+
+

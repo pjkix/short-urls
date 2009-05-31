@@ -5,6 +5,7 @@
     convertNoticesToExceptions="true"
     convertWarningsToExceptions="true"
     stopOnFailure="true">
+
 	<testsuite name="ShortUrl Test Suite">
 		<directory>./</directory>
 	</testsuite>
@@ -15,12 +16,12 @@
 			<directory suffix=".php">../scripts/</directory>
 			<exclude>
 				<directory suffix=".phtml">./</directory>
-				<directory suffix="Test.php">./lib/</directory>
+				<!-- <directory suffix="Test.php">../lib/</directory> -->
 			</exclude>
 		</whitelist>
 
 		<blacklist>
-			<directory suffix="Test.php">./lib/</directory>
+			<!-- <directory suffix="Test.php">../lib/</directory> -->
 	  </blacklist>
 	</filter>
 

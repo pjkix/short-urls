@@ -1,6 +1,11 @@
 <?php
+// bootstrap
+require_once dirname(__FILE__) .'/../phpunit-bootstrap.php';
+
+// test files
 require_once 'ShortUrl/Tinyurl.php';
 require_once 'PHPUnit/Framework/TestCase.php';
+
 /**
  * ShortUrl_Tinyurl test case.
  */

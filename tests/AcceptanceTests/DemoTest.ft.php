@@ -6,7 +6,7 @@
 /** PHPUnit_Extensions_SeleniumTestCase */
 require_once 'PHPUnit/Extensions/SeleniumTestCase.php';
 
-// require_once dirname(__FILE__) . '/../phpunit-bootstrap.php';
+require_once dirname(__FILE__) . '/../phpunit-bootstrap.php';
 
 /**
  * ShortUrl Functional Acceptance Tests

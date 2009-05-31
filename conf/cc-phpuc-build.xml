@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="short-urls" default="build" basedir=".">
+
+<!-- update codebase -->
+<target name="checkout">
+	<exec executable="svn" dir="${basedir}/source">
+		<arg line="up" />
+	</exec>
+</target>
+
+
+<!-- create api docs with phpdocumentor -->
+<target name="php-documentor">
+	<exec executable="phpdoc" dir="${basedir}/source">
+		<arg line="-ct type -ue on -t ${basedir}/build/api -tb /opt/phpUnderControl/data/phpdoc -o HTML:Phpuc:phpuc -d lib/"/>
+	</exec>
+</target>
+
+
+<!-- check codestyle and pmd -->
+<target name="php-codesniffer">
+	<exec executable="phpcs" dir="${basedir}/source" output="${basedir}/build/logs/checkstyle.xml">
+		<arg line="--report=checkstyle --standard=PEAR --ignore=lib/autoload lib/"/>
+	</exec>
+</target> 
+
+
+<!-- test code ... unit + acceptance -->
+<target name="phpunit">
+	<exec executable="phpunit" dir="${basedir}/source/tests" failonerror="on">
+		<arg line="--log-xml ${basedir}/build/logs/phpunit.xml --log-pmd ${basedir}/build/logs/phpunit.pmd.xml --log-metrics ${basedir}/build/logs/phpunit.metrics.xml --coverage-xml ${basedir}/build/logs/phpunit.coverage.xml --coverage-html ${basedir}/build/coverage AllTests" />
+	</exec>
+</target> 
+
+<!-- full build -->
+<target name="build" depends="checkout,php-documentor,php-codesniffer,phpunit" /> 
+
+</project>

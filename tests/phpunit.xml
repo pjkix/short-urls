@@ -1,5 +1,10 @@
 <!-- phpunit config -->
-<phpunit bootstrap="./phpunit-bootstrap.php">
+<phpunit bootstrap="./phpunit-bootstrap.php"
+	colors="false"
+    convertErrorsToExceptions="true"
+    convertNoticesToExceptions="true"
+    convertWarningsToExceptions="true"
+    stopOnFailure="true">
 	<testsuite name="ShortUrl Test Suite">
 		<directory>./</directory>
 	</testsuite>
@@ -10,9 +15,13 @@
 			<directory suffix=".php">../scripts/</directory>
 			<exclude>
 				<directory suffix=".phtml">./</directory>
-				<directory suffix="*Test.php">./</directory>
+				<directory suffix="Test.php">./lib/</directory>
 			</exclude>
 		</whitelist>
+
+		<blacklist>
+			<directory suffix="Test.php">./lib/</directory>
+	  </blacklist>
 	</filter>
 
 
@@ -21,9 +30,21 @@
 			yui="true" highlight="true"
 			lowUpperBound="50" highLowerBound="80"/>
 		<log type="testdox-html" target="../build/testdox.html" />
+
+
+		<!-- <log type="coverage-html" target="/tmp/report" charset="UTF-8"
+	       yui="true" highlight="false"
+	       lowUpperBound="35" highLowerBound="70"/>
+	  <log type="coverage-xml" target="/tmp/coverage.xml"/>
+	  <log type="json" target="/tmp/logfile.json"/>
+	  <log type="tap" target="/tmp/logfile.tap"/>
+	  <log type="test-xml" target="/tmp/logfile.xml" logIncompleteSkipped="false"/>
+	  <log type="testdox-html" target="/tmp/testdox.html"/>
+	  <log type="testdox-text" target="/tmp/testdox.txt"/>
+	   -->
 	</logging>
-	
-	
+
+
 	<selenium>
 	  <browser name="Firefox on Mac OS X"
 	           browser="*firefox"
@@ -36,5 +57,5 @@
 	           port="4444"
 	           timeout="30000"/>
 	</selenium>
-	
+
 </phpunit>

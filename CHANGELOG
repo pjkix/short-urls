@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+v.0.9.7
+-------
+* working with git svn
+* working with cruise control + phpundercontrol
+* working with ant
+
 v.0.9.6
 -------
 * added db support from work

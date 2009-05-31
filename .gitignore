@@ -1,0 +1,13 @@
+# mac junk
+.DS_Store
+# eclipse
+.cache
+# generated phpunit files
+tests/report/*
+tests/testdox.html
+# generated phpdoc files except config
+doc/*
+!doc/PHPDocConfig.ini
+#build files
+build/
+build.number

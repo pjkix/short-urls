@@ -1,0 +1,5 @@
+#Sat May 02 16:53:34 PDT 2009
+eclipse.preferences.version=1
+org.eclipse.php.core.contextRoot=
+org.eclipse.php.core.defaultEncoding=
+org.eclipse.php.core.includePath=<?xml version\="1.0" encoding\="UTF-8"?>\n<includepath>\n\t<includepathentry kind\="lib" path\="/opt/local/lib/php" createdReference\="false" contentKind\="source">\n</includepathentry>\n</includepath>\n

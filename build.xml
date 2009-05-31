@@ -1,0 +1,134 @@
+<!-- ant build settings -->
+<project name="short-urls" default="build" basedir=".">
+	<description>
+		Short Url Build File for continuous integration and end to end testing :)
+	</description>
+
+	<!-- set global properties for this build -->
+	<property name="src" location="src"/>
+	<property name="build" location="build"/>
+	<property name="dist"	 location="dist"/>
+
+	<target name="init" description="init timestamp">
+		<!-- Create the time stamp -->
+		<tstamp/>
+		<!-- create / increment build # -->
+		<buildnumber/>
+		<!-- <mkdir dir="${basedir}/build/${DSTAMP}" /> -->
+	</target>
+
+	<target name="clean" description="clean up">
+		<delete dir="${basedir}/build"/>
+		<delete dir="${basedir}/tests/report"/>
+		<delete dir="${basedir}/doc"/>
+	</target>
+
+	<target name="prepare" description="set up">
+		<mkdir dir="${basedir}/build/logs"/>
+		<mkdir dir="${basedir}/tests/report"/>
+	</target>
+
+	<target name="phpunit" description="run unit and acceptance tests">
+		<exec dir="${basedir}/tests" executable="phpunit" failonerror="true">
+			<arg line="--log-xml ${basedir}/build/logs/phpunit.xml AllTests" />
+		</exec>
+	</target>
+
+	<target name="phpdoc" description="generate docs">
+		<!-- $ phpdoc -c doc/PHPDocConfig.ini -->
+		<exec dir="${basedir}" executable="phpdoc" failonerror="true">
+			<arg line="-c conf/PHPDocConfig.ini" />
+		</exec>
+	</target>
+
+	<target name="build" depends="clean,prepare,phpunit,phpdoc" description="Main Build Target"/>
+
+	<target name="reset" depends="clean,prepare" description="clean up and setup"/>
+
+	<target name="archive" depends="init" description="create an archive of the project">
+		<!-- <exec dir="${basedir}" executable="tar" failonerror="true">
+			<arg line="-cvzf archive-${DSTAMP}.tgz ." />
+		</exec> -->
+		<zip destfile="${basedir}/build/docs-${DSTAMP}.zip">
+	    <fileset dir="doc/"/>
+	    <fileset dir="." includes="CHANGELOG"/>
+	  </zip>
+	</target>
+	
+	
+	<!-- =================================
+	      target: huh? comment banner ... hmmm
+	     ================================= -->
+
+	<!-- some examples from ... http://www.julienlecomte.net/blog/2007/09/16/ -->
+	<target name="js.concatenate">
+		<concat destfile="${build.dir}/concatenated/foo.js">
+			<filelist dir="${src.dir}/js"
+				files="a.js, b.js"/>
+			<fileset dir="${src.dir}/js"
+				includes="*.js"
+				excludes="a.js, b.js"/>
+		</concat>
+	</target>
+
+	<target name="js.preprocess" depends="js.concatenate">
+		<apply executable="cpp" dest="${build.dir}/preprocessed">
+			<fileset dir="${build.dir}/concatenated"
+				includes="foo.js"/>
+			<arg line="${js.preprocess.switches}"/>
+			<srcfile/>
+			<targetfile/>
+			<mapper type="identity"/>
+		</apply>
+	</target>
+
+	<target name="js.minify" depends="js.preprocess">
+		<java jar="yuicompressor.jar" fork="true">
+			<arg value="foo.js"/>
+		</java>
+	</target>
+
+	<target name="js.minify.glob" depends="js.preprocess">
+		<apply executable="java" parallel="false">
+			<fileset dir="." includes="foo.js, bar.js"/>
+			<arg line="-jar"/>
+			<arg path="yuicompressor.jar"/>
+			<srcfile/>
+			<arg line="-o"/>
+			<mapper type="glob" from="*.js" to="*-min.js"/>
+			<targetfile/>
+		</apply>
+	</target>
+
+
+	<target name="css.minify" depends="js.preprocess">
+		<apply executable="java" parallel="false">
+			<fileset dir="." includes="*.css"/>
+			<arg line="-jar"/>
+			<arg path="yuicompressor.jar"/>
+			<arg line="--line-break 0"/>
+			<srcfile/>
+			<arg line="-o"/>
+			<mapper type="glob" from="*.css" to="*-min.css"/>
+			<targetfile/>
+		</apply>
+	</target>
+
+
+<!--
+
+	<apply executable="scp" failonerror="true" parallel="true">
+		<fileset dir="${build.dir}" includes="**/*"/>
+		<srcfile/>
+		<arg line="${live.server}:/var/www/html/"/>
+	</apply>
+
+
+	<exec executable="ssh" failonerror="true">
+		<arg line="${live.server}"/>
+		<arg line="sudo webctl restart"/>
+	</exec>
+
+-->
+
+</project>

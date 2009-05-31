@@ -1,0 +1,234 @@
+Short URL Libs
+==============
+v.0.9.5
+
+libs for creating short urls
+
+author:
+	pkhalil
+
+Overview
+--------
+
+base class and interface for extended modules support
+
+
+Features
+--------
+
+abstract, cacheing, easy to use
+
+
+
+Conventions
+-----------
+use PEAR or Zend naming conventions ... 
+
+http://pear.php.net/manual/en/standards.php
+http://framework.zend.com/manual/en/coding-standard.html
+see also 
+http://www.horde.org/horde/docs/?f=CODING_STANDARDS.html
+http://codex.wordpress.org/WordPress_Coding_Standards
+
+examples
+http://phpkitchen.com/2005/03/advantages-of-using-the-pear-class-naming-convention/
+
+
+### notes 
+
+use $_foo or _foo() for private vars n functions
+
+don't use __foo() in user functions , thats reserved for magic ..
+
+
+translate with _("hello world") using gettext and .po files
+
+
+html5 naming conventions class="header", "section", "article", "aside" etc.
+
+
+Build
+-----
+just run ant in base folder with build.xml
+
+for a list of options check out
+
+	ant -p 
+
+enjoy :)
+
+
+
+Structure
+---------
+
+short-urls
+
+	.
+	|-- CHANGELOG
+	|-- README
+	|-- config.yaml
+	|-- data
+	|   `-- db.sqlite
+	|-- demo.phtml
+	|-- doc
+	|   |-- PHPDocConfig.ini
+	|   `-- <GENERATED CONTENT>
+	|-- lib
+	|   |-- MyDb.ini
+	|   |-- MyDb.php
+	|   |-- ShortUrl
+	|   |   |-- Bitly.php
+	|   |   |-- Cligs.php
+	|   |   |-- Isgd.php
+	|   |   |-- Tinyurl.php
+	|   |   `-- Trim.php
+	|   |-- ShortUrl.php
+	|   |-- ShortUrl.sql
+	|   |-- ShortUrlTest.php
+	|   |-- debug.class.php
+	|   |-- memcache.class.php
+	|   |-- memcache.ut.php
+	|   `-- twitter.class.php
+	|-- scripts
+	|   |-- bitlyAPI.js
+	|   `-- shortUrl.js
+	|-- styles
+	|   `-- default
+	|       `-- main.css
+	`-- tests
+	    |-- AcceptanceTestSuite.html
+	    |-- AcceptanceTestSuite.php
+	    |-- AcceptanceTests
+	    |   |-- AllTests.php
+	    |   |-- DemoTest.ft.php
+	    |   |-- demo.ft.html
+	    |   `-- testGoogle.php
+	    |-- AllTests.php
+	    |-- README
+	    |-- ShortUrl
+	    |   `-- ShortUrl_TinyurlTest.php
+	    |-- ShortUrlTestSuite.php
+	    |-- phpunit-bootstrap.php
+	    |-- phpunit.xml
+	    |-- report
+	    |   `-- <GENERATED CONTENT>
+	    `-- testdox.html
+
+
+Todo:
+-----
+* export git -> svn 
+
+* automate build / testing / end to end / continuous integration / automated deploys
+ant + phpunit + selenium (rc) + cruisecontrol + phpundercontrol + capistrano = :)
+
+* document using uml / phpdoc / markdown
+
+* config using yaml
+
+
+
+
+---
+
+
+
+URL Shorteners Background
+=========================
+
+* tinyurl.com -  the baseline standard
+* bit.ly - http://bit.ly/apidocs - stats n tracking
+* is.gd - 
+* tr.im - 
+* cli.gs - http://blog.cli.gs/api
+* tweetburner - 
+* many more ... 
+
+interersting articles
+---------------------
+
+* http://dooleyonline.typepad.com/dooley_post/2009/02/comparison-of-url-shorteners.html
+* http://www.toprankblog.com/2009/01/11-best-url-shortening-services-vote-your-favorite/
+* http://searchengineland.com/analysis-which-url-shortening-service-should-you-use-17204
+
+Issues
+------
+* short + friendly
+* stats
+* api
+* seo - 301 no framing
+
+
+Recommendations
+---------------
+personally i would recommend bit.ly or tinyurl.com as these are the most widely used services.
+
+
+Notes
+-----
+
+these are notes about the short-url module itself, there are a few supporting files as well.
+
+Documentation
+-------------
+see inline or generated phpdocs for more detail.
+
+url shortening services have been updated. it should now be easy to use a
+variety of url shorteners from a single backend library as well as a front end
+solution. currently the backend library defaults to using bit.ly. the library
+also has built in cacheing using memcache and mysql db. this new code is also
+backed up by a unit test suite for the entire library.
+
+currently this has been plugged into the show page already and is up on dev. i'm
+currently working with joe and will to get this plugged into the flash player.
+unfortunetly this requires some work from will to get it properly engineered and
+intergrated since the player was building up its own message and urls.
+
+there are a few issues with bit.ly themselves, for isntance i don't see anyway
+in their interface to track urls that are shortened with their api service and
+not the web interface. some of these do show up however in a recently clicked
+list. if we do need to have aggregate stats for these it should be possible to
+build up an admin dashboard using the short urls stored in the database.
+
+### usage
+
+<code>
+	require_once 'ShortUrl.php';
+	$myShortUrl =  ShortUrlFactory::getUrlService(); // use default service
+	$myShortUrl =  ShortUrlFactory::getUrlService(ShortUrlFactory::TINY_URL); // or a specific one
+	echo $myShortUrl->getShortUrl($url);
+</code>
+
+### Implementation
+
+we're currently going with bit.ly as our default url shortener.
+
+using the following credentials which are located in the bit.ly class itself.
+(this could be made a config var later but the configs are already a mess of
+used and unused vars)
+
+	private $api_key = '<API_KEY>';
+	private $user = '<USER>';
+	
+
+the urls are not pre-generated and need to be made upon request. 
+this will require a link to a redirect which checks a token and handles the shortening
+
+the player also needs to make a call the the backend to request a message and a shortened url
+
+### Module Overview
+
+	lib/
+		|-- ShortUrl.php 		(base lib and factory method)
+		|-- ShortUrl.ut.php 	(phpunit tests)
+		|-- ShortUrl.sql 		(db schema setup)
+		|-- ShortUrl/ 		(extensions for specific shortening services)
+			|-- Bitly.php
+			|-- Cligs.php
+			|-- Isgd.php
+			|-- Tinyurl.php
+			`-- Trim.php
+
+
+

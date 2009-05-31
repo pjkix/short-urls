@@ -16,10 +16,10 @@
 
 
 	<logging>
-		<log type="coverage-html" target="./report" charset="UTF-8"
+		<log type="coverage-html" target="../build/reports" charset="UTF-8"
 			yui="true" highlight="true"
 			lowUpperBound="50" highLowerBound="80"/>
-		<log type="testdox-html" target="./testdox.html" />
+		<log type="testdox-html" target="../build/testdox.html" />
 	</logging>
 	
 	

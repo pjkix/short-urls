@@ -129,7 +129,11 @@ ant + phpunit + selenium (rc) + cruisecontrol + phpundercontrol + capistrano = :
 
 * config using yaml
 
+* setup ant task for compressing js/css with yuicompressor
 
+* setup svn to use php lint & js lint
+
+* setup phpcs to use own coding standard + jslint
 
 
 ---

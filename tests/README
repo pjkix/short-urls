@@ -83,7 +83,7 @@ http://cruisecontrol.sourceforge.net/
 
 setup  project in cruisecontorl
 
-	phpuc project --version-control svn \
+	$ phpuc project --version-control svn \
 	--version-control-url http://svn.dev.pjkix.com/short-urls \
 	--test-case ShortUrlTest \
 	--test-file ShortUrlTest.php \
@@ -93,8 +93,8 @@ setup  project in cruisecontorl
 
 start cruise control
 
-cd /opt/cruisecontrol
-./cruisecontrol.sh
+	$ cd /opt/cruisecontrol
+	$ ./cruisecontrol.sh
 
 
 #### phpundercontrol

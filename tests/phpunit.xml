@@ -27,10 +27,10 @@
 
 
 	<logging>
-		<log type="coverage-html" target="../build/reports" charset="UTF-8"
+		<!-- <log type="coverage-html" target="../build/reports" charset="UTF-8"
 			yui="true" highlight="true"
 			lowUpperBound="50" highLowerBound="80"/>
-		<log type="testdox-html" target="../build/testdox.html" />
+		<log type="testdox-html" target="../build/testdox.html" /> -->
 
 
 		<!-- <log type="coverage-html" target="/tmp/report" charset="UTF-8"
@@ -48,15 +48,25 @@
 
 	<selenium>
 	  <browser name="Firefox on Mac OS X"
-	           browser="*firefox"
-	           host="localhost"
-	           port="4444"
-	           timeout="30000"/>
+			   browser="*firefox"
+			   host="localhost"
+			   port="4444"
+			   timeout="30000"/>
 	  <browser name="Safari on Mac OS X"
-	           browser="*safari"
-	           host="localhost"
-	           port="4444"
-	           timeout="30000"/>
+			   browser="*safari"
+			   host="localhost"
+			   port="4444"
+			   timeout="30000"/>
+	  <!-- <browser name="Safari on Windows Vista"
+			   browser="*safari"
+			   host="192.168.1.140"
+			   port="4444"
+			   timeout="30000"/>
+	  <browser name="Internet Explorer on Windows Vista"
+			   browser="*iexplore"
+			   host="192.168.1.140"
+			   port="4444"
+			   timeout="30000"/> -->
 	</selenium>
 
 </phpunit>

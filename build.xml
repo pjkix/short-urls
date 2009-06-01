@@ -18,6 +18,12 @@
 		<!-- <mkdir dir="${basedir}/build/${DSTAMP}" /> -->
 	</target>
 
+	<target name="usage" description="Display main targets by running 'ant -projecthelp'">
+		<java classname="org.apache.tools.ant.Main">
+			<arg value="-projecthelp" />
+		</java>
+	</target>
+
 	<target name="clean" description="clean up">
 		<delete dir="${basedir}/build"/>
 	</target>
@@ -42,16 +48,11 @@
 		</exec>
 	</target>
 
-	<target name="phpdoc" description="generate docs">
-		<!-- $ phpcs --report=summary --standard=/FULL_PATH/conf/PHP/CodeSniffer/Standards/Kix/ lib/ -->
-		<exec dir="${basedir}" executable="phpdcs" failonerror="true">
+	<target name="phpcs" description="code sniffer">
+		<exec dir="${basedir}" executable="phpcs" failonerror="false">
 			<arg line="--report=summary --standard=${basedir}/conf/PHP/CodeSniffer/Standards/Kix/ lib/" />
 		</exec>
 	</target>
-
-	<target name="build" depends="clean,prepare,phpunit,phpdoc" description="Main Build Target"/>
-
-	<target name="reset" depends="clean,prepare" description="clean up and setup"/>
 
 	<target name="archive" depends="init" description="create an archive of the project">
 		<!-- <exec dir="${basedir}" executable="tar" failonerror="true">
@@ -66,13 +67,10 @@
 		<fileset dir="." includes="INSTALL"/>
 	  </zip>
 	</target>
-	
-	<target name="usage" description="Display main targets by running 'ant -projecthelp'">
-		<java classname="org.apache.tools.ant.Main">
-			<arg value="-projecthelp" />
-		</java>
-	</target>
-	
+		
+	<target name="build" depends="clean,prepare,phpcs,phpunit,phpdoc" description="Main Build Target"/>
+
+	<target name="reset" depends="clean,prepare" description="clean up and setup"/>
 	
 	<!-- =================================
 		  target: huh? comment banner ... hmmm

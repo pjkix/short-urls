@@ -32,22 +32,22 @@ class PHP_CodeSniffer_Standards_Kix_KixCodingStandard extends PHP_CodeSniffer_St
 	{
 	// base on zend or pear but change space to tabs ... maybe exclude a few others
 
-	// return array(
-	// 	'Zend'
-	// 	);
-
-		return array(
-			'Generic/Sniffs/PHP/DisallowShortOpenTagSniff.php',
-			// 'Generic/Sniffs/WhiteSpace/DisallowTabIndentSniff.php',
-			'PEAR/Sniffs/Classes/ClassDeclarationSniff.php',
-			'PEAR/Sniffs/ControlStructures/ControlSignatureSniff.php',
-			'PEAR/Sniffs/Files/LineEndingsSniff.php',
-			'PEAR/Sniffs/Functions/FunctionCallArgumentSpacingSniff.php',
-			'PEAR/Sniffs/Functions/FunctionCallSignatureSniff.php',
-			'PEAR/Sniffs/Functions/ValidDefaultValueSniff.php',
-			'PEAR/Sniffs/WhiteSpace/ScopeClosingBraceSniff.php',
-			'Squiz/Sniffs/Functions/GlobalFunctionSniff.php',
+	return array(
+		'Zend'
 		);
+
+		// return array(
+		// 	'Generic/Sniffs/PHP/DisallowShortOpenTagSniff.php',
+		// 	// 'Generic/Sniffs/WhiteSpace/DisallowTabIndentSniff.php',
+		// 	'PEAR/Sniffs/Classes/ClassDeclarationSniff.php',
+		// 	'PEAR/Sniffs/ControlStructures/ControlSignatureSniff.php',
+		// 	'PEAR/Sniffs/Files/LineEndingsSniff.php',
+		// 	'PEAR/Sniffs/Functions/FunctionCallArgumentSpacingSniff.php',
+		// 	'PEAR/Sniffs/Functions/FunctionCallSignatureSniff.php',
+		// 	'PEAR/Sniffs/Functions/ValidDefaultValueSniff.php',
+		// 	'PEAR/Sniffs/WhiteSpace/ScopeClosingBraceSniff.php',
+		// 	'Squiz/Sniffs/Functions/GlobalFunctionSniff.php',
+		// );
 
 	}
 

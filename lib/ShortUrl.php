@@ -59,7 +59,8 @@ class ShortUrlFactory
 	 */
 	public static function getUrlService($type = self::TINY_URL)
 	{
-		switch ($type) {
+		switch ($type) 
+		{
 			case self::TINY_URL:
 				require_once('ShortUrl/Tinyurl.php');
 				return new ShortUrl_Tinyurl();

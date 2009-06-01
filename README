@@ -33,6 +33,8 @@ http://codex.wordpress.org/WordPress_Coding_Standards
 examples
 http://phpkitchen.com/2005/03/advantages-of-using-the-pear-class-naming-convention/
 
+see also php code sniffer
+ $ phpcs -i
 
 ### notes 
 

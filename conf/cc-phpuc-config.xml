@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!-- Cruise Control + PHP Undercontrol -->
+<cruisecontrol>
 
 	<project name="short-urls" buildafterfailed="false">
 		<!-- @see http://www.phpundercontrol.org/documentation/getting-started.html -->

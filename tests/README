@@ -26,7 +26,7 @@ unit tests ... acceptance tests ... all tests
 
 ### run tests from cmd line
 
-run tests from test dir for autoloading of phpunit.xml and tests as such
+run tests from ./test/ dir for autoloading of phpunit.xml and tests as such
 
 	$ phpunit --verbose
 
@@ -65,17 +65,21 @@ once selenium server is running you can then kick off acceptance tests from the 
 
 right click > run as phpunit test
 
+### run tests from ant
 
+from project home folder for autoloading of build.xml
+
+	$ ant phpunit
 
 Continuous Integration
 ----------------------
 
+ant + phpunit + selenium +  cruisecontrol + phpundercontrol = continuous integration zen :)
 
-phpunit + selenium + ant + cruisecontrol + phpundercontrol = code bliss :)
-
+see configs in conf/cc-phpuc*
 
 ### cruisecontrol
-
+http://cruisecontrol.sourceforge.net/
 
 setup  project in cruisecontorl
 
@@ -93,5 +97,34 @@ cd /opt/cruisecontrol
 ./cruisecontrol.sh
 
 
+#### phpundercontrol
+http://www.phpundercontrol.org/
+
+	$ phpuc
+
+##### php code sniffer
+http://pear.php.net/package/PHP_CodeSniffer
+
+	$ phpcs 
+
+##### pmd (Programming Mistake Detector/Project Mess Detection)
+http://pmd.sourceforge.net/
+
+PMD scans Java source code and looks for potential problems like:
+
+    * Possible bugs - empty try/catch/finally/switch statements
+    * Dead code - unused local variables, parameters and private methods
+    * Suboptimal code - wasteful String/StringBuffer usage
+    * Overcomplicated expressions - unnecessary if statements, for loops that could be while loops
+    * Duplicate code - copied/pasted code means copied/pasted bugs
+
+you will see errors like this ... 
+
+The CRAP index is 72. The Change Risk Analysis and Predictions (CRAP) index of a function or method uses cyclomatic complexity and code coverage from automated tests to help estimate the effort and risk associated with maintaining legacy code. A CRAP index over 30 is a good indicator of crappy code.
+
+
+
+---
 
 "dang internet, they dont care whos life they ruin" -koth
+

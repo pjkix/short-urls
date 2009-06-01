@@ -122,6 +122,10 @@ you will see errors like this ...
 
 The CRAP index is 72. The Change Risk Analysis and Predictions (CRAP) index of a function or method uses cyclomatic complexity and code coverage from automated tests to help estimate the effort and risk associated with maintaining legacy code. A CRAP index over 30 is a good indicator of crappy code.
 
+	$ sudo phpcs --config-set tab_width 4
+	$ sudo phpcs --config-set default_standard Zend
+	$ phpcs --report=summary --standard=/Users/pjkix/Sites/projects/short-urls/conf/PHP/CodeSniffer/Standards/Kix/ lib/
+	
 
 
 ---

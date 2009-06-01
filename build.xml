@@ -42,6 +42,13 @@
 		</exec>
 	</target>
 
+	<target name="phpdoc" description="generate docs">
+		<!-- $ phpcs --report=summary --standard=/FULL_PATH/conf/PHP/CodeSniffer/Standards/Kix/ lib/ -->
+		<exec dir="${basedir}" executable="phpdcs" failonerror="true">
+			<arg line="--report=summary --standard=${basedir}/conf/PHP/CodeSniffer/Standards/Kix/ lib/" />
+		</exec>
+	</target>
+
 	<target name="build" depends="clean,prepare,phpunit,phpdoc" description="Main Build Target"/>
 
 	<target name="reset" depends="clean,prepare" description="clean up and setup"/>

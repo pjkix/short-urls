@@ -7,7 +7,7 @@
  * @author		pkhalil
  * @copyright	2009 pjk
  * @license		(cc) some rights reserved
- * @version		$Id:$
+ * @version		$Id$
  * @todo 		simplify / streamline
  */
 
@@ -36,6 +36,7 @@ interface iShortUrl
  * $myShortUrl =  ShortUrlFactory::getUrlService(ShortUrlFactory::TINY_URL);
  * echo $myShortUrl->getShortUrl($url);
  * </code>
+ * @example demo.phtml This example is in the "examples" subdirectory
  */
 class ShortUrlFactory
 {

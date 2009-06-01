@@ -3,7 +3,7 @@
  * cli.gs wrapper class
  *
  * API KEY: b3e86e7644f1c6d22ca45eef6358e409
- * @example http://cli.gs/api/v1/cligs/create?url=1&title=2&key=3&appid=4
+ * @ example http://cli.gs/api/v1/cligs/create?url=1&title=2&key=3&appid=4
  * NOTES: cligs is a weird shortener ... it offers stats but ...
  * - they make a new short url each time??? - this will screw up cacheing too
  * - they let you edit the title, url, and even short url???

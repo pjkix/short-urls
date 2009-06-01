@@ -3,6 +3,9 @@
 // Set error reporting to highest level
 // error_reporting( E_ALL | E_STRICT );
 
+// disable xdebug stack traces as they tend to be quite long ... 
+xdebug_disable()
+
 // Allow time for the tests to run. I've scheduled a maximum of 3 minutes here.
 set_time_limit(180);
 

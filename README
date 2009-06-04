@@ -135,6 +135,25 @@ short-urls
 	    `-- testdox.html
 
 
+Deploy:
+-------
+
+	 project
+	      |______config   (this is for storing the capistrano deploy.rb file)
+	      |______log      (for server logs)
+	      |______private
+	      |______public   (the webserver vhost root with all the PHP files)
+
+	$ mkdir -p project/config
+	$ mkdir -p project/log
+	$ mkdir -p project/private
+
+or just use capistrano to do this 
+
+	$ cap deploy:setup
+	$ cap deploy
+	$ cap rollback # if there are errors
+
 Todo:
 -----
 * export git -> svn 

@@ -13,8 +13,8 @@
 	<filter>
 		<whitelist>
 			<directory suffix=".php">../lib/</directory>
-			<directory suffix=".php">../scripts/</directory>
-			<directory suffix=".php">../styles/</directory>
+			<directory suffix=".php">../example/scripts/</directory>
+			<directory suffix=".php">../example/styles/</directory>
 			<exclude>
 				<directory suffix=".phtml">./</directory>
 				<!-- <directory suffix="Test.php">../lib/</directory> -->

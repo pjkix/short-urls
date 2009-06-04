@@ -36,7 +36,7 @@ define('TESTS_DB_PASSWORD', '');
  * NOTE: this is better handled in the phpunit.xml file ... 
  * this only happens if tests are not run from the test dir
  */
-define('TESTS_SELENIUM_BASEURL', 'http://localhost/~pjkix/projects/short-urls/');
+define('TESTS_SELENIUM_BASEURL', 'http://localhost/~pjkix/projects/short-urls/example/');
 define('TESTS_SELENIUM_BROWSER', '*firefox');
 define('TESTS_SELENIUM_DEFAULT_TIMEOUT', 30000); // in milliseconds!
 	

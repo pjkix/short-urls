@@ -5,27 +5,3 @@ load 'deploy' if respond_to?(:namespace) # cap2 differentiator
 Dir['vendor/plugins/*/recipes/*.rb'].each { |plugin| load(plugin) }
 load 'config/deploy'
 
-# tunneling through a gateway server
-# set :gateway, "net.pjkix.com"
-# servers to run cmds on
-role :dev, "pjkix@dev.pjkix.com"
-role :prod, "www.pjkix.com", "pjkix@dev.pjkix.com"
-
-# tasks
-
-task :search_libs, :roles => :dev do
-  run "ls -x1 /usr/lib | grep -i xml"
-end
-
-task :count_libs, :roles => :prod do
-  run "ls -x1 /usr/lib | wc -l"
-end
-
-
-task :show_free_space, :roles => :dev do
-  run "df -h /"
-end
-
-task :where, :roles => :dev do
-  run "pwd"
-end

@@ -154,6 +154,20 @@ or just use capistrano to do this
 	$ cap deploy
 	$ cap rollback # if there are errors
 
+#### about capistrano
+
+dir structure
+
+	myapp/releases
+	myapp/current -> myapp/releases/xxxxx
+	myapp/shared
+
+	$ cap deploy
+
+		deploy:update_code
+		deploy:symlink
+		deploy:restart
+
 Todo:
 -----
 * export git -> svn 

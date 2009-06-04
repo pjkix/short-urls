@@ -15,11 +15,11 @@ set :document_root, "/var/www/vhosts/htdocs/current"
 
 # Server Roles
 #
-role :app, "dev.pjkix.com"
-role :web, "dev.pjkix.com"
-role :db, "dev.pjkix.com", :primary => true
+# role :app, "dev.pjkix.com"
+# role :web, "dev.pjkix.com"
+# role :db, "dev.pjkix.com", :primary => true
 # same as writing ... 
-# server "pjkix.com", :app, :web, :db, :primary => true
+server "dev.pjkix.com", :app, :web, :db, :primary => true
 
 # some sammple deploy stuff from ... http://www.capify.org/getting-started/from-the-beginning/
 

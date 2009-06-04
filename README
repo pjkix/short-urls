@@ -168,6 +168,15 @@ dir structure
 		deploy:symlink
 		deploy:restart
 
+
+##### shared stuff ... 
+
+myapp/shared/config/database.yaml
+myapp/shared/images/
+myapp/shared/data/
+
+
+
 Todo:
 -----
 * export git -> svn 

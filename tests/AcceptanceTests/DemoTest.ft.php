@@ -54,7 +54,7 @@ class DemoTest extends PHPUnit_Extensions_SeleniumTestCase
 
 	function testShortUrl()
 	{
-		$this->open("/~pjkix/projects/short-urls/demo.phtml");
+		$this->open("/~pjkix/projects/short-urls/example/demo.phtml");
 		try {
 			$this->assertTrue($this->isTextPresent("exact:http://tinyurl.com/kotu"));
 		} catch (PHPUnit_Framework_AssertionFailedError $e) {

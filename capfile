@@ -1,10 +1,17 @@
+# capistrano deploy file
 
+# tunneling through a gateway server
+set :gateway, "net.pjkix.com"
+# servers to run cmds on
+role :libs, "pjkix@dev.pjkix.com", "www.pjkix.com"
 
-task :search_libs, :hosts => "dev.pjkix.com" do
+# tasks
+
+task :search_libs do
   run "ls -x1 /usr/lib | grep -i xml"
 end
 
-task :count_libs, :hosts => "dev.pjkix.com" do
+task :count_libs do
   run "ls -x1 /usr/lib | wc -l"
 end
 

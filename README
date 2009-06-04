@@ -49,6 +49,23 @@ translate with _("hello world") using gettext and .po files
 html5 naming conventions class="header", "section", "article", "aside" etc.
 
 
+### KEYWORDS:
+
+#### Specs:
+
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
+"SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be
+interpreted as described in [RFC 2119](http://www.ietf.org/rfc/rfc2119.txt "RFC Keywords")
+
+#### Changelog updates:
+
+ADDED:
+FIXED:
+CHANGED:
+UPDATED:
+REMOVED:
+
+
 Build
 -----
 just run ant in base folder with build.xml

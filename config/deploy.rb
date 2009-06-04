@@ -26,3 +26,8 @@ set :scm_username, "pjkix"
 set :use_sudo, false
 
 
+# deploy:update
+
+# This will copy your source code to the server, and update the “current”
+# symlink to point to it, but it doesn’t actually try to start your application
+# layer.

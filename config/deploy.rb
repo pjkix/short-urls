@@ -1,7 +1,7 @@
 # generated from capify cmd
 
 set :application, "short_urls"
-set :repository, "svn+ssh://svn.dev.pjkix.com/home/svn/short-urls"
+set :repository, "svn+ssh://svn.dev.pjkix.com/home/svn/repo/short-urls"
 
 # If you aren't deploying to /u/apps/#{application} on the target
 # servers (which is the default), you can specify the actual location

@@ -76,7 +76,7 @@ Continuous Integration
 
 ant + phpunit + selenium +  cruisecontrol + phpundercontrol = continuous integration zen :)
 
-see configs in conf/cc-phpuc*
+see configs in config/cc-phpuc*
 
 ### cruisecontrol
 http://cruisecontrol.sourceforge.net/
@@ -124,7 +124,7 @@ The CRAP index is 72. The Change Risk Analysis and Predictions (CRAP) index of a
 
 	$ sudo phpcs --config-set tab_width 4
 	$ sudo phpcs --config-set default_standard Zend
-	$ phpcs --report=summary --standard=/Users/pjkix/Sites/projects/short-urls/conf/PHP/CodeSniffer/Standards/Kix/ lib/
+	$ phpcs --report=summary --standard=/Users/pjkix/Sites/projects/short-urls/config/PHP/CodeSniffer/Standards/Kix/ lib/
 	
 
 

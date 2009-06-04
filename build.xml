@@ -42,15 +42,15 @@
 	</target>
 
 	<target name="phpdoc" description="generate docs">
-		<!-- $ phpdoc -c conf/PHPDocConfig.ini -->
+		<!-- $ phpdoc -c config/PHPDocConfig.ini -->
 		<exec dir="${basedir}" executable="phpdoc" failonerror="true">
-			<arg line="-c conf/PHPDocConfig.ini" />
+			<arg line="-c config/PHPDocConfig.ini" />
 		</exec>
 	</target>
 
 	<target name="phpcs" description="code sniffer">
 		<exec dir="${basedir}" executable="phpcs" failonerror="false">
-			<arg line="--report=summary --standard=${basedir}/conf/PHP/CodeSniffer/Standards/Kix/ lib/" />
+			<arg line="--report=summary --standard=${basedir}/config/PHP/CodeSniffer/Standards/Kix/ lib/" />
 		</exec>
 	</target>
 

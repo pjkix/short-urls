@@ -1,5 +1,9 @@
 # capistrano deploy file
 
+# load 'deploy' if respond_to?(:namespace) # cap2 differentiator
+# Dir['vendor/plugins/*/recipes/*.rb'].each { |plugin| load(plugin) }
+# load 'config/deploy'
+
 # tunneling through a gateway server
 # set :gateway, "net.pjkix.com"
 # servers to run cmds on

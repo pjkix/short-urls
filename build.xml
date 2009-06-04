@@ -72,6 +72,8 @@
 
 	<target name="reset" depends="clean,prepare" description="clean up and setup"/>
 	
+	<!-- add yuicompressor to this :) -->
+	
 	<!-- =================================
 		  target: huh? comment banner ... hmmm
 		 ================================= -->

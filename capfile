@@ -1,0 +1,11 @@
+
+
+task :search_libs, :hosts => "dev.pjkix.com" do
+  run "ls -x1 /usr/lib | grep -i xml"
+end
+
+task :count_libs, :hosts => "dev.pjkix.com" do
+  run "ls -x1 /usr/lib | wc -l"
+end
+
+

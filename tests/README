@@ -128,6 +128,14 @@ The CRAP index is 72. The Change Risk Analysis and Predictions (CRAP) index of a
 	
 
 
+### Xinc (Xinc Is Not CruiseControl)
+
+pear channel-discover pear.xinc.eu
+pear channel-discover components.ez.no
+pear install xinc/Xinc
+
+
+
 ---
 
 "dang internet, they dont care whos life they ruin" -koth

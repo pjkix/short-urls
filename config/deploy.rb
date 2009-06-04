@@ -1,33 +1,40 @@
 # generated from capify cmd
+
 set :application, "short_urls"
 set :repository, "svn+ssh://svn.dev.pjkix.com/home/svn/short-urls"
 
 # If you aren't deploying to /u/apps/#{application} on the target
 # servers (which is the default), you can specify the actual location
 # via the :deploy_to variable:
-set :deploy_to, "/var/www/#{application}"
+set :deploy_to, "/var/www/vhosts/#{application}"
+set :document_root, "/var/www/vhosts/htdocs/current"
 
 # If you aren't using Subversion to manage your source code, specify
 # your SCM below:
 # set :scm, :subversion
 
-role :app, "pjkix.com"
-role :web, "pjkix.com.com"
-role :db, "pjkix.com", :primary => true
+# Server Roles
+#
+role :app, "dev.pjkix.com"
+role :web, "dev.pjkix.com.com"
+role :db, "dev.pjkix.com", :primary => true
 # same as writing ... 
 # server "pjkix.com", :app, :web, :db, :primary => true
 
-
 # some sammple deploy stuff from ... http://www.capify.org/getting-started/from-the-beginning/
 
-# run cmds as this user
+# Source Control Settings
+# 
+set :scm_username, "pjkix" #if http
+# set :scm_password, "foo" #if http
+set :scm_checkout, "export"
+
+# SSH Settings
+# 
 set :user, "pjkix"
-
-# run scm cmds as this user
-set :scm_username, "pjkix"
-
-# don't try and use sudo for some commands
-set :use_sudo, false
+# set :password, "password"
+set :use_sudo, false # don't try and use sudo for some commands
+set :ssh_options, {:forward_agent => true}
 
 
 # deploy:update
@@ -46,7 +53,8 @@ role :prod, "www.pjkix.com", "pjkix@dev.pjkix.com"
 
 # tasks
 
-task :search_libs, :roles => :dev do
+desc "Search Libs on dev"
+task :search_libs, :roles => :dev do 
   run "ls -x1 /usr/lib | grep -i xml"
 end
 
@@ -63,4 +71,44 @@ task :where_am_i, :roles => :dev do
 end
 
 
+# see http://www.claytonlz.com/index.php/2008/08/php-deployment-with-capistrano/
+# override some rails defaults in favor of php
+# 
+namespace :deploy do
+
+	task :update do
+		transaction do
+			update_code
+			symlink
+		end
+	end
+
+	task :finalize_update do
+		transaction do
+			run "chmod -R g+w #{releases_path}/#{release_name}"
+		end
+	end
+
+	task :symlink do
+		transaction do
+			run "ln -nfs #{current_release} #{deploy_to}/#{current_dir}"
+			run "ln -nfs #{deploy_to}/#{current_dir} #{document_root}"
+		end
+	end
+
+	task :migrate do
+		# nothing
+	end
+
+	task :restart do
+		# nothing
+	end
+
+	task :after_symlink do
+		transaction do
+			run "ln -nsf #{shared_path}/images #{document_root}/images"
+		end
+	end
+
+end
 

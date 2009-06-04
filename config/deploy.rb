@@ -1,7 +1,7 @@
 # generated from capify cmd
 
 set :application, "short_urls"
-set :repository, "svn+ssh://svn.dev.pjkix.com/home/svn/repo/short-urls"
+set :repository, "http://svn.dev.pjkix.com/short-urls/trunk"
 
 # If you aren't deploying to /u/apps/#{application} on the target
 # servers (which is the default), you can specify the actual location
@@ -16,7 +16,7 @@ set :document_root, "/var/www/vhosts/htdocs/current"
 # Server Roles
 #
 role :app, "dev.pjkix.com"
-role :web, "dev.pjkix.com.com"
+role :web, "dev.pjkix.com"
 role :db, "dev.pjkix.com", :primary => true
 # same as writing ... 
 # server "pjkix.com", :app, :web, :db, :primary => true
@@ -32,7 +32,7 @@ set :scm_checkout, "export"
 # SSH Settings
 # 
 set :user, "pjkix"
-# set :password, "password"
+# set :password, "sl4ck3r"
 set :use_sudo, false # don't try and use sudo for some commands
 set :ssh_options, {:forward_agent => true}
 
@@ -49,7 +49,7 @@ set :ssh_options, {:forward_agent => true}
 
 # servers to run cmds on
 role :dev, "pjkix@dev.pjkix.com"
-role :prod, "www.pjkix.com", "pjkix@dev.pjkix.com"
+# role :prod, "www.pjkix.com", "pjkix@dev.pjkix.com"
 
 # tasks
 
@@ -58,7 +58,7 @@ task :search_libs, :roles => :dev do
   run "ls -x1 /usr/lib | grep -i xml"
 end
 
-task :count_libs, :roles => :prod do
+task :count_libs, :roles => :dev do
   run "ls -x1 /usr/lib | wc -l"
 end
 

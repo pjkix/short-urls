@@ -48,6 +48,28 @@
 
 
 	<selenium>
+		
+		<!--
+		Supported browsers include:
+		  *konqueror
+		  *firefox
+		  *iexploreproxy
+		  *firefoxproxy
+		  *safari
+		  *safariproxy
+		  *iexplore
+		  *pifirefox
+		  *chrome
+		  *firefox2
+		  *piiexplore
+		  *googlechrome
+		  *iehta
+		  *firefox3
+		  *mock
+		  *opera
+		  *custom 
+		-->
+		
 	  <browser name="Firefox on Mac OS X"
 			   browser="*firefox"
 			   host="localhost"
@@ -58,6 +80,22 @@
 			   host="localhost"
 			   port="4444"
 			   timeout="30000"/>
+	  <!-- <browser name="Opera on Mac OS X"
+			   browser="*opera"
+			   host="localhost"
+			   port="4444"
+			   timeout="30000"/> -->
+	  <!-- <browser name="chrome on Mac OS X"
+			   browser="*chrome"
+			   host="localhost"
+			   port="4444"
+			   timeout="30000"/> -->
+	  <!-- <browser name="google chrome on Mac OS X"
+			   browser="*googlechrome"
+			   host="localhost"
+			   port="4444"
+			   timeout="30000"/> -->
+			
 	  <!-- <browser name="Safari on Windows Vista"
 			   browser="*safari"
 			   host="192.168.1.140"

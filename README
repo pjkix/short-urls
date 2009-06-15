@@ -137,7 +137,21 @@ dir structure
 		deploy:symlink
 		deploy:restart
 
+Displays the `diff' since your last deploy
 
+	$ cap deploy:pending
+	
+
+Maintenance page ...
+
+	 $ cap deploy:web:disable \
+	REASON="hardware upgrade" \
+	UNTIL="12pm Central Time"
+	
+and then ...
+
+	$ cap deploy:web:enable
+	
 ##### shared stuff ... 
 
 myapp/shared/config/database.yaml

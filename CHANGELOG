@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+
+## 0.9.8 / 2009-06-15
+* capistrano deploy [pjkix]
+* uml diagrams [pjkix]
+
 v.0.9.7
 -------
 * working with git svn

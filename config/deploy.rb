@@ -7,7 +7,7 @@ set :repository, "http://svn.dev.pjkix.com/short-urls/trunk"
 # servers (which is the default), you can specify the actual location
 # via the :deploy_to variable:
 set :deploy_to, "/var/www/vhosts/#{application}"
-set :document_root, "/var/www/vhosts/"
+set :document_root, "/var/www/vhosts"
 
 # If you aren't using Subversion to manage your source code, specify
 # your SCM below:

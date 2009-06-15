@@ -105,6 +105,24 @@ or just use capistrano to do this
 	$ cap deploy
 	$ cap rollback # if there are errors
 
+#### more notes
+
+setup new server
+	$ cap HOSTS=net.pjkix.com deploy:setup
+	
+upload files instead of full deploy
+
+	$ cap deploy:upload FILES=templates,controller.rb
+ 
+Dir globs are also supported:
+ 
+	$ cap deploy:upload FILES='config/apache/*.conf'
+
+rollback if error 
+	$ cap rollback
+
+
+
 #### about capistrano
 
 dir structure

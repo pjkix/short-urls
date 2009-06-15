@@ -83,60 +83,98 @@ Structure
 
 short-urls
 
-	.
-	|-- CHANGELOG
-	|-- README
-	|-- config.yaml
-	|-- data
-	|   `-- db.sqlite
-	|-- demo.phtml
-	|-- doc
-	|   |-- PHPDocConfig.ini
-	|   `-- <GENERATED CONTENT>
-	|-- lib
-	|   |-- MyDb.ini
-	|   |-- MyDb.php
-	|   |-- ShortUrl
-	|   |   |-- Bitly.php
-	|   |   |-- Cligs.php
-	|   |   |-- Isgd.php
-	|   |   |-- Tinyurl.php
-	|   |   `-- Trim.php
-	|   |-- ShortUrl.php
-	|   |-- ShortUrl.sql
-	|   |-- ShortUrlTest.php
-	|   |-- debug.class.php
-	|   |-- memcache.class.php
-	|   |-- memcache.ut.php
-	|   `-- twitter.class.php
-	|-- scripts
-	|   |-- bitlyAPI.js
-	|   `-- shortUrl.js
-	|-- styles
-	|   `-- default
-	|       `-- main.css
-	`-- tests
-	    |-- AcceptanceTestSuite.html
-	    |-- AcceptanceTestSuite.php
-	    |-- AcceptanceTests
-	    |   |-- AllTests.php
-	    |   |-- DemoTest.ft.php
-	    |   |-- demo.ft.html
-	    |   `-- testGoogle.php
-	    |-- AllTests.php
-	    |-- README
-	    |-- ShortUrl
-	    |   `-- ShortUrl_TinyurlTest.php
-	    |-- ShortUrlTestSuite.php
-	    |-- phpunit-bootstrap.php
-	    |-- phpunit.xml
-	    |-- report
-	    |   `-- <GENERATED CONTENT>
-	    `-- testdox.html
+.
+|-- CHANGELOG
+|-- Capfile
+|-- INSTALL
+|-- README
+|-- build
+|   \-- <GENERATED>
+|-- build.number
+|-- build.properties
+|-- build.xml
+|-- config
+|   |-- PHP
+|   |   `-- CodeSniffer
+|   |       `-- Standards
+|   |           `-- Kix
+|   |               |-- KixCodingStandard.php
+|   |               `-- Sniffs
+|   |                   `-- Commenting
+|   |                       `-- DisallowHashCommentsSniff.php
+|   |-- PHPDocConfig.ini
+|   |-- cc-phpuc-build.xml
+|   |-- cc-phpuc-config.xml
+|   |-- cc-phpuc-setup.sh
+|   |-- config.yaml
+|   |-- database.yml
+|   |-- deploy.rb
+|   |-- index.php
+|   |-- phpcs-CodingStandard.php
+|   |-- pmd-ruleset.xml
+|   |-- sample-deploy.rb
+|   |-- simple-deploy.rb
+|   |-- templates
+|   |   |-- wp-config.php.erb
+|   |   `-- wp-vhost.conf.erb
+|   `-- wp-deploy.rb
+|-- data
+|   `-- db.sqlite
+|-- example
+|   |-- demo.phtml
+|   |-- scripts
+|   |   |-- bitlyAPI.js
+|   |   `-- shortUrl.js
+|   `-- styles
+|       `-- default
+|           `-- main.css
+|-- lib
+|   |-- MyDb.ini
+|   |-- MyDb.php
+|   |-- ShortUrl
+|   |   |-- Bitly.php
+|   |   |-- Cligs.php
+|   |   |-- Isgd.php
+|   |   |-- Tinyurl.php
+|   |   `-- Trim.php
+|   |-- ShortUrl.php
+|   |-- ShortUrl.sql
+|   |-- debug.class.php
+|   |-- memcache.class.php
+|   |-- memcache.ut.php
+|   `-- twitter.class.php
+`-- tests
+    |-- AcceptanceTestSuite.html
+    |-- AcceptanceTests
+    |   |-- AllTests.php
+    |   |-- DemoTest.ft.php
+    |   `-- demo.ft.html
+    |-- AllTests.php
+    |-- README
+    |-- ShortUrl
+    |   `-- ShortUrl_TinyurlTest.php
+    |-- ShortUrlTest.php
+    |-- ShortUrlTestSuite.php
+    |-- phpunit-bootstrap.php
+    `-- phpunit.xml
 
+
+Build
+-----
+
+Build using ant
+
+this will generate docs, unit test code, acceptance (functional) test the pages,
+generate coverage reports, code sniff for coding standard violation, check for
+pmd(programming mistake detection), etc ...
 
 Deploy:
 -------
+
+using capistrano
+
+this will check out the code on multiple machines, setup symlinks, allow for
+rollbacks, set up databases, set up vhosts, restart the server, etc ... 
 
 	 project
 	      |______config   (this is for storing the capistrano deploy.rb file)

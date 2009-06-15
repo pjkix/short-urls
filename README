@@ -19,7 +19,6 @@ Features
 abstract, cacheing, easy to use
 
 
-
 Conventions
 -----------
 use PEAR or Zend naming conventions ... 
@@ -42,9 +41,7 @@ use $_foo or _foo() for private vars n functions
 
 don't use __foo() in user functions , thats reserved for magic ..
 
-
 translate with _("hello world") using gettext and .po files
-
 
 html5 naming conventions class="header", "section", "article", "aside" etc.
 
@@ -66,98 +63,6 @@ UPDATED:
 REMOVED:
 
 
-Build
------
-just run ant in base folder with build.xml
-
-for a list of options check out
-
-	ant -p 
-
-enjoy :)
-
-
-
-Structure
----------
-
-short-urls
-
-.
-|-- CHANGELOG
-|-- Capfile
-|-- INSTALL
-|-- README
-|-- build
-|   \-- <GENERATED>
-|-- build.number
-|-- build.properties
-|-- build.xml
-|-- config
-|   |-- PHP
-|   |   `-- CodeSniffer
-|   |       `-- Standards
-|   |           `-- Kix
-|   |               |-- KixCodingStandard.php
-|   |               `-- Sniffs
-|   |                   `-- Commenting
-|   |                       `-- DisallowHashCommentsSniff.php
-|   |-- PHPDocConfig.ini
-|   |-- cc-phpuc-build.xml
-|   |-- cc-phpuc-config.xml
-|   |-- cc-phpuc-setup.sh
-|   |-- config.yaml
-|   |-- database.yml
-|   |-- deploy.rb
-|   |-- index.php
-|   |-- phpcs-CodingStandard.php
-|   |-- pmd-ruleset.xml
-|   |-- sample-deploy.rb
-|   |-- simple-deploy.rb
-|   |-- templates
-|   |   |-- wp-config.php.erb
-|   |   `-- wp-vhost.conf.erb
-|   `-- wp-deploy.rb
-|-- data
-|   `-- db.sqlite
-|-- example
-|   |-- demo.phtml
-|   |-- scripts
-|   |   |-- bitlyAPI.js
-|   |   `-- shortUrl.js
-|   `-- styles
-|       `-- default
-|           `-- main.css
-|-- lib
-|   |-- MyDb.ini
-|   |-- MyDb.php
-|   |-- ShortUrl
-|   |   |-- Bitly.php
-|   |   |-- Cligs.php
-|   |   |-- Isgd.php
-|   |   |-- Tinyurl.php
-|   |   `-- Trim.php
-|   |-- ShortUrl.php
-|   |-- ShortUrl.sql
-|   |-- debug.class.php
-|   |-- memcache.class.php
-|   |-- memcache.ut.php
-|   `-- twitter.class.php
-`-- tests
-    |-- AcceptanceTestSuite.html
-    |-- AcceptanceTests
-    |   |-- AllTests.php
-    |   |-- DemoTest.ft.php
-    |   `-- demo.ft.html
-    |-- AllTests.php
-    |-- README
-    |-- ShortUrl
-    |   `-- ShortUrl_TinyurlTest.php
-    |-- ShortUrlTest.php
-    |-- ShortUrlTestSuite.php
-    |-- phpunit-bootstrap.php
-    `-- phpunit.xml
-
 
 Build
 -----
@@ -167,6 +72,14 @@ Build using ant
 this will generate docs, unit test code, acceptance (functional) test the pages,
 generate coverage reports, code sniff for coding standard violation, check for
 pmd(programming mistake detection), etc ...
+
+just run ant in base folder with build.xml
+
+for a list of options check out
+
+	ant -p 
+
+enjoy :)
 
 Deploy:
 -------
@@ -354,5 +267,87 @@ the player also needs to make a call the the backend to request a message and a 
 			|-- Tinyurl.php
 			`-- Trim.php
 
+---
+
+
+Project Structure
+---------
+
+short-urls
+
+	.
+	|-- CHANGELOG
+	|-- Capfile
+	|-- INSTALL
+	|-- README
+	|-- build
+	|   \-- <GENERATED>
+	|-- build.number
+	|-- build.properties
+	|-- build.xml
+	|-- config
+	|   |-- PHP
+	|   |   `-- CodeSniffer
+	|   |       `-- Standards
+	|   |           `-- Kix
+	|   |               |-- KixCodingStandard.php
+	|   |               `-- Sniffs
+	|   |                   `-- Commenting
+	|   |                       `-- DisallowHashCommentsSniff.php
+	|   |-- PHPDocConfig.ini
+	|   |-- cc-phpuc-build.xml
+	|   |-- cc-phpuc-config.xml
+	|   |-- cc-phpuc-setup.sh
+	|   |-- config.yaml
+	|   |-- database.yml
+	|   |-- deploy.rb
+	|   |-- index.php
+	|   |-- phpcs-CodingStandard.php
+	|   |-- pmd-ruleset.xml
+	|   |-- sample-deploy.rb
+	|   |-- simple-deploy.rb
+	|   |-- templates
+	|   |   |-- wp-config.php.erb
+	|   |   `-- wp-vhost.conf.erb
+	|   `-- wp-deploy.rb
+	|-- data
+	|   `-- db.sqlite
+	|-- example
+	|   |-- demo.phtml
+	|   |-- scripts
+	|   |   |-- bitlyAPI.js
+	|   |   `-- shortUrl.js
+	|   `-- styles
+	|       `-- default
+	|           `-- main.css
+	|-- lib
+	|   |-- MyDb.ini
+	|   |-- MyDb.php
+	|   |-- ShortUrl
+	|   |   |-- Bitly.php
+	|   |   |-- Cligs.php
+	|   |   |-- Isgd.php
+	|   |   |-- Tinyurl.php
+	|   |   `-- Trim.php
+	|   |-- ShortUrl.php
+	|   |-- ShortUrl.sql
+	|   |-- debug.class.php
+	|   |-- memcache.class.php
+	|   |-- memcache.ut.php
+	|   `-- twitter.class.php
+	`-- tests
+	    |-- AcceptanceTestSuite.html
+	    |-- AcceptanceTests
+	    |   |-- AllTests.php
+	    |   |-- DemoTest.ft.php
+	    |   `-- demo.ft.html
+	    |-- AllTests.php
+	    |-- README
+	    |-- ShortUrl
+	    |   `-- ShortUrl_TinyurlTest.php
+	    |-- ShortUrlTest.php
+	    |-- ShortUrlTestSuite.php
+	    |-- phpunit-bootstrap.php
+	    `-- phpunit.xml
 
 

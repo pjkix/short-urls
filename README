@@ -176,6 +176,25 @@ myapp/shared/images/
 myapp/shared/data/
 
 
+UML:
+----
+
+http://yuml.me/diagram/usecase/[Local]-(ant), [Local]-(cap), [Local]>(svn) , (svn)<(ci) , (ant)>(svn), (cap)>(dev), (dev)>(www).
+
+http://yuml.me/diagram/usecase/%5BLocal%5D-%28ant%29%2C%20%5BLocal%5D-%28cap%29%2C%20%5BLocal%5D%3E%28svn%29%20%2C%20%28svn%29%3C%28ci%29%20%2C%20%28ant%29%3E%28svn%29%2C%20%28cap%29%3E%28dev%29%2C%20%28dev%29%3E%28www%29
+
+[User]-(svn)
+(svn)>(lint)
+[ci]-(svn)
+[ci]-(build)
+(build)>(test)
+[User]-(cap deploy)
+(cap deploy)>(www)
+
+http://yuml.me/diagram/usecase/[User]-(svn), (svn)>(lint), [ci]-(svn), [ci]-(build), (build)>(test), [User]-(cap deploy), (cap deploy)>(www).
+
+http://yuml.me/diagram/usecase/%5BUser%5D-%28svn%29%2C%20%28svn%29%3E%28lint%29%2C%20%5Bci%5D-%28svn%29%2C%20%5Bci%5D-%28build%29%2C%20%28build%29%3E%28test%29%2C%20%5BUser%5D-%28cap%20deploy%29%2C%20%28cap%20deploy%29%3E%28www%29
+
 
 Todo:
 -----
@@ -193,6 +212,8 @@ ant + phpunit + selenium (rc) + cruisecontrol + phpundercontrol + capistrano = :
 * setup svn to use php lint & js lint
 
 * setup phpcs to use own coding standard + jslint
+
+
 
 
 ---

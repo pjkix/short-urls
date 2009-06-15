@@ -1,0 +1,33 @@
+#vhost for <%=apache_server_name%>
+
+    ServerName  <%=apache_server_name%>
+    <% apache_server_aliases_array.each do |a| %>
+      ServerAlias <%= "#{a}" %>
+    <% end %>
+    DocumentRoot <%= "#{current_path}/public" %>
+    <%= "#{current_path}/public" %>>
+      Options FollowSymLinks
+      AllowOverride All
+      Order allow,deny
+      Allow from all
+    
+
+    RewriteEngine on
+
+    # Prevent access to .svn directories
+    RewriteRule ^(.*/)?\.svn/ - [F,L]
+    ErrorDocument 403 "Access Forbidden"
+
+    # Check for maintenance file and redirect all requests
+    RewriteCond %{DOCUMENT_ROOT}/system/maintenance.html -f
+    RewriteCond %{SCRIPT_FILENAME} !maintenance.html
+    RewriteRule ^.*$ /system/maintenance.html [L]
+
+    # Deflate
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml
+    BrowserMatch ^Mozilla/4 gzip-only-text/html
+    BrowserMatch ^Mozilla/4\.0[678] no-gzip
+    BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
+
+    ErrorLog <%= "#{current_path}/log/apache_error.log" %>
+    CustomLog <%= "#{current_path}/log/apache_access.log common" %>

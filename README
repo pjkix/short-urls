@@ -129,6 +129,21 @@ myapp/shared/data/
 
 UML:
 ----
+3.2. UML Based Processes for OOA&D 
+It is important to understand that UML is a notation for OOA&D. It does not prescribe any particular 
+process. Whatever process is adopted, it must take the system being constructed through a number of 
+phases. 
+1. Requirements Capture. This is where we identify the requirements for the system, using the lan- 
+guage of the problem domain. In other words we describe the problem in the “customer's” terms. 
+2. Analysis. We take the requirements and start to recast them in the language of a putative solu- 
+tion—the solution domain. At this stage, although thinking in terms of a solution, we ensure we 
+keep things at a high level, away from concrete details of a specific solution—what is known as ab-straction. 
+3. Design. We take the specification from the Analysis phase and construct the solution in full detail. 
+We are moving from abstraction of the problem to its realization in concrete terms. 
+4. Build Phase. We take the actual design and write it in a real programming language. This includes 
+not just the programming, but the testing that the program meets the requirements (verification), 
+testing that the program actually solves the customer's problem (validation) and writing all user 
+documentation. 
 
 http://yuml.me/diagram/usecase/[Local]-(ant), [Local]-(cap), [Local]>(svn) , (svn)<(ci) , (ant)>(svn), (cap)>(dev), (dev)>(www).
 

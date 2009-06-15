@@ -11,3 +11,5 @@ doc/*
 #build files
 build/
 build.number
+# generic bakups
+*~

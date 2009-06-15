@@ -76,6 +76,7 @@ end
 # 
 namespace :deploy do
 
+  desc  "overide update and do our tasks wrapped in transaction"
 	task :update do
 		transaction do
 			update_code
@@ -83,12 +84,14 @@ namespace :deploy do
 		end
 	end
 
+  desc  "set permissions after update"
 	task :finalize_update do
 		transaction do
 			run "chmod -R g+w #{releases_path}/#{release_name}"
 		end
 	end
 
+  desc  "create symlinks"
 	task :symlink do
 		transaction do
 			run "ln -nfs #{current_release} #{deploy_to}/#{current_dir}"
@@ -96,19 +99,25 @@ namespace :deploy do
 		end
 	end
 
+  desc "overided default rails action do nothing for php"
 	task :migrate do
 		# nothing
 	end
 
+  desc "overided default rails action do nothing for php"
 	task :restart do
 		# nothing
 	end
 
+  desc  "link some static assets ... "
 	task :after_symlink do
 		transaction do
 			run "ln -nsf #{shared_path}/images #{document_root}/images"
 		end
 	end
-
+	
 end
+
+
+# after 'deploy:update_code', 'deploy:symlink_shared'
 

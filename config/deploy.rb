@@ -7,7 +7,7 @@ set :repository, "http://svn.dev.pjkix.com/short-urls/trunk"
 # servers (which is the default), you can specify the actual location
 # via the :deploy_to variable:
 set :deploy_to, "/var/www/vhosts/#{application}"
-set :document_root, "/var/www/vhosts/htdocs/current"
+set :document_root, "/var/www/vhosts/"
 
 # If you aren't using Subversion to manage your source code, specify
 # your SCM below:
@@ -27,11 +27,11 @@ server "dev.pjkix.com", :app, :web, :db, :primary => true
 # 
 set :scm_username, "pjkix" #if http
 # set :scm_password, "foo" #if http
-set :scm_checkout, "export"
+# set :scm_checkout, "export"
 
 # SSH Settings
 # 
-set :user, "pjkix"
+# set :user, "pjkix"
 # set :password, "sl4ck3r"
 set :use_sudo, false # don't try and use sudo for some commands
 set :ssh_options, {:forward_agent => true}
@@ -48,8 +48,8 @@ set :ssh_options, {:forward_agent => true}
 # set :gateway, "net.pjkix.com"
 
 # servers to run cmds on
-role :dev, "pjkix@dev.pjkix.com"
-# role :prod, "www.pjkix.com", "pjkix@dev.pjkix.com"
+role :dev, "dev.pjkix.com"
+# role :prod, "www.pjkix.com", "dev.pjkix.com"
 
 # tasks
 

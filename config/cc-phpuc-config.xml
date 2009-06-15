@@ -2,36 +2,53 @@
 <!-- Cruise Control + PHP Undercontrol -->
 <cruisecontrol>
 
-	<project name="short-urls" buildafterfailed="false">
-		<!-- @see http://www.phpundercontrol.org/documentation/getting-started.html -->
+	<!-- KIX : ShortUrls -->
 
-		<plugin name="svn" classname="net.sourceforge.cruisecontrol.sourcecontrols.SVN" />
+		<project name="short-urls" buildafterfailed="false">
+			<!-- @see http://www.phpundercontrol.org/documentation/getting-started.html -->
 
-		<modificationset quietperiod="60">
-			<svn localWorkingCopy="projects/${project.name}/source/"/>
-		</modificationset>
+			<plugin name="svn" classname="net.sourceforge.cruisecontrol.sourcecontrols.SVN" />
 
-		<bootstrappers>
-			<svnbootstrapper localWorkingCopy="projects/${project.name}/source/" file="build.xml"/>
-		</bootstrappers>
+			<modificationset quietperiod="60">
+				<svn localWorkingCopy="projects/${project.name}/source/"/>
+			</modificationset>
 
-		<schedule interval="120">
-			<ant anthome="apache-ant-1.7.0" buildfile="projects/${project.name}/build.xml"/>
-		</schedule>
+			<bootstrappers>
+				<svnbootstrapper localWorkingCopy="projects/${project.name}/source/" file="build.xml"/>
+			</bootstrappers>
 
-		<listeners>
-			<currentbuildstatuslistener file="logs/${project.name}/status.txt"/>
-		</listeners>
+			<schedule interval="120">
+				<ant anthome="apache-ant-1.7.0" buildfile="projects/${project.name}/build.xml"/>
+			</schedule>
 
-		<log dir="logs/${project.name}">
-			<merge dir="projects/${project.name}/build/logs/"/>
-		</log> 
+			<listeners>
+				<currentbuildstatuslistener file="logs/${project.name}/status.txt"/>
+			</listeners>
 
-		<publishers>
-			<artifactspublisher dir="projects/${project.name}/build/api" dest="artifacts/${project.name}" subdirectory="api"/>
-			<artifactspublisher dir="projects/${project.name}/build/coverage" dest="artifacts/${project.name}" subdirectory="coverage"/>
-			<execute command="phpuc graph logs/${project.name} artifacts/${project.name}"/>
-		</publishers> 
-	</project>
+			<log dir="logs/${project.name}">
+				<merge dir="projects/${project.name}/build/logs/"/>
+			</log> 
+
+			<publishers>
+				<artifactspublisher dir="projects/${project.name}/build/api" dest="artifacts/${project.name}" subdirectory="api"/>
+				<artifactspublisher dir="projects/${project.name}/build/coverage" dest="artifacts/${project.name}" subdirectory="coverage"/>
+				<execute command="phpuc graph logs/${project.name} artifacts/${project.name}"/>
+
+			<email
+				 mailhost="localhost"
+				 buildresultsurl="http://cruise.dev.pjkix.com/buildresults/${project.name}"
+				 skipusers="true"
+				 spamwhilebroken="true"
+				 returnaddress="project@pjkix.com">
+				<always address="admin@pjkix.com"/>
+				<failure address="dev@pjkix.com" reportWhenFixed="true"/>
+			</email>
+
+			</publishers> 
+
+
+		</project>
+
+
 
 </cruisecontrol>

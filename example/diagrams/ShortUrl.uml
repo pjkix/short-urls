@@ -26,7 +26,7 @@
       <fontname>Lucida Grande</fontname>
       <fontsize>13</fontsize>
       <defaultstereotypeview>0</defaultstereotypeview>
-      <activediagram>Class Diagram</activediagram>
+      <activediagram>Deployment Diagram</activediagram>
     </settings>
     <searchpath href="PROJECT_DIR" />
     <members>
@@ -74,7 +74,7 @@
 			CodeGeneration
 		</plugin>
 </profile>
-<XMI xmi.version = '1.2' xmlns:UML = 'org.omg.xmi.namespace.UML' timestamp = 'Sun Jun 14 02:19:36 PDT 2009'>
+<XMI xmi.version = '1.2' xmlns:UML = 'org.omg.xmi.namespace.UML' timestamp = 'Sun Jun 14 03:04:36 PDT 2009'>
   <XMI.header>    <XMI.documentation>
       <XMI.exporter>ArgoUML (using Netbeans XMI Writer version 1.0)</XMI.exporter>
       <XMI.exporterVersion>0.28(6) revised on $Date: 2007-05-12 08:08:08 +0200 (Sat, 12 May 2007) $ </XMI.exporterVersion>
@@ -87,6 +87,12 @@
       language = '' body = 'nu'/>
     <UML:Expression xmi.id = '-64--88-1--88--4705d4f9:121c97ff076:-8000:00000000000012DC'
       language = '' body = 'n'/>
+    <UML:Multiplicity xmi.id = '-64--88-1--88--4705d4f9:121c97ff076:-8000:00000000000012D3'>
+      <UML:Multiplicity.range>
+        <UML:MultiplicityRange xmi.id = '-64--88-1--88--4705d4f9:121c97ff076:-8000:00000000000012D4'
+          lower = '1' upper = '1'/>
+      </UML:Multiplicity.range>
+    </UML:Multiplicity>
     <UML:Multiplicity xmi.id = '-64--88-1--88--4705d4f9:121c97ff076:-8000:0000000000001324'>
       <UML:Multiplicity.range>
         <UML:MultiplicityRange xmi.id = '-64--88-1--88--4705d4f9:121c97ff076:-8000:0000000000001325'
@@ -553,10 +559,10 @@
               visibility = 'public' isSpecification = 'false' isNavigable = 'true' ordering = 'unordered'
               aggregation = 'none' targetScope = 'instance' changeability = 'changeable'>
               <UML:AssociationEnd.multiplicity>
-                <UML:Multiplicity xmi.id = '-64--88-1--88--4705d4f9:121c97ff076:-8000:00000000000012D3'>
+                <UML:Multiplicity xmi.id = '-64--88-1--88--4705d4f9:121c97ff076:-8000:0000000000001344'>
                   <UML:Multiplicity.range>
-                    <UML:MultiplicityRange xmi.id = '-64--88-1--88--4705d4f9:121c97ff076:-8000:00000000000012D4'
-                      lower = '1' upper = '1'/>
+                    <UML:MultiplicityRange xmi.id = '-64--88-1--88--4705d4f9:121c97ff076:-8000:0000000000001343'
+                      lower = '0' upper = '-1'/>
                   </UML:Multiplicity.range>
                 </UML:Multiplicity>
               </UML:AssociationEnd.multiplicity>
@@ -605,6 +611,46 @@
         </UML:ActivityGraph>
         <UML:Node xmi.id = '-64--88-1--88--4705d4f9:121c97ff076:-8000:0000000000001339'
           isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'/>
+        <UML:UseCase xmi.id = '-64--88-1--88--4705d4f9:121c97ff076:-8000:000000000000133B'
+          name = 'tweet message with url' isSpecification = 'false' isRoot = 'false'
+          isLeaf = 'false' isAbstract = 'false'/>
+        <UML:Association xmi.id = '-64--88-1--88--4705d4f9:121c97ff076:-8000:000000000000133C'
+          name = '' isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
+          <UML:Association.connection>
+            <UML:AssociationEnd xmi.id = '-64--88-1--88--4705d4f9:121c97ff076:-8000:000000000000133D'
+              visibility = 'public' isSpecification = 'false' isNavigable = 'true' ordering = 'unordered'
+              aggregation = 'none' targetScope = 'instance' changeability = 'changeable'>
+              <UML:AssociationEnd.multiplicity>
+                <UML:Multiplicity xmi.id = '-64--88-1--88--4705d4f9:121c97ff076:-8000:000000000000133E'>
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange xmi.id = '-64--88-1--88--4705d4f9:121c97ff076:-8000:000000000000133F'
+                      lower = '1' upper = '1'/>
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:AssociationEnd.multiplicity>
+              <UML:AssociationEnd.participant>
+                <UML:Actor xmi.idref = '-64--88-1--88--4df357b7:121c8d692d0:-8000:0000000000000DDA'/>
+              </UML:AssociationEnd.participant>
+            </UML:AssociationEnd>
+            <UML:AssociationEnd xmi.id = '-64--88-1--88--4705d4f9:121c97ff076:-8000:0000000000001340'
+              visibility = 'public' isSpecification = 'false' isNavigable = 'true' ordering = 'unordered'
+              aggregation = 'none' targetScope = 'instance' changeability = 'changeable'>
+              <UML:AssociationEnd.multiplicity>
+                <UML:Multiplicity xmi.id = '-64--88-1--88--4705d4f9:121c97ff076:-8000:0000000000001341'>
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange xmi.id = '-64--88-1--88--4705d4f9:121c97ff076:-8000:0000000000001342'
+                      lower = '1' upper = '1'/>
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:AssociationEnd.multiplicity>
+              <UML:AssociationEnd.participant>
+                <UML:UseCase xmi.idref = '-64--88-1--88--4705d4f9:121c97ff076:-8000:000000000000133B'/>
+              </UML:AssociationEnd.participant>
+            </UML:AssociationEnd>
+          </UML:Association.connection>
+        </UML:Association>
+        <UML:Comment xmi.id = '-64--88-1--88--4705d4f9:121c97ff076:-8000:0000000000001345'
+          isSpecification = 'false' body = 'the user clicks a link &#10;to post a tweet &#10;message with a long url'/>
       </UML:Namespace.ownedElement>
     </UML:Model>
     <UML:Class xmi.id = '-64--88-1--88--4705d4f9:121c97ff076:-8000:00000000000012FC'
@@ -1878,7 +1924,7 @@
     </group>
   </group>
   <group name="Fig1"
-       description="org.argouml.uml.diagram.use_case.ui.FigUseCase[268, 195, 142, 60]pathVisible=false;stereotypeView=0;extensionPointVisible=false"
+       description="org.argouml.uml.diagram.use_case.ui.FigUseCase[288, 176, 142, 60]pathVisible=false;stereotypeView=0;extensionPointVisible=false"
        href="-64--88-1--88--4df357b7:121c8d692d0:-8000:0000000000000DDB"
        fill="1"
        fillcolor="white"
@@ -1889,8 +1935,8 @@
     </private>
     
     <ellipse name="Fig1.0"
-      x="339"
-      y="216"
+      x="359"
+      y="197"
       rx="71"
       ry="21"
       fill="1"
@@ -1899,8 +1945,8 @@
       strokecolor="black"
     />
     <ellipse name="Fig1.1"
-      x="339"
-      y="216"
+      x="359"
+      y="197"
       rx="71"
       ry="21"
       fill="1"
@@ -1909,8 +1955,8 @@
       strokecolor="black"
     />
     <text name="Fig1.2"
-      x="295"
-      y="204"
+      x="315"
+      y="185"
       width="87"
       height="23"
       fill="0"
@@ -1925,7 +1971,7 @@
       justification="Center"
     >get Short Url</text>
     <group name="Fig1.3"
-         description="org.argouml.uml.diagram.ui.FigStereotypesGroup[307, 237, 64, 18]"
+         description="org.argouml.uml.diagram.ui.FigStereotypesGroup[327, 218, 64, 18]"
          href="-64--88-1--88--4df357b7:121c8d692d0:-8000:0000000000000DDB"
          fill="0"
          fillcolor="white"
@@ -1936,8 +1982,8 @@
       </private>
       
       <rectangle name="Fig1.3.0"
-        x="307"
-        y="237"
+        x="327"
+        y="218"
         width="64"
         height="18"
         fill="0"
@@ -1954,13 +2000,13 @@
       strokecolor="black"
       visibility="0"
     >
-      <moveto x="268"
-              y="225" />
-      <lineto x="368"
-              y="295" />
+      <moveto x="288"
+              y="206" />
+      <lineto x="388"
+              y="276" />
     </path>
     <group name="Fig1.5"
-         description="org.tigris.gef.presentation.FigGroup[268, 195, 0, 0]"
+         description="org.tigris.gef.presentation.FigGroup[288, 176, 0, 0]"
          fill="0"
          fillcolor="white"
          stroke="0"
@@ -1971,8 +2017,8 @@
       </private>
       
       <rectangle name="Fig1.5.0"
-        x="268"
-        y="225"
+        x="288"
+        y="206"
         width="94"
         height="20"
         fill="0"
@@ -1984,60 +2030,264 @@
     </group>
   </group>
   <group name="Fig2"
+       description="org.argouml.uml.diagram.use_case.ui.FigUseCase[200, 56, 230, 60]pathVisible=false;stereotypeView=0;extensionPointVisible=false"
+       href="-64--88-1--88--4705d4f9:121c97ff076:-8000:000000000000133B"
+       fill="1"
+       fillcolor="white"
+       stroke="1"
+       strokecolor="black"
+  >
+    <private>
+    </private>
+    
+    <ellipse name="Fig2.0"
+      x="315"
+      y="77"
+      rx="115"
+      ry="21"
+      fill="1"
+      fillcolor="white"
+      stroke="1"
+      strokecolor="black"
+    />
+    <ellipse name="Fig2.1"
+      x="315"
+      y="77"
+      rx="115"
+      ry="21"
+      fill="1"
+      fillcolor="white"
+      stroke="1"
+      strokecolor="black"
+    />
+    <text name="Fig2.2"
+      x="238"
+      y="65"
+      width="153"
+      height="23"
+      fill="0"
+      fillcolor="white"
+      stroke="0"
+      strokecolor="black"
+      textcolor="black"
+      font="Lucida Grande"
+      italic="false"
+      bold="false"
+      textsize="13"
+      justification="Center"
+    >tweet message with url</text>
+    <group name="Fig2.3"
+         description="org.argouml.uml.diagram.ui.FigStereotypesGroup[283, 98, 64, 18]"
+         href="-64--88-1--88--4705d4f9:121c97ff076:-8000:000000000000133B"
+         fill="0"
+         fillcolor="white"
+         stroke="0"
+         strokecolor="black"
+    >
+      <private>
+      </private>
+      
+      <rectangle name="Fig2.3.0"
+        x="283"
+        y="98"
+        width="64"
+        height="18"
+        fill="0"
+        fillcolor="white"
+        stroke="0"
+        strokecolor="black"
+      />
+    </group>
+    <path name="Fig2.4"
+      description="org.tigris.gef.presentation.FigLine"
+      fill="1"
+      fillcolor="white"
+      stroke="1"
+      strokecolor="black"
+      visibility="0"
+    >
+      <moveto x="200"
+              y="86" />
+      <lineto x="300"
+              y="156" />
+    </path>
+    <group name="Fig2.5"
+         description="org.tigris.gef.presentation.FigGroup[200, 56, 0, 0]"
+         fill="0"
+         fillcolor="white"
+         stroke="0"
+         strokecolor="black"
+         visibility="0"
+    >
+      <private>
+      </private>
+      
+      <rectangle name="Fig2.5.0"
+        x="200"
+        y="86"
+        width="94"
+        height="20"
+        fill="0"
+        fillcolor="white"
+        stroke="0"
+        strokecolor="black"
+        visibility="0"
+      />
+    </group>
+  </group>
+  <group name="Fig3"
        description="org.argouml.uml.diagram.ui.FigAssociation"
-       href="-64--88-1--88--4705d4f9:121c97ff076:-8000:00000000000012CE"
+       href="-64--88-1--88--4705d4f9:121c97ff076:-8000:000000000000133C"
        stroke="1"
        strokecolor="black"
   >
     <private>
       sourcePortFig="Fig0.0"
-      destPortFig="Fig1.0"
+      destPortFig="Fig2.0"
       sourceFigNode="Fig0"
-      destFigNode="Fig1"
+      destFigNode="Fig2"
       
-      <argouml:pathitem figname="Fig2.1"
+      <argouml:pathitem figname="Fig3.1"
                         classname="org.argouml.uml.diagram.ui.PathItemPlacement"
                         figclassname="org.argouml.uml.diagram.ui.FigTextGroup"
-                        ownerhref="-64--88-1--88--4705d4f9:121c97ff076:-8000:00000000000012CE"
+                        ownerhref="-64--88-1--88--4705d4f9:121c97ff076:-8000:000000000000133C"
                         angle="270.0"
                         offset="25" />
-      <argouml:pathitem figname="Fig2.2"
+      <argouml:pathitem figname="Fig3.2"
                         classname="org.argouml.uml.diagram.ui.PathItemPlacement"
                         figclassname="org.argouml.uml.diagram.ui.FigMultiplicity"
-                        ownerhref="-64--88-1--88--4705d4f9:121c97ff076:-8000:00000000000012CF"
+                        ownerhref="-64--88-1--88--4705d4f9:121c97ff076:-8000:000000000000133D"
                         angle="315.0"
                         offset="5" />
-      <argouml:pathitem figname="Fig2.3"
+      <argouml:pathitem figname="Fig3.3"
                         classname="org.argouml.uml.diagram.ui.PathItemPlacement"
                         figclassname="org.argouml.uml.diagram.ui.FigAssociationEndAnnotation"
-                        ownerhref="-64--88-1--88--4705d4f9:121c97ff076:-8000:00000000000012CF"
-                        angle="43.99999999999999"
-                        offset="29" />
-      <argouml:pathitem figname="Fig2.4"
+                        ownerhref="-64--88-1--88--4705d4f9:121c97ff076:-8000:000000000000133D"
+                        angle="45.0"
+                        offset="5" />
+      <argouml:pathitem figname="Fig3.4"
                         classname="org.argouml.uml.diagram.ui.PathItemPlacement"
                         figclassname="org.argouml.uml.diagram.ui.FigMultiplicity"
-                        ownerhref="-64--88-1--88--4705d4f9:121c97ff076:-8000:00000000000012D2"
+                        ownerhref="-64--88-1--88--4705d4f9:121c97ff076:-8000:0000000000001340"
                         angle="225.0"
                         offset="5" />
-      <argouml:pathitem figname="Fig2.5"
+      <argouml:pathitem figname="Fig3.5"
                         classname="org.argouml.uml.diagram.ui.PathItemPlacement"
                         figclassname="org.argouml.uml.diagram.ui.FigAssociationEndAnnotation"
-                        ownerhref="-64--88-1--88--4705d4f9:121c97ff076:-8000:00000000000012D2"
+                        ownerhref="-64--88-1--88--4705d4f9:121c97ff076:-8000:0000000000001340"
                         angle="135.0"
                         offset="5" />
     </private>
-    <path name="Fig2.0"
+    <path name="Fig3.0"
       description="org.tigris.gef.presentation.FigPoly"
       fill="0"
       fillcolor="white"
       stroke="1"
       strokecolor="black"
     >
-      <moveto x="97"
-              y="127" />
-      <lineto x="294"
-              y="199" />
+      <moveto x="102"
+              y="102" />
+      <lineto x="218"
+              y="88" />
     </path>
+  </group>
+  <group name="Fig4"
+       description="org.argouml.uml.diagram.static_structure.ui.FigComment[24, 200, 165, 64]pathVisible=false;stereotypeView=0;"
+       href="-64--88-1--88--4705d4f9:121c97ff076:-8000:0000000000001345"
+       fill="1"
+       fillcolor="white"
+       stroke="1"
+       strokecolor="black"
+  >
+    <private>
+    </private>
+    
+    <rectangle name="Fig4.0"
+      x="24"
+      y="200"
+      width="165"
+      height="64"
+      fill="0"
+      fillcolor="white"
+      stroke="0"
+      strokecolor="black"
+    />
+    <path name="Fig4.1"
+      description="org.tigris.gef.presentation.FigPoly"
+      fill="1"
+      fillcolor="white"
+      stroke="1"
+      strokecolor="black"
+    >
+      <moveto x="24"
+              y="200" />
+      <lineto x="178"
+              y="200" />
+      <lineto x="188"
+              y="210" />
+      <lineto x="188"
+              y="263" />
+      <lineto x="24"
+              y="263" />
+      <lineto x="24"
+              y="200" />
+    </path>
+    <path name="Fig4.2"
+      description="org.tigris.gef.presentation.FigPoly"
+      fill="1"
+      fillcolor="178 178 178"
+      stroke="1"
+      strokecolor="black"
+    >
+      <moveto x="178"
+              y="200" />
+      <lineto x="188"
+              y="210" />
+      <lineto x="178"
+              y="210" />
+      <lineto x="178"
+              y="200" />
+    </path>
+    <group name="Fig4.3"
+         description="org.argouml.uml.diagram.ui.FigStereotypesGroup[26, 202, 151, 0]"
+         href="-64--88-1--88--4705d4f9:121c97ff076:-8000:0000000000001345"
+         fill="0"
+         fillcolor="white"
+         stroke="0"
+         strokecolor="black"
+    >
+      <private>
+      </private>
+      
+      <rectangle name="Fig4.3.0"
+        x="26"
+        y="202"
+        width="151"
+        height="0"
+        fill="0"
+        fillcolor="white"
+        stroke="0"
+        strokecolor="black"
+      />
+    </group>
+    <text name="Fig4.4"
+      x="26"
+      y="202"
+      width="151"
+      height="60"
+      fill="0"
+      fillcolor="white"
+      stroke="0"
+      strokecolor="black"
+      textcolor="black"
+      font="Lucida Grande"
+      italic="false"
+      bold="false"
+      textsize="13"
+      justification="Left"
+    >the user clicks a link 
+to post a tweet 
+message with a long url</text>
   </group>
 </pgml>
 <pgml description="org.argouml.sequence2.diagram.UMLSequenceDiagram|-64--88-1--88--4705d4f9:121c97ff076:-8000:0000000000001330"

@@ -45,6 +45,15 @@ translate with _("hello world") using gettext and .po files
 
 html5 naming conventions class="header", "section", "article", "aside" etc.
 
+chromeless web apps for iphone
+<meta name="apple-mobile-web-app-capable" content="yes" />
+
+remove png color profiles
+pngcrush -rem gAMA -rem cHRM -rem iCCP -rem sRGB infile.png outfile.png
+
+BAD: echo 'Hello, my name is' . $firstName . $lastName . ' and I live in ' . $city;
+
+GOOD: echo 'Hello, my name is' , $firstName , $lastName , ' and I live in ' , $city;
 
 ### KEYWORDS:
 

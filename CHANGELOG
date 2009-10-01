@@ -2,7 +2,8 @@ CHANGELOG
 =========
 
 
-## 0.9.8 / 2009-06-15
+v0.9.8 (2009-06-15)
+-------------------
 * capistrano deploy [pjkix]
 * uml diagrams [pjkix]
 

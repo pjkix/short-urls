@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg height="236" version="1.1" width="434" xmlns="http://www.w3.org/2000/svg">
+<text font-family="Lucida Grande" font-size="13" x="69" y="101">
+user</text>
+<ellipse cx="82" cy="47" fill="#000000" rx="8.0" ry="7.5" stroke="#000000" stroke-width="1"/>
+<ellipse cx="82" cy="47" fill="#ffffff" rx="7.0" ry="6.5" stroke="#ffffff" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="82" x2="82" y1="55" y2="70"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="72" x2="92" y1="60" y2="60"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="82" x2="77" y1="70" y2="85"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="82" x2="87" y1="70" y2="85"/>
+<ellipse cx="349" cy="155" fill="#000000" rx="71.0" ry="21.0" stroke="#000000" stroke-width="1"/>
+<ellipse cx="349" cy="155" fill="#ffffff" rx="70.0" ry="20.0" stroke="#ffffff" stroke-width="1"/>
+<ellipse cx="349" cy="155" fill="#000000" rx="71.0" ry="21.0" stroke="#000000" stroke-width="1"/>
+<ellipse cx="349" cy="155" fill="#ffffff" rx="70.0" ry="20.0" stroke="#ffffff" stroke-width="1"/>
+<text font-family="Lucida Grande" font-size="13" x="309" y="159">
+get Short Url</text>
+<ellipse cx="305" cy="35" fill="#000000" rx="115.0" ry="21.0" stroke="#000000" stroke-width="1"/>
+<ellipse cx="305" cy="35" fill="#ffffff" rx="114.0" ry="20.0" stroke="#ffffff" stroke-width="1"/>
+<ellipse cx="305" cy="35" fill="#000000" rx="115.0" ry="21.0" stroke="#000000" stroke-width="1"/>
+<ellipse cx="305" cy="35" fill="#ffffff" rx="114.0" ry="20.0" stroke="#ffffff" stroke-width="1"/>
+<text font-family="Lucida Grande" font-size="13" x="232" y="39">
+tweet message with url</text>
+<polyline fill="none" points="92,60 208,46" stroke="#000000" stroke-width="1"/>
+<text font-family="Lucida Grande" font-size="13" x="185" y="43">
+1</text>
+<polygon fill="#ffffc8" points="14,158 168,158 178,168 178,221 14,221 14,158" stroke="#ffffc8" stroke-width="1"/>
+<polyline fill="none" points="14,158 168,158 178,168 178,221 14,221 14,158" stroke="#000000" stroke-width="1"/>
+<polygon fill="#ffffc8" points="168,158 178,168 168,168 168,158" stroke="#ffffc8" stroke-width="1"/>
+<polyline fill="none" points="168,158 178,168 168,168 168,158" stroke="#000000" stroke-width="1"/>
+<text font-family="Lucida Grande" font-size="13" x="16" y="176">
+the user clicks a link </text>
+<text font-family="Lucida Grande" font-size="13" x="16" y="192">
+to post a tweet </text>
+<text font-family="Lucida Grande" font-size="13" x="16" y="208">
+message with a long url</text>
+</svg>
